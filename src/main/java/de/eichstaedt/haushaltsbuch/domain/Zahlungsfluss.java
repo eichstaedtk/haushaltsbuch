@@ -1,5 +1,6 @@
 package de.eichstaedt.haushaltsbuch.domain;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -8,16 +9,8 @@ import java.util.Objects;
  * Einnahmen sind im kaufmännischen Rechnungswesen, in der Kameralistik und dem Steuerrecht Strömungsgrößen in Form des Zuflusses von Zahlungsmitteln (Bargeld, Buchgeld),
  * der Erhöhung der Forderungen und/oder der Verminderung der Verbindlichkeiten. Komplementärbegriff ist die Ausgabe.
  */
-public class Einnahme {
 
-  public Einnahme(Long id, String beschreibung, Double betrag,
-      Kategorie kategorie, Zahlungstyp zahlungstyp) {
-    this.id = id;
-    this.beschreibung = beschreibung;
-    this.betrag = betrag;
-    this.kategorie = kategorie;
-    this.zahlungstyp = zahlungstyp;
-  }
+public class Zahlungsfluss {
 
   private Long id;
 
@@ -27,16 +20,21 @@ public class Einnahme {
 
   private Kategorie kategorie;
 
-  private Zahlungstyp zahlungstyp;
+  private LocalDate buchungsTag;
+
+  private Zahlungstyp typ;
+
+  private Zahlungsintervall zahlungsintervall;
 
   @Override
   public String toString() {
-    return "Einnahme{" +
+    return "Zahlungsfluss{" +
         "id=" + id +
         ", beschreibung='" + beschreibung + '\'' +
         ", betrag=" + betrag +
         ", kategorie=" + kategorie +
-        ", zahlungstyp=" + zahlungstyp +
+        ", buchungsTag=" + buchungsTag +
+        ", typ=" + typ +
         '}';
   }
 
@@ -48,8 +46,8 @@ public class Einnahme {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Einnahme einnahme = (Einnahme) o;
-    return Objects.equals(id, einnahme.id);
+    Zahlungsfluss zahlungsfluss = (Zahlungsfluss) o;
+    return Objects.equals(id, zahlungsfluss.id);
   }
 
   @Override
@@ -74,7 +72,11 @@ public class Einnahme {
     return kategorie;
   }
 
-  public Zahlungstyp getZahlungstyp() {
-    return zahlungstyp;
+  public LocalDate getBuchungsTag() {
+    return buchungsTag;
+  }
+
+  public Zahlungstyp getTyp() {
+    return typ;
   }
 }
