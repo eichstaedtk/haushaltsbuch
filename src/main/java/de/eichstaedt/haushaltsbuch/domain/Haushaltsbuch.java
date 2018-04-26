@@ -1,6 +1,7 @@
 package de.eichstaedt.haushaltsbuch.domain;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -8,6 +9,14 @@ import java.util.Set;
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
  */
 public class Haushaltsbuch {
+
+  public Haushaltsbuch(Long id, String name, LocalDate erstellDatum) {
+    this.id = id;
+    this.name = name;
+    this.erstellDatum = erstellDatum;
+    this.ausgaben = new HashSet<>();
+    this.einnahmen = new HashSet<>();
+  }
 
   private Long id;
 
