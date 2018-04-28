@@ -10,10 +10,9 @@ import java.util.Set;
  */
 public class Haushaltsbuch {
 
-  public Haushaltsbuch(Long id, String name, LocalDate erstellDatum) {
-    this.id = id;
+  public Haushaltsbuch(String name) {
     this.name = name;
-    this.erstellDatum = erstellDatum;
+    this.erstellDatum = LocalDate.now();
     this.ausgaben = new HashSet<>();
     this.einnahmen = new HashSet<>();
   }
