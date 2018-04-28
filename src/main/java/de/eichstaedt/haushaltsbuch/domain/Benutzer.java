@@ -17,6 +17,12 @@ public class Benutzer {
 
   private String passwort;
 
+  private Adresse wohnort;
+
+  public Adresse getWohnort() {
+    return wohnort;
+  }
+
   public String getBenutzername() {
     return benutzername;
   }
@@ -45,6 +51,7 @@ public class Benutzer {
         ", nachname='" + nachname + '\'' +
         ", email='" + email + '\'' +
         ", passwort='" + passwort + '\'' +
+        ", wohnort=" + wohnort +
         '}';
   }
 
