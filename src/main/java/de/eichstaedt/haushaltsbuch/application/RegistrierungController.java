@@ -25,7 +25,7 @@ public class RegistrierungController {
   @RequestMapping(value = "registrierung")
   public String registration(Model model) {
 
-    logger.info("GET Request for registration page ");
+    logger.info("GET Request for registration page");
 
     model.addAttribute("registration", registrierung);
 
