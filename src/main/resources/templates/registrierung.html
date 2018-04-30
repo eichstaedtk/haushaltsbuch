@@ -21,12 +21,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 center">
-          <form>
+          <form th:object="${registrierung}" class="form-horizontal" method="post" action="registrierung">
             <div class="form-group">
               <label for="inputvorname">Vorname</label>
                  <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1"><i class="far fa-user" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="username" id="inputvorname"  placeholder="Vorname" aria-label="Vorname" aria-describedby="basic-addon1"/>
+                  <input type="text" class="form-control" name="vorname" id="inputvorname"  placeholder="Vorname" aria-label="Vorname" aria-describedby="basic-addon1" th:field="*{vorname}"/>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
               <label for="inputnachname">Nachname</label>
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon2"><i class="far fa-user" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="username" id="inputnachname"  placeholder="Nachname" aria-label="Nachname" aria-describedby="basic-addon2"/>
+                  <input type="text" class="form-control" name="nachname" id="inputnachname"  placeholder="Nachname" aria-label="Nachname" aria-describedby="basic-addon2" th:field="*{nachname}"/>
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
               <label for="inputemail">E-Mail</label>
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon3"><i class="fas fa-at" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="username" id="inputemail"  placeholder="E-Mail" aria-label="E-Mail" aria-describedby="basic-addon3"/>
+                  <input type="text" class="form-control" name="email" id="inputemail"  placeholder="E-Mail" aria-label="E-Mail" aria-describedby="basic-addon3" th:field="*{email}"/>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
               <label for="inputbenutzername">Benutzername</label>
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon4"><i class="far fa-user" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="username" id="inputbenutzername"  placeholder="Benutzername" aria-label="Benutzername" aria-describedby="basic-addon4"/>
+                  <input type="text" class="form-control" name="benutzername" id="inputbenutzername"  placeholder="Benutzername" aria-label="Benutzername" aria-describedby="basic-addon4" th:field="*{benutzername}"/>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
               <label for="exampleInputPassword1">Passwort</label>
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon5"><i class="fas fa-key" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" aria-label="Passwort" aria-describedby="basic-addon5">
+                  <input type="password" class="form-control" name="passwort" id="exampleInputPassword1" placeholder="Password" aria-label="Passwort" aria-describedby="basic-addon5" th:field="*{passwort}" />
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
               <label for="exampleInputPassword2">Passwort (Wiederholung)</label>
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon6"><i class="fas fa-key" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password Wiederholung" aria-label="Passwort Wiederholung" aria-describedby="basic-addon6">
+                  <input type="password" class="form-control" name="passwortwiederholung" id="exampleInputPassword2" placeholder="Password Wiederholung" aria-label="Passwort Wiederholung" aria-describedby="basic-addon6" th:field="*{passwortWiederholung}"/>
                 </div>
             </div>
 

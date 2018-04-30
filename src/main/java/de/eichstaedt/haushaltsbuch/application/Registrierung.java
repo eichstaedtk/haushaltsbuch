@@ -108,4 +108,20 @@ public class Registrierung {
   public void setLand(String land) {
     this.land = land;
   }
+
+  @Override
+  public String toString() {
+    return "Registrierung{" +
+        "vorname='" + vorname + '\'' +
+        ", nachname='" + nachname + '\'' +
+        ", email='" + email + '\'' +
+        ", benutzername='" + benutzername + '\'' +
+        ", passwort='" + passwort + '\'' +
+        ", passwortWiederholung='" + passwortWiederholung + '\'' +
+        ", strasse='" + strasse + '\'' +
+        ", stadt='" + stadt + '\'' +
+        ", postleitzahl='" + postleitzahl + '\'' +
+        ", land='" + land + '\'' +
+        '}';
+  }
 }

@@ -1,13 +1,17 @@
 package de.eichstaedt.haushaltsbuch.application;
 
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 28.04.18.
@@ -27,9 +31,21 @@ public class RegistrierungController {
 
     logger.info("GET Request for registration page");
 
-    model.addAttribute("registration", registrierung);
+    model.addAttribute("registrierung", registrierung);
 
     return "registrierung";
+  }
+
+  @RequestMapping(value = "/registrierung", method = RequestMethod.POST)
+  public ModelAndView register(@Valid Registrierung registrierungForm, BindingResult bindingResult,
+      @RequestHeader HttpHeaders headers) {
+
+    logger.info("Get registration form (POST) {} ",registrierungForm.toString());
+
+    ModelAndView modelView = new ModelAndView();
+
+
+    return modelView;
   }
 
 }
