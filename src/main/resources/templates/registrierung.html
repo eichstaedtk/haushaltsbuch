@@ -5,9 +5,80 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link type="text/css" th:href="@{/css/haushaltsbuch.css}" href="../../css/haushaltsbuch.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 </head>
 <body>
-<h1>Haushaltsbuch Registrierung</h1>
-<h2>Test</h2>
+<header class="parallax">
+  <div class="container">
+    <div class="row">
+      <div class="headerimage center"></div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 center">
+          <form>
+            <div class="form-group">
+              <label for="inputvorname">Vorname</label>
+                 <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="far fa-user" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="username" id="inputvorname"  placeholder="Vorname" aria-label="Vorname" aria-describedby="basic-addon1"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputnachname">Nachname</label>
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon2"><i class="far fa-user" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="username" id="inputnachname"  placeholder="Nachname" aria-label="Nachname" aria-describedby="basic-addon2"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputemail">E-Mail</label>
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3"><i class="fas fa-at" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="username" id="inputemail"  placeholder="E-Mail" aria-label="E-Mail" aria-describedby="basic-addon3"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputbenutzername">Benutzername</label>
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon4"><i class="far fa-user" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="username" id="inputbenutzername"  placeholder="Benutzername" aria-label="Benutzername" aria-describedby="basic-addon4"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Passwort</label>
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon5"><i class="fas fa-key" aria-hidden="true"></i></span>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" aria-label="Passwort" aria-describedby="basic-addon5">
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword2">Passwort (Wiederholung)</label>
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon6"><i class="fas fa-key" aria-hidden="true"></i></span>
+                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password Wiederholung" aria-label="Passwort Wiederholung" aria-describedby="basic-addon6">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Absenden</button>
+          </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,27 @@
+.parallax {
+
+  /* Set a specific height */
+  height: 220px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.headerimage {
+
+  /* The image used */
+  background-image: url("../images/add_user_icon.png");
+  background-size: 200px 220px;
+  height: 220px;
+  width: 200px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
