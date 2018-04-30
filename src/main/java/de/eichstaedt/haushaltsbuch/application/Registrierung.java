@@ -1,24 +1,61 @@
 package de.eichstaedt.haushaltsbuch.application;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Pattern.List;
+import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 28.04.18.
  */
 
+@FieldMatch.List({@FieldMatch(first = "passwort", second = "passwortWiederholung",
+    message = "Passwort Wiederholung stimmt nicht mit Passwort überein!"),})
 @Component
 public class Registrierung {
 
+  @NotNull
+  @Size(min = 2, max = 55, message = "Bitte geben Sie mindestens 2 maximal 55 Zeichen ein!")
+  @Pattern(regexp = "^[^\\s]+$", message = "Bitte keine Leerzeichen verwenden!")
   private String vorname;
 
+  @NotNull
+  @Size(min = 2, max = 55, message = "Bitte geben Sie mindestens 2 maximal 55 Zeichen ein!")
+  @Pattern(regexp = "^[^\\s]+$", message = "Bitte keine Leerzeichen verwenden!")
   private String nachname;
 
+  @NotNull
+  @Pattern(regexp = ".*@.*\\.[a-z|A-Z]{1,3}$",
+      message = "Bitte eine gültige E-Mail-Adresse verwenden!")
   private String email;
 
+  @NotNull
+  @Size(min = 2, max = 55, message = "Bitte geben Sie mindestens 2 maximal 55 Zeichen ein!")
+  @Pattern(regexp = "^[^\\s]+$", message = "Bitte keine Leerzeichen verwenden!")
+  @BenutzernameAlreadyUsed()
   private String benutzername;
 
+  @NotNull
+  @Size(min = 6, max = 55, message = "Bitte geben Sie mindestens 6 maximal 55 Zeichen ein!")
+  @List({
+      @Pattern(regexp = "^(?=.*[A-Z]).+$",
+          message = "Bitte mindestens einen großen Buchstaben angeben!"),
+      @Pattern(regexp = "^(?=.*[a-z]).+$",
+          message = "Bitte mindestens einen kleine Buchstaben angeben!"),
+      @Pattern(regexp = "^(?=.*\\d).+$", message = "Bitte mindestens eine Zahl angeben!"),
+      @Pattern(regexp = "^[^\\s]+$", message = "Bitte keine Leerzeichen verwenden!")})
   private String passwort;
 
+  @NotNull
+  @Size(min = 6, max = 55, message = "Bitte geben Sie mindestens 6 maximal 55 Zeichen ein!")
+  @List({
+      @Pattern(regexp = "^(?=.*[A-Z]).+$",
+          message = "Bitte mindestens einen großen Buchstaben angeben!"),
+      @Pattern(regexp = "^(?=.*[a-z]).+$",
+          message = "Bitte mindestens einen kleine Buchstaben angeben!"),
+      @Pattern(regexp = "^(?=.*\\d).+$", message = "Bitte mindestens eine Zahl angeben!"),
+      @Pattern(regexp = "^[^\\s]+$", message = "Bitte keine Leerzeichen verwenden!")})
   private String passwortWiederholung;
 
   private String strasse;
