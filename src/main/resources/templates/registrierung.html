@@ -76,6 +76,42 @@
               <div class="error" th:if="${#fields.hasErrors('passwortWiederholung')}" th:errors="*{passwortWiederholung}"></div>
             </div>
 
+            <div class="form-group">
+              <label for="inputnachname">Strasse</label>
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon7"><i class="far fa-address-card" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="strasse" id="inputstrasse"  placeholder="Strasse" aria-label="Strasse" aria-describedby="basic-addon7" th:field="*{strasse}"/>
+              </div>
+              <div class="error" th:if="${#fields.hasErrors('strasse')}" th:errors="*{strasse}"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputnachname">Wohnort</label>
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon8"><i class="far fa-address-card" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="wohnort" id="inputwohnort"  placeholder="Wohnort" aria-label="Wohnort" aria-describedby="basic-addon8" th:field="*{stadt}"/>
+              </div>
+              <div class="error" th:if="${#fields.hasErrors('stadt')}" th:errors="*{stadt}"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputnachname">Postleitzahl</label>
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon9"><i class="far fa-address-card" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="postleitzahl" id="inputpostleitzahl"  placeholder="Postleitzahl" aria-label="Postleitzahl" aria-describedby="basic-addon9" th:field="*{postleitzahl}"/>
+              </div>
+              <div class="error" th:if="${#fields.hasErrors('postleitzahl')}" th:errors="*{postleitzahl}"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputnachname">Land</label>
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon10"><i class="far fa-address-card" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="land" id="inputland"  placeholder="Land" aria-label="Land" aria-describedby="basic-addon10" th:field="*{land}"/>
+              </div>
+              <div class="error" th:if="${#fields.hasErrors('land')}" th:errors="*{land}"></div>
+            </div>
+
             <button type="submit" class="btn btn-primary">Absenden</button>
           </form>
 
