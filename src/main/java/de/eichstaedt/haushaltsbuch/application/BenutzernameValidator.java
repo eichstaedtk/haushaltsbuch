@@ -14,8 +14,12 @@ public class BenutzernameValidator implements ConstraintValidator<BenutzernameAl
 
   private static final Logger logger = LoggerFactory.getLogger(BenutzernameValidator.class);
 
-
   @Autowired
+  public BenutzernameValidator(
+      BenutzerBoundaryController benutzerBoundaryController) {
+    this.benutzerBoundaryController = benutzerBoundaryController;
+  }
+
   private BenutzerBoundaryController benutzerBoundaryController;
   
   @Override
