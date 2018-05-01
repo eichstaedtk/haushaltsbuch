@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.expression.Sets;
 
@@ -26,6 +27,9 @@ public class BenutzerService implements BenutzerBoundaryController
   @Autowired
   private BenutzerRepository benutzerRepository;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   @Override
   public Benutzer erstelleAnwendungsBenutzerVonRegistrierung(Registrierung registrierung) {
 
@@ -39,18 +43,18 @@ public class BenutzerService implements BenutzerBoundaryController
       if(Stream.of(registrierung.getBenutzername(),registrierung.getPasswort(),registrierung.getPasswort()).allMatch(Objects::nonNull)) {
 
         benutzer = new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
-            registrierung.getEmail(), registrierung.getPasswort()).build();
+            registrierung.getEmail(), registrierung.getPasswort(),passwordEncoder).build();
 
 
         if(Stream.of(registrierung.getVorname(),registrierung.getNachname()).allMatch(Objects::nonNull))
         {
           benutzer = new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
-              registrierung.getEmail(), registrierung.getPasswort()).withName(registrierung.getVorname(),registrierung.getNachname()).build();
+              registrierung.getEmail(), registrierung.getPasswort(),passwordEncoder).withName(registrierung.getVorname(),registrierung.getNachname()).build();
 
           if(Stream.of(registrierung.getLand(),registrierung.getPostleitzahl(),registrierung.getStadt(),registrierung.getStrasse()).allMatch(Objects::nonNull))
           {
             benutzer = new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
-                registrierung.getEmail(), registrierung.getPasswort())
+                registrierung.getEmail(), registrierung.getPasswort(),passwordEncoder)
                 .withName(registrierung.getVorname(),registrierung.getNachname())
                 .withWohnort(registrierung.getStrasse(),registrierung.getPostleitzahl(),registrierung.getStadt(),registrierung.getLand())
                 .build();

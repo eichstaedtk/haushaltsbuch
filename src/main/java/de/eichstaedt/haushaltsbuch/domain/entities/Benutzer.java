@@ -19,10 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Table(name = "Benutzer")
 public class Benutzer {
 
-  @Autowired
-  @Transient
-  private PasswordEncoder passwordEncoder;
-
   protected Benutzer() {
   }
 
@@ -33,7 +29,7 @@ public class Benutzer {
     this.nachname = builder.nachname;
     this.email = builder.email;
     this.wohnort = builder.wohnort;
-    this.passwort = passwordEncoder.encode(builder.passwort);
+    this.passwort = builder.passwort;
 
   }
 
@@ -81,10 +77,10 @@ public class Benutzer {
 
   public static class BenutzerBuilder {
 
-    public BenutzerBuilder(String benutzername, String email, String passwort) {
+    public BenutzerBuilder(String benutzername, String email, String passwort, PasswordEncoder passwordEncoder) {
       this.benutzername = benutzername;
       this.email = email;
-      this.passwort = passwort;
+      this.passwort = passwordEncoder.encode(passwort);
     }
 
     private String benutzername;
