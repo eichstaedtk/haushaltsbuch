@@ -83,7 +83,8 @@ public class Benutzer {
 
   public static class BenutzerBuilder {
 
-    public BenutzerBuilder(String benutzername, String email, String passwort, PasswordEncoder passwordEncoder) {
+    public BenutzerBuilder(String benutzername, String email, String passwort,
+        PasswordEncoder passwordEncoder) {
       this.benutzername = benutzername;
       this.email = email;
       this.passwort = passwordEncoder.encode(passwort);
@@ -104,9 +105,10 @@ public class Benutzer {
 
     private boolean aktiviert;
 
-    public BenutzerBuilder withWohnort(String strasse, String postleitzahl, String stadt, String land) {
+    public BenutzerBuilder withWohnort(String strasse, String postleitzahl, String stadt,
+        String land) {
 
-      Adresse adresse = new Adresse(strasse,postleitzahl,stadt,land);
+      Adresse adresse = new Adresse(strasse, postleitzahl, stadt, land);
 
       this.wohnort = adresse;
 
