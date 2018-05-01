@@ -15,6 +15,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class Registrierung {
 
+  public Registrierung() {
+  }
+
+  public Registrierung(
+      @NotNull @Size(min = 2, max = 55, message = "Bitte geben Sie mindestens 2 maximal 55 Zeichen ein!") @Pattern(regexp = "^[^\\s]+$", message = "Bitte keine Leerzeichen verwenden!") String benutzername,
+      @NotNull @Pattern(regexp = ".*@.*\\.[a-z|A-Z]{1,3}$",
+          message = "Bitte eine gültige E-Mail-Adresse verwenden!") String email,
+      @NotNull @Size(min = 6, max = 55, message = "Bitte geben Sie mindestens 6 maximal 55 Zeichen ein!") @List({
+          @Pattern(regexp = "^(?=.*[A-Z]).+$",
+              message = "Bitte mindestens einen großen Buchstaben angeben!"),
+          @Pattern(regexp = "^(?=.*[a-z]).+$",
+              message = "Bitte mindestens einen kleine Buchstaben angeben!"),
+          @Pattern(regexp = "^(?=.*\\d).+$", message = "Bitte mindestens eine Zahl angeben!"),
+          @Pattern(regexp = "^[^\\s]+$", message = "Bitte keine Leerzeichen verwenden!")}) String passwort) {
+    this.email = email;
+    this.benutzername = benutzername;
+    this.passwort = passwort;
+  }
+
   @NotNull
   @Size(min = 2, max = 55, message = "Bitte geben Sie mindestens 2 maximal 55 Zeichen ein!")
   @Pattern(regexp = "^[^\\s]+$", message = "Bitte keine Leerzeichen verwenden!")
