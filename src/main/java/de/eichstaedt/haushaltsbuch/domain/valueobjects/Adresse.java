@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.domain;
+package de.eichstaedt.haushaltsbuch.domain.valueobjects;
 
 import java.util.Objects;
 

@@ -2,6 +2,7 @@ package de.eichstaedt.haushaltsbuch.domain;
 
 import static org.hamcrest.core.Is.is;
 
+import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import java.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;

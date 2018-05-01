@@ -1,5 +1,8 @@
-package de.eichstaedt.haushaltsbuch.domain;
+package de.eichstaedt.haushaltsbuch.domain.entities;
 
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.time.LocalDate;
 import java.util.Objects;
 

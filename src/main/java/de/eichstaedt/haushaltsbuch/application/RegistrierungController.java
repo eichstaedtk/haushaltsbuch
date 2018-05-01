@@ -1,5 +1,6 @@
 package de.eichstaedt.haushaltsbuch.application;
 
+import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,9 @@ public class RegistrierungController {
   @Autowired
   private Registrierung registrierung;
 
+  @Autowired
+  private BenutzerBoundaryController benutzerBoundaryController;
+
 
   private static final Logger logger = LoggerFactory.getLogger(RegistrierungController.class);
 
@@ -37,8 +41,7 @@ public class RegistrierungController {
   }
 
   @RequestMapping(value = "/registrierung", method = RequestMethod.POST)
-  public ModelAndView register(@Valid Registrierung registrierungForm, BindingResult bindingResult,
-      @RequestHeader HttpHeaders headers) {
+  public ModelAndView register(@Valid Registrierung registrierungForm, BindingResult bindingResult) {
 
     logger.info("Get registration form (POST) {} ",registrierungForm.toString());
 

@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.domain;
+package de.eichstaedt.haushaltsbuch.domain.entities;
 
 import java.time.LocalDate;
 import java.util.HashSet;
