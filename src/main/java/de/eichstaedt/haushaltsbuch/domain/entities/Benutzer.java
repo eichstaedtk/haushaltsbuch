@@ -7,8 +7,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -46,7 +44,7 @@ public class Benutzer {
   @Column(name = "email", length = 55)
   private String email;
 
-  @Column(name = "passwort", length = 255)
+  @Column(name = "passwort")
   private String passwort;
 
   @Embedded
