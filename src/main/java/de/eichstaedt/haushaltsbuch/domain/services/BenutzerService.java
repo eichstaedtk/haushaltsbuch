@@ -62,6 +62,11 @@ public class BenutzerService implements BenutzerBoundaryController
 
       }
 
+      if(Objects.nonNull(benutzer))
+      {
+        benutzer = benutzerRepository.save(benutzer);
+      }
+
     }
 
     logger.info("Benutzer wurde erstellt {} ", benutzer);

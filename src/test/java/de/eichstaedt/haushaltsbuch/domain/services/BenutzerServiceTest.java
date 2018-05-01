@@ -58,6 +58,10 @@ public class BenutzerServiceTest {
     Benutzer benutzer = benutzerService.erstelleAnwendungsBenutzerVonRegistrierung(registrierung);
 
     Assert.assertThat(benutzer,is(notNullValue()));
+
+    Assert.assertThat(benutzerRepository.findById(benutzer.getBenutzername()).isPresent(),is(true));
+
+    Assert.assertThat(benutzer.isAktiviert(),is(false));
   }
 
   @Test

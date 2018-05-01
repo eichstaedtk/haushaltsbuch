@@ -30,6 +30,7 @@ public class Benutzer {
     this.email = builder.email;
     this.wohnort = builder.wohnort;
     this.passwort = builder.passwort;
+    this.aktiviert = builder.aktiviert;
 
   }
 
@@ -50,6 +51,9 @@ public class Benutzer {
 
   @Embedded
   private Adresse wohnort;
+
+  @Column(name = "aktiviert")
+  private boolean aktiviert;
 
   public Adresse getWohnort() {
     return wohnort;
@@ -75,12 +79,17 @@ public class Benutzer {
     return passwort;
   }
 
+  public boolean isAktiviert() {
+    return aktiviert;
+  }
+
   public static class BenutzerBuilder {
 
     public BenutzerBuilder(String benutzername, String email, String passwort, PasswordEncoder passwordEncoder) {
       this.benutzername = benutzername;
       this.email = email;
       this.passwort = passwordEncoder.encode(passwort);
+      this.aktiviert = false;
     }
 
     private String benutzername;
@@ -95,6 +104,7 @@ public class Benutzer {
 
     private Adresse wohnort;
 
+    private boolean aktiviert;
 
     public BenutzerBuilder withWohnort(String strasse, String postleitzahl, String stadt, String land) {
 
@@ -109,6 +119,11 @@ public class Benutzer {
       this.vorname = vorname;
       this.nachname = nachname;
 
+      return this;
+    }
+
+    public BenutzerBuilder aktivieren() {
+      this.aktiviert = true;
       return this;
     }
 
@@ -127,6 +142,7 @@ public class Benutzer {
         ", email='" + email + '\'' +
         ", passwort='" + passwort + '\'' +
         ", wohnort=" + wohnort +
+        ", aktiviert=" + aktiviert +
         '}';
   }
 
