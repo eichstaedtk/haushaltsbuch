@@ -3,16 +3,14 @@ package de.eichstaedt.haushaltsbuch.domain.services;
 import de.eichstaedt.haushaltsbuch.application.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
-import de.eichstaedt.haushaltsbuch.infrastructure.BenutzerRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.thymeleaf.expression.Sets;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 01.05.18.

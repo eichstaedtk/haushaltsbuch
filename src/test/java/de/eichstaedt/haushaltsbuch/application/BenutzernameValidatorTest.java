@@ -4,7 +4,7 @@ import static org.hamcrest.core.Is.is;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
-import de.eichstaedt.haushaltsbuch.infrastructure.BenutzerRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

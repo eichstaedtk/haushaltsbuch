@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.infrastructure;
+package de.eichstaedt.haushaltsbuch.domain.repository;
 
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import org.springframework.data.repository.CrudRepository;

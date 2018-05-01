@@ -10,6 +10,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Adresse {
 
+  protected Adresse() {
+  }
+
   public Adresse(String strasse, String postleitzahl, String wohnort, String land) {
     this.strasse = strasse;
     this.postleitzahl = postleitzahl;
