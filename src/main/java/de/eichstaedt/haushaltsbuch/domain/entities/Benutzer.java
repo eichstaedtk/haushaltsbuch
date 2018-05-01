@@ -2,15 +2,25 @@ package de.eichstaedt.haushaltsbuch.domain.entities;
 
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Adresse;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 28.04.18.
  */
+
+@Entity
+@Table(name = "Benutzer")
 public class Benutzer {
 
   @Autowired
+  @Transient
   private PasswordEncoder passwordEncoder;
 
   protected Benutzer() {
@@ -27,16 +37,22 @@ public class Benutzer {
 
   }
 
+  @Id
   private String benutzername;
 
+  @Column(name = "vorname", length = 55)
   private String vorname;
 
+  @Column(name = "nachname", length = 55)
   private String nachname;
 
+  @Column(name = "email", length = 55)
   private String email;
 
+  @Column(name = "passwort", length = 255)
   private String passwort;
 
+  @Embedded
   private Adresse wohnort;
 
   public Adresse getWohnort() {

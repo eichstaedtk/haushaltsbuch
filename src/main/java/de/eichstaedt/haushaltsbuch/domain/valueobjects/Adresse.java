@@ -1,10 +1,13 @@
 package de.eichstaedt.haushaltsbuch.domain.valueobjects;
 
 import java.util.Objects;
+import javax.persistence.Embeddable;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 28.04.18.
  */
+
+@Embeddable
 public class Adresse {
 
   public Adresse(String strasse, String postleitzahl, String wohnort, String land) {

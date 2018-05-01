@@ -1,6 +1,7 @@
 package de.eichstaedt.haushaltsbuch.application;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,7 @@ public class RegistrierungController {
 
     ModelAndView modelView = new ModelAndView();
 
+    Benutzer benutzer = benutzerBoundaryController.erstelleAnwendungsBenutzerVonRegistrierung(registrierungForm);
 
     return modelView;
   }

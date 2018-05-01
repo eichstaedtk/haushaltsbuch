@@ -3,11 +3,13 @@ package de.eichstaedt.haushaltsbuch.domain.services;
 import de.eichstaedt.haushaltsbuch.application.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
+import de.eichstaedt.haushaltsbuch.infrastructure.BenutzerRepository;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.expression.Sets;
 
@@ -20,6 +22,9 @@ public class BenutzerService implements BenutzerBoundaryController
 {
 
   private static final Logger logger = LoggerFactory.getLogger(BenutzerService.class);
+
+  @Autowired
+  private BenutzerRepository benutzerRepository;
 
   @Override
   public Benutzer erstelleAnwendungsBenutzerVonRegistrierung(Registrierung registrierung) {
@@ -57,6 +62,27 @@ public class BenutzerService implements BenutzerBoundaryController
 
     }
 
+    logger.info("Benutzer wurde erstellt {} ", benutzer);
+
     return benutzer;
+  }
+
+  @Override
+  public boolean isBenutzernameFree(String benutzername) {
+
+    if(Objects.nonNull(benutzername) && !benutzername.isEmpty())
+    {
+
+      Benutzer benutzer = benutzerRepository.findByBenutzername(benutzername);
+
+      logger.info("Found Benutzer with Benutzername {} , {} ", benutzer,benutzername);
+
+      if(Objects.isNull(benutzer))
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
