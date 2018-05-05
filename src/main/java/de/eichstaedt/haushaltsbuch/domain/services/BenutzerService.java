@@ -4,6 +4,7 @@ import de.eichstaedt.haushaltsbuch.application.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
@@ -85,6 +86,32 @@ public class BenutzerService implements BenutzerBoundaryController {
       if (Objects.isNull(benutzer)) {
         return true;
       }
+    }
+
+    return false;
+  }
+
+  @Override
+  public boolean aktiviereBenutzerMitCode(String code) {
+
+    if(Objects.nonNull(code))
+    {
+
+      Benutzer benutzer = benutzerRepository.findByAktivierungsCode(code);
+
+      if(Objects.nonNull(benutzer))
+      {
+
+        if(LocalDateTime.now().isBefore(benutzer.getAktivierungBis())) {
+
+          benutzer.aktivieren();
+
+          benutzerRepository.save(benutzer);
+
+          return true;
+        }
+      }
+
     }
 
     return false;

@@ -98,6 +98,12 @@ public class Benutzer {
     return aktiviert;
   }
 
+  public void aktivieren() {
+    this.aktiviert = true;
+    this.aktivierungsCode = null;
+    this.aktivierungBis = null;
+  }
+
   public static class BenutzerBuilder {
 
     public BenutzerBuilder(String benutzername, String email, String passwort,
@@ -142,11 +148,6 @@ public class Benutzer {
       this.vorname = vorname;
       this.nachname = nachname;
 
-      return this;
-    }
-
-    public BenutzerBuilder aktivieren() {
-      this.aktiviert = true;
       return this;
     }
 

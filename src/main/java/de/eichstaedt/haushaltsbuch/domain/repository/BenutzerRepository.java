@@ -10,4 +10,6 @@ public interface BenutzerRepository extends CrudRepository<Benutzer,String> {
 
   Benutzer findByBenutzername(String benutzername);
 
+  Benutzer findByAktivierungsCode(String aktivierungsCode);
+
 }

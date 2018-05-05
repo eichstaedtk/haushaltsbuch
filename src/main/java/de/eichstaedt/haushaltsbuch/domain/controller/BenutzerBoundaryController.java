@@ -11,4 +11,6 @@ public interface BenutzerBoundaryController {
   Benutzer erstelleAnwendungsBenutzerVonRegistrierung(Registrierung registrierung);
 
   boolean isBenutzernameFree(String benutzername);
+
+  boolean aktiviereBenutzerMitCode(String code);
 }

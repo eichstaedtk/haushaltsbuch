@@ -2,15 +2,15 @@ package de.eichstaedt.haushaltsbuch.application;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
+import java.util.Objects;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,6 +41,29 @@ public class RegistrierungController {
     return "registrierung";
   }
 
+  @RequestMapping(value = "registrierung/aktivierung/{code}")
+  public ModelAndView aktivierung(Model model, @PathVariable String code) {
+
+    logger.info("GET Request for aktivierung page for code {} ",code);
+
+    ModelAndView modelView = new ModelAndView();
+
+    boolean aktivierung = benutzerBoundaryController.aktiviereBenutzerMitCode(code);
+
+
+    if(aktivierung)
+    {
+
+      modelView.setViewName("aktivierungerfolg");
+
+    }else {
+
+    }
+
+    return modelView;
+  }
+
+
   @RequestMapping(value = "/registrierung", method = RequestMethod.POST)
   public ModelAndView register(@Valid Registrierung registrierungForm, BindingResult bindingResult) {
 
@@ -49,6 +72,16 @@ public class RegistrierungController {
     ModelAndView modelView = new ModelAndView();
 
     Benutzer benutzer = benutzerBoundaryController.erstelleAnwendungsBenutzerVonRegistrierung(registrierungForm);
+
+    if(Objects.nonNull(benutzer))
+    {
+
+      modelView.setViewName("registrierungerfolg");
+
+    }else
+    {
+      modelView.setViewName("registrierungfehler");
+    }
 
     return modelView;
   }
