@@ -38,10 +38,10 @@ public class RegistrierungController {
 
     model.addAttribute("registrierung", registrierung);
 
-    return "registrierung";
+    return "/registrierung";
   }
 
-  @RequestMapping(value = "registrierung/aktivierung/{code}")
+  @RequestMapping(value = "/registrierung/aktivierung/{code}")
   public ModelAndView aktivierung(Model model, @PathVariable String code) {
 
     logger.info("GET Request for aktivierung page for code {} ",code);
@@ -57,7 +57,7 @@ public class RegistrierungController {
       modelView.setViewName("aktivierungerfolg");
 
     }else {
-
+      modelView.setViewName("aktivierungfehler");
     }
 
     return modelView;
