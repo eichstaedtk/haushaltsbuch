@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -31,7 +31,7 @@ public class RegistrierungController {
 
   private static final Logger logger = LoggerFactory.getLogger(RegistrierungController.class);
 
-  @RequestMapping(value = "registrierung")
+  @GetMapping(value = "registrierung")
   public String registration(Model model) {
 
     logger.info("GET Request for registration page");
@@ -41,7 +41,7 @@ public class RegistrierungController {
     return "/registrierung";
   }
 
-  @RequestMapping(value = "/registrierung/aktivierung/{code}")
+  @GetMapping(value = "/registrierung/aktivierung/{code}")
   public ModelAndView aktivierung(Model model, @PathVariable String code) {
 
     logger.info("GET Request for aktivierung page for code {} ",code);
@@ -64,7 +64,7 @@ public class RegistrierungController {
   }
 
 
-  @RequestMapping(value = "/registrierung", method = RequestMethod.POST)
+  @PostMapping(value = "/registrierung")
   public ModelAndView register(@Valid Registrierung registrierungForm, BindingResult bindingResult) {
 
     logger.info("Get registration form (POST) {} ",registrierungForm.toString());
