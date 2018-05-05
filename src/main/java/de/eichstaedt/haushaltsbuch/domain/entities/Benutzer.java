@@ -1,7 +1,9 @@
 package de.eichstaedt.haushaltsbuch.domain.entities;
 
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Adresse;
+import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -29,6 +31,8 @@ public class Benutzer {
     this.wohnort = builder.wohnort;
     this.passwort = builder.passwort;
     this.aktiviert = builder.aktiviert;
+    this.aktivierungBis = builder.aktivierungBis;
+    this.aktivierungsCode = builder.aktivierungsCode;
 
   }
 
@@ -52,6 +56,19 @@ public class Benutzer {
 
   @Column(name = "aktiviert")
   private boolean aktiviert;
+
+  @Column(name = "aktivierungBis")
+  private LocalDateTime aktivierungBis;
+
+  private String aktivierungsCode;
+
+  public LocalDateTime getAktivierungBis() {
+    return aktivierungBis;
+  }
+
+  public String getAktivierungsCode() {
+    return aktivierungsCode;
+  }
 
   public Adresse getWohnort() {
     return wohnort;
@@ -89,6 +106,8 @@ public class Benutzer {
       this.email = email;
       this.passwort = passwordEncoder.encode(passwort);
       this.aktiviert = false;
+      this.aktivierungBis = LocalDateTime.now().plusDays(7L);
+      this.aktivierungsCode = UUID.randomUUID().toString();
     }
 
     private String benutzername;
@@ -104,6 +123,10 @@ public class Benutzer {
     private Adresse wohnort;
 
     private boolean aktiviert;
+
+    private LocalDateTime aktivierungBis;
+
+    private String aktivierungsCode;
 
     public BenutzerBuilder withWohnort(String strasse, String postleitzahl, String stadt,
         String land) {
@@ -143,6 +166,8 @@ public class Benutzer {
         ", passwort='" + passwort + '\'' +
         ", wohnort=" + wohnort +
         ", aktiviert=" + aktiviert +
+        ", aktivierungBis=" + aktivierungBis +
+        ", aktivierungsCode='" + aktivierungsCode + '\'' +
         '}';
   }
 

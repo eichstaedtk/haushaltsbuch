@@ -5,7 +5,6 @@ import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +64,6 @@ public class BenutzerService implements BenutzerBoundaryController {
 
       if (Objects.nonNull(benutzer)) {
         benutzer = benutzerRepository.save(benutzer);
-
-        String aktivierungsCode =
-            UUID.randomUUID().toString();
-
       }
 
     }
