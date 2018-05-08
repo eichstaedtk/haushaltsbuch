@@ -17,9 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebConfiguration implements WebMvcConfigurer {
 
-  @Autowired
-  private UserDetailsService userDetailsService;
-
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addViewController("/anmeldung").setViewName("anmeldung");
@@ -38,12 +35,5 @@ public class WebConfiguration implements WebMvcConfigurer {
             "classpath:/static/images/",
             "classpath:/static/css/",
             "classpath:/static/js/");
-  }
-
-
-  @Bean
-  public UserDetailsService userDetailsService() {
-
-    return userDetailsService;
   }
 }

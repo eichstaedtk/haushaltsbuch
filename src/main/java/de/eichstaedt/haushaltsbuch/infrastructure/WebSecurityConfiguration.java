@@ -1,10 +1,13 @@
 package de.eichstaedt.haushaltsbuch.infrastructure;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 05.05.18.
@@ -14,12 +17,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
+
+  @Autowired
+  private HaushaltsbuchUserDetailsService userDetailsService;
+
   protected void configure(HttpSecurity http) throws Exception {
 
          http.csrf().disable().authorizeRequests().antMatchers("/css/**","/resources/**", "/registrierung/**", "/health","/anmeldung")
         .permitAll()
         .and()
-        .formLogin()
+        .formLogin().defaultSuccessUrl("/dashboard")
         .loginPage("/anmeldung")
         .permitAll();
   }
@@ -29,6 +36,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter  {
     web
         .ignoring()
         .antMatchers("/css/**","/resources/**");
+  }
+
+  @Bean
+  public UserDetailsService userDetailsService() {
+
+    return userDetailsService;
   }
 
 }

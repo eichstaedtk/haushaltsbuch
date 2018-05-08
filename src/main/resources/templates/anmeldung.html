@@ -23,7 +23,7 @@
     <div class="col-md-6 center">
 
       <c:url value="/anmeldung" var="loginUrl"/>
-      <form action="${loginUrl}" method="post">
+      <form action="/anmeldung" method="post">
         <c:if test="${param.error != null}">
           <p>
             Invalid username and password.
