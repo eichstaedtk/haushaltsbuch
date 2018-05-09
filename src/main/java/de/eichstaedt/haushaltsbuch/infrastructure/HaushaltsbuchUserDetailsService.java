@@ -39,6 +39,11 @@ public class HaushaltsbuchUserDetailsService implements UserDetailsService
 
       Benutzer benutzer = benutzerRepository.findByBenutzername(username);
 
+      if(Objects.isNull(benutzer))
+      {
+        throw new UsernameNotFoundException("Benutzer "+username+" konnte in in der Datenbank gefunden werden.");
+      }
+
       GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("BENUTZER");
 
       userDetails = new User(benutzer.getBenutzername(),benutzer.getPasswort(),benutzer.isAktiviert(),benutzer.isAktiviert(),benutzer.isAktiviert(),benutzer.isAktiviert(),
