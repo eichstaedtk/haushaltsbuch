@@ -3,6 +3,7 @@ package de.eichstaedt.haushaltsbuch.infrastructure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -36,6 +37,11 @@ public class HaushaltsbuchAuthenticationProvider implements AuthenticationProvid
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Benutzername oder Passwort unbekannt.");
+        }
+
+        if(!user.isEnabled())
+        {
+            throw new CredentialsExpiredException("Benutzer ist nicht aktiviert");
         }
 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
