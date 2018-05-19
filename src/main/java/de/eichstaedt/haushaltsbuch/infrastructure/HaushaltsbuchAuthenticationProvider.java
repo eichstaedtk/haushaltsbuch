@@ -1,5 +1,8 @@
 package de.eichstaedt.haushaltsbuch.infrastructure;
 
+import java.util.Collection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,10 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-
 @Component
 public class HaushaltsbuchAuthenticationProvider implements AuthenticationProvider {
+
+    private Logger logger = LoggerFactory.getLogger(HaushaltsbuchAuthenticationProvider.class);
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -26,10 +29,16 @@ public class HaushaltsbuchAuthenticationProvider implements AuthenticationProvid
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
         String username = authentication.getName();
+
         String password = (String) authentication.getCredentials();
 
+        logger.info("Check username {} and passwort {} ", username,password);
+
         UserDetails user = userDetailsService.loadUserByUsername(username);
+
+        logger.info("Found UserDetails {} ", user);
 
         if (user == null || !user.getUsername().equals(username)) {
             throw new BadCredentialsException("Benutzername oder Passwort unbekannt.");

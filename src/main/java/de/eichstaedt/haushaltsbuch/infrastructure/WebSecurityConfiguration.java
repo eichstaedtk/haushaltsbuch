@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,8 +34,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter  {
         .anyRequest().authenticated()
         .and()
         .formLogin().defaultSuccessUrl("/dashboard")
-        .loginPage("/anmeldung")
-        .permitAll();
+        .loginPage("/anmeldung").permitAll();
   }
 
   @Override
@@ -46,13 +44,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
     auth.authenticationProvider(authProvider);
 
-  }
-
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web
-        .ignoring()
-        .antMatchers("/css/**","/resources/**");
   }
 
   @Bean
