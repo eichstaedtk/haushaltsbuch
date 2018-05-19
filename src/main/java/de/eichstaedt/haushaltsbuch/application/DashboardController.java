@@ -1,36 +1,63 @@
 package de.eichstaedt.haushaltsbuch.application;
 
+import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
+import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
+import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 09.05.18.
  */
 
 @Controller
+@Component(value = "dashboardController")
 public class DashboardController {
 
   private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
-  private boolean defaultView;
+  @Autowired
+  private BenutzerRepository benutzerRepository;
+
 
   @GetMapping(value = "dashboard")
-  public String registration(Model model,@AuthenticationPrincipal User accountDetails) {
+  public String registration(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(defaultValue = "off") boolean neueshaushaltsbuch) {
 
-    logger.info("GET Request for dashboard page");
-
-    defaultView = true;
+    logger.info("GET Request for dashboard page {} ", neueshaushaltsbuch);
 
     model.addAttribute("user",accountDetails);
 
-    model.addAttribute("defaultview",defaultView);
+    model.addAttribute("neueshaushaltsbuch",neueshaushaltsbuch);
+
+    if(neueshaushaltsbuch)
+    {
+
+      Benutzer benutzer = benutzerRepository.findByBenutzername(accountDetails.getUsername());
+
+      Haushaltsbuch haushaltsbuch = new Haushaltsbuch("",benutzer);
+
+      model.addAttribute("defaultview",false);
+      model.addAttribute("haushaltsbuch",haushaltsbuch  );
+
+      logger.info("Setting dashboard for new haushaltsbuch page");
+
+    }else {
+
+      model.addAttribute("defaultview",true);
+
+      logger.info("Setting dashboard for default page");
+    }
+
+
 
     return "/dashboard";
   }
-
 }

@@ -14,7 +14,7 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-6 center">
+      <div class="col-md-9 center">
         <h1>Willkommen <span th:text="${user.getUsername()}"></span> im Haushaltsbuch</h1>
       </div>
     </div>
@@ -23,10 +23,13 @@
         <img id="gluecksschwein" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
       </div>
     </div>
-    <div class="row" th:if="defaultview">
-      <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
-        <button id="neueshaushaltsbuch" type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen"><i class="fas fa-book"></i></button>
-      </form>
+    <div th:if="${defaultview}">
+      <div th:replace="../fragments/dashboard::defaultview">
+    </div>
+    </div>
+    <div th:if="${neueshaushaltsbuch}">
+      <div th:replace="../fragments/dashboard::haushaltsbuch">
+    </div>
     </div>
   </div>
   </div>
