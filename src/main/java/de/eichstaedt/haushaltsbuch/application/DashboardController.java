@@ -1,7 +1,5 @@
 package de.eichstaedt.haushaltsbuch.application;
 
-import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
-import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,13 +37,7 @@ public class DashboardController {
 
     if(neueshaushaltsbuch)
     {
-
-      Benutzer benutzer = benutzerRepository.findByBenutzername(accountDetails.getUsername());
-
-      Haushaltsbuch haushaltsbuch = new Haushaltsbuch("",benutzer);
-
       model.addAttribute("defaultview",false);
-      model.addAttribute("haushaltsbuch",haushaltsbuch  );
 
       logger.info("Setting dashboard for new haushaltsbuch page");
 
