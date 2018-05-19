@@ -23,7 +23,7 @@
         <img id="gluecksschwein" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
       </div>
     </div>
-    <div class="row">
+    <div class="row" th:if="defaultview">
       <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
         <button id="neueshaushaltsbuch" type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen"><i class="fas fa-book"></i></button>
       </form>

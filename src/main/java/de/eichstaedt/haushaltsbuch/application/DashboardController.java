@@ -17,12 +17,18 @@ public class DashboardController {
 
   private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
+  private boolean defaultView;
+
   @GetMapping(value = "dashboard")
   public String registration(Model model,@AuthenticationPrincipal User accountDetails) {
 
     logger.info("GET Request for dashboard page");
 
+    defaultView = true;
+
     model.addAttribute("user",accountDetails);
+
+    model.addAttribute("defaultview",defaultView);
 
     return "/dashboard";
   }
