@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 19.05.18.
@@ -25,7 +26,7 @@ public class HaushaltsbuchController {
   private HaushaltsbuchService haushaltsbuchService;
 
   @PostMapping("/haushaltsbuch")
-  public String neuesHaushaltsbuch(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "name") String haushaltsbuchName) {
+  public ModelAndView neuesHaushaltsbuch(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "name") String haushaltsbuchName) {
 
     logger.info("Getting POST request for creating neues haushalstbuch {} ", haushaltsbuchName);
 
@@ -35,7 +36,7 @@ public class HaushaltsbuchController {
 
     logger.info("Neues Haushaltsbuch erstellt {} ", haushaltsbuch);
 
-    return "dashboard";
+    return new ModelAndView("redirect:/dashboard",model);
   }
 
 }

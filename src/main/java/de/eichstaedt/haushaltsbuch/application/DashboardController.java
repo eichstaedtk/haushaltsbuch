@@ -1,7 +1,9 @@
 package de.eichstaedt.haushaltsbuch.application;
 
+import de.eichstaedt.haushaltsbuch.domain.services.HaushaltsbuchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,9 @@ public class DashboardController {
 
   private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
+  @Autowired
+  private HaushaltsbuchService haushaltsbuchService;
+
 
   @GetMapping(value = "dashboard")
   public String registration(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(defaultValue = "off") boolean neueshaushaltsbuch) {
@@ -29,6 +34,8 @@ public class DashboardController {
     model.addAttribute("user",accountDetails);
 
     model.addAttribute("neueshaushaltsbuch",neueshaushaltsbuch);
+
+    model.addAttribute("haushaltsbuecher",haushaltsbuchService.findAllHaushaltsbuecher(accountDetails.getUsername()));
 
     if(neueshaushaltsbuch)
     {

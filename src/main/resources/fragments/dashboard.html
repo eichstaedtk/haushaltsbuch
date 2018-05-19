@@ -6,13 +6,16 @@
 </head>
 <body>
 <div class="row" th:fragment="defaultview">
+  <div class="col-md-9 center">
   <form action="/dashboard" th:action="@{/dashboard}" method="get" th:object="${dashboardController}">
     <input type="checkbox" checked name="neueshaushaltsbuch" style="visibility: hidden"/>
     <button id="neueshaushaltsbuch" type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen"><i class="fas fa-book"></i></button>
   </form>
+  </div>
 </div>
 
-<div class="row" th:fragment="haushaltsbuch">
+<div class="row" th:fragment="haushaltsbuch" id="buchaktionen">
+  <div class="col-md-9 center">
   <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
     <h3>Neues Haushaltsbuch anlegen</h3>
     <div class="input-group mb-3">
@@ -23,6 +26,29 @@
     </div>
     <button type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen">Anlegen</button>
   </form>
+  </div>
+</div>
+
+<div class="row" th:fragment="haushaltsbuecher">
+  <div class="col-md-9 center">
+  <div><h3>Deine Haushaltsbücher</h3></div>
+  <div>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>NUMMER</th>
+      <th>NAME</th>
+      <th>ERSTELLT AM</th>
+    </tr>
+    </thead>
+    <tr th:each="buch : ${haushaltsbuecher}">
+      <td th:text="${buch.id}"></td>
+      <td th:text="${buch.name}"></td>
+      <td th:text="${buch.erstellDatum}"></td>
+    </tr>
+  </table>
+  </div>
+  </div>
 </div>
 </body>
 </html>

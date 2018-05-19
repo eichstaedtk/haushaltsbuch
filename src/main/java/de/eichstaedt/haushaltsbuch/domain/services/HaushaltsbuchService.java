@@ -4,6 +4,8 @@ import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,17 @@ public class HaushaltsbuchService {
     result = new Haushaltsbuch(name,benutzer);
 
     result = haushaltsbuchRepository.save(result);
+
+    return result;
+  }
+
+  public List<Haushaltsbuch> findAllHaushaltsbuecher(String benutzername) {
+
+    List<Haushaltsbuch> result = new ArrayList<>();
+
+    logger.info("Finding all haushaltsbucher of size {} ", haushaltsbuchRepository.findAll());
+
+    result.addAll(haushaltsbuchRepository.findByBesitzerBenutzername(benutzername));
 
     return result;
   }

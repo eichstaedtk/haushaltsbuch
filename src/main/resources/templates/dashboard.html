@@ -24,12 +24,13 @@
       </div>
     </div>
     <div th:if="${defaultview}">
-      <div th:replace="../fragments/dashboard::defaultview">
+      <div th:replace="../fragments/dashboard::defaultview"></div>
     </div>
+    <div th:if="${defaultview}">
+      <div th:replace="../fragments/dashboard::haushaltsbuecher"></div>
     </div>
     <div th:if="${neueshaushaltsbuch}">
-      <div th:replace="../fragments/dashboard::haushaltsbuch">
-    </div>
+      <div th:replace="../fragments/dashboard::haushaltsbuch"></div>
     </div>
   </div>
   </div>
