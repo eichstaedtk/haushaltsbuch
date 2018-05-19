@@ -33,6 +33,8 @@ public class HaushaltsbuchService {
 
     Benutzer benutzer = benutzerRepository.findByBenutzername(benutzerName);
 
+    logger.info("Find Benutzer to create Haushaltsbuch {} ", benutzer);
+
     result = new Haushaltsbuch(name,benutzer);
 
     result = haushaltsbuchRepository.save(result);
