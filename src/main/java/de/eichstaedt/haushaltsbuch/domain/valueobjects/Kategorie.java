@@ -5,4 +5,6 @@ package de.eichstaedt.haushaltsbuch.domain.valueobjects;
  */
 public class Kategorie {
 
+  private String name;
+
 }

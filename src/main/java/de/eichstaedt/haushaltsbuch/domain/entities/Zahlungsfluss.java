@@ -5,6 +5,14 @@ import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
@@ -13,20 +21,36 @@ import java.util.Objects;
  * der Erhöhung der Forderungen und/oder der Verminderung der Verbindlichkeiten. Komplementärbegriff ist die Ausgabe.
  */
 
+@Entity
+@Table(name = "zahlungsfluss")
 public class Zahlungsfluss {
 
+  protected Zahlungsfluss() {
+  }
+
+  @Id
+  @GeneratedValue
+  @Column(name = "id")
   private Long id;
 
+  @Column(name = "beschreibung")
   private String beschreibung;
 
+  @Column(name = "betrag")
   private Double betrag;
 
+  @Transient
   private Kategorie kategorie;
 
+  @Column(name = "buchungstag")
   private LocalDate buchungsTag;
 
+  @Column(name = "typ")
+  @Enumerated(EnumType.STRING)
   private Zahlungstyp typ;
 
+  @Column(name = "intervall")
+  @Enumerated(EnumType.STRING)
   private Zahlungsintervall zahlungsintervall;
 
   @Override

@@ -4,11 +4,28 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
  */
+
+@Entity
+@Table(name = "haushaltsbuecher")
 public class Haushaltsbuch {
+
+  protected Haushaltsbuch() {
+  }
 
   public Haushaltsbuch(String name, Benutzer besitzer) {
     this.name = name;
@@ -18,16 +35,29 @@ public class Haushaltsbuch {
     this.besitzer = besitzer;
   }
 
+  @Id
+  @GeneratedValue
+  @Column(name = "id")
   private Long id;
 
+  @Column(name = "name")
   private String name;
 
+  @Column(name = "erstelldatum")
   private LocalDate erstellDatum;
 
+  @OneToMany
+  @JoinTable(name = "haushaltsbuch_ausgaben" ,joinColumns = @JoinColumn( name="zahlungsfluss_id"),
+      inverseJoinColumns = @JoinColumn( name="haushaltsbuecher_id"))
   private Set<Zahlungsfluss> ausgaben;
 
+  @OneToMany
+  @JoinTable(name = "haushaltsbuch_einnahmen",joinColumns = @JoinColumn( name="zahlungsfluss_id"),
+      inverseJoinColumns = @JoinColumn( name="haushaltsbuecher_id"))
   private Set<Zahlungsfluss> einnahmen;
 
+  @ManyToOne
+  @JoinColumn(name = "besitzer_id", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "haushaltsbuch_besitzer_foreignkey"))
   private Benutzer besitzer;
 
   @Override
@@ -83,4 +113,5 @@ public class Haushaltsbuch {
   public Benutzer getBesitzer() {
     return besitzer;
   }
+
 }
