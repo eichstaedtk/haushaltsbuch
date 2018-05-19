@@ -6,6 +6,7 @@ import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,13 @@ public class HaushaltsbuchService {
 
     logger.info("Find Benutzer to create Haushaltsbuch {} ", benutzer);
 
-    result = new Haushaltsbuch(name,benutzer);
+    if(Objects.nonNull(benutzer)) {
 
-    result = haushaltsbuchRepository.save(result);
+      result = new Haushaltsbuch(name, benutzer);
+
+      result = haushaltsbuchRepository.save(result);
+
+    }
 
     return result;
   }

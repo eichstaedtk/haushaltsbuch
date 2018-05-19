@@ -5,7 +5,7 @@
   <title>Dashboard Fragements</title>
 </head>
 <body>
-<div class="row" th:fragment="defaultview">
+<div class="row" th:fragment="defaultview" id="buchaktionen">
   <div class="col-md-9 center">
   <form action="/dashboard" th:action="@{/dashboard}" method="get" th:object="${dashboardController}">
     <input type="checkbox" checked name="neueshaushaltsbuch" style="visibility: hidden"/>
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="row" th:fragment="haushaltsbuch" id="buchaktionen">
+<div class="row" th:fragment="haushaltsbuch">
   <div class="col-md-9 center">
   <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
     <h3>Neues Haushaltsbuch anlegen</h3>
@@ -33,7 +33,7 @@
   <div class="col-md-9 center">
   <div><h3>Deine Haushaltsbücher</h3></div>
   <div>
-  <table class="table table-bordered">
+  <table class="table">
     <thead>
     <tr>
       <th>NUMMER</th>
