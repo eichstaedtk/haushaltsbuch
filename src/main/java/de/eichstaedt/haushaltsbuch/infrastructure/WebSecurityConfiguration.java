@@ -31,8 +31,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
   protected void configure(HttpSecurity http) throws Exception {
 
-         http.csrf().disable().authorizeRequests().antMatchers("/css/**","/resources/**", "/registrierung/**", "/health","/anmeldung")
-        .permitAll()
+         http.csrf().disable().authorizeRequests().antMatchers("/css/**","/resources/**", "/registrierung/**", "/health","/anmeldung").permitAll()
+        .anyRequest().authenticated()
         .and()
         .formLogin().defaultSuccessUrl("/dashboard")
         .loginPage("/anmeldung")

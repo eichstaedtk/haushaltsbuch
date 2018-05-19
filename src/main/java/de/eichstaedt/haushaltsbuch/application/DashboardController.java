@@ -20,7 +20,7 @@ public class DashboardController {
   @GetMapping(value = "dashboard")
   public String registration(Model model,@AuthenticationPrincipal User accountDetails) {
 
-    logger.info("GET Request for registration page");
+    logger.info("GET Request for dashboard page");
 
     model.addAttribute("user",accountDetails);
 
