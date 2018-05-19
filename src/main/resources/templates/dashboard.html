@@ -15,15 +15,18 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 center">
-        <img id="gluecksschwein" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
+        <h1>Willkommen <span th:text="${user.getUsername()}"></span> im Haushaltsbuch</h1>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 center">
-
-        <h1>Willkommen <span th:text="${user.getUsername()}"></span> in der Anwendung Haushaltsbuch</h1>
-
+        <img id="gluecksschwein" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
       </div>
+    </div>
+    <div class="row">
+      <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
+        <button id="neueshaushaltsbuch" type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen"><i class="fas fa-book"></i></button>
+      </form>
     </div>
   </div>
   </div>

@@ -10,11 +10,12 @@ import java.util.Set;
  */
 public class Haushaltsbuch {
 
-  public Haushaltsbuch(String name) {
+  public Haushaltsbuch(String name, Benutzer besitzer) {
     this.name = name;
     this.erstellDatum = LocalDate.now();
     this.ausgaben = new HashSet<>();
     this.einnahmen = new HashSet<>();
+    this.besitzer = besitzer;
   }
 
   private Long id;
@@ -26,6 +27,8 @@ public class Haushaltsbuch {
   private Set<Zahlungsfluss> ausgaben;
 
   private Set<Zahlungsfluss> einnahmen;
+
+  private Benutzer besitzer;
 
   @Override
   public boolean equals(Object o) {
@@ -53,6 +56,7 @@ public class Haushaltsbuch {
         ", erstellDatum=" + erstellDatum +
         ", ausgaben=" + ausgaben +
         ", einnahmen=" + einnahmen +
+        ", besitzer=" + besitzer +
         '}';
   }
 
@@ -74,5 +78,9 @@ public class Haushaltsbuch {
 
   public Set<Zahlungsfluss> getEinnahmen() {
     return einnahmen;
+  }
+
+  public Benutzer getBesitzer() {
+    return besitzer;
   }
 }

@@ -31,3 +31,11 @@
 #gluecksschwein {
   max-height: 400px;
 }
+
+#neueshaushaltsbuch {
+  font-size: 9em;
+  height: 300px;
+  width: 300px;
+  background-color: #efcea4;
+  border-color: #efcea4;
+}
