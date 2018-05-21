@@ -76,6 +76,7 @@ public class RegistrierungController {
     if(Objects.nonNull(benutzer))
     {
 
+      modelView.addObject("code",benutzer.getAktivierungsCode());
       modelView.setViewName("registrierungerfolg");
 
     }else

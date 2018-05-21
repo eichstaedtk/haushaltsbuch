@@ -12,14 +12,12 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 </head>
 <body>
-<header class="parallax">
-  <div class="container">
-    <div class="row">
-      <div class="headerimage center"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 center">
+      <img id="gluecksschwein" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
     </div>
   </div>
-</header>
-<div class="container">
   <div class="row">
     <div class="col-md-6 center">
 
@@ -39,10 +37,6 @@
                 <button type="submit" class="btn btn-primary">Anmeldung</button>
 
               </form>
-        </div>
-
-        <div sec:authorize="isAuthenticated()">
-            <label>Sie sind bereits als <span sec:authentication="principal.username"/> angemeldet</label>
         </div>
       </div>
     </div>
