@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Haushaltsbuch Registrierung</title>
   <meta charset="utf-8" />
@@ -35,6 +34,11 @@
               <button type="submit" class="btn btn-primary">Anmeldung</button>
 
             </form>
+
+        <div th:if="${param.error != null}">
+          <p class="bg-danger">Fehlgeschlagen <span th:text="${errorMessage}"></span></p>
+        </div>
+
       </div>
     </div>
   </div>
