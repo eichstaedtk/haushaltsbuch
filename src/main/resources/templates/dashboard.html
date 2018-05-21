@@ -13,14 +13,23 @@
 </head>
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-md-9 center">
-        <h1>Willkommen <span th:text="${user.getUsername()}"></span> im Haushaltsbuch</h1>
+    <div class="row justify-content-md-center">
+      <div class="col-md-3">
+        <div class="center">
+          <img id="gluecksschweinsmall" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 center">
-        <img id="gluecksschwein" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
+      <div class="col-md-3">
+        <div class="center">
+          <h2>Willkommen <span th:text="${user.getUsername()}"></span> im Haushaltsbuch</h2>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="center">
+          <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-primary">Abmelden</button>
+          </form>
+        </div>
       </div>
     </div>
     <div th:if="${defaultview}">
