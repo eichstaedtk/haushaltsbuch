@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -20,7 +21,7 @@ public class AnmeldungController {
   private static final Logger logger = LoggerFactory.getLogger(AnmeldungController.class);
 
   @GetMapping(value = "anmeldung")
-  public String registration(Model model) {
+  public String anmeldung(Model model, @RequestParam(value = "error", required = false) boolean error) {
 
     logger.info("GET Request for anmeldung page");
 
