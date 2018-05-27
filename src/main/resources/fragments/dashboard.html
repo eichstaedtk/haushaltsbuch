@@ -39,12 +39,14 @@
       <th>NUMMER</th>
       <th>NAME</th>
       <th>ERSTELLT AM</th>
+      <th>Aktion</th>
     </tr>
     </thead>
     <tr th:each="buch : ${haushaltsbuecher}">
       <td th:text="${buch.id}"></td>
       <td th:text="${buch.name}"></td>
       <td th:text="${buch.erstellDatum}"></td>
+      <td><a href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id})}"><i class="fas fa-edit"></i></a></td>
     </tr>
   </table>
   </div>
