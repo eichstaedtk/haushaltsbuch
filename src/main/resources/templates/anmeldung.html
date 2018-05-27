@@ -28,15 +28,12 @@
                 <label for="password">Passwort</label>
                 <input class="form-control" type="password" id="password" name="password"/>
               </div>
-              <input type="hidden"
-                     name="${_csrf.parameterName}"
-                     value="${_csrf.token}"/>
               <button type="submit" class="btn btn-primary">Anmeldung</button>
 
             </form>
 
-        <div th:if="${param.error != null}">
-          <p class="bg-danger">Fehlgeschlagen <span th:text="${errorMessage}"></span></p>
+        <div th:if="${param.error != null}" class="alert alert-danger" role="alert">
+          <p>Anmeldung fehlgeschlagen:<span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span></p>
         </div>
 
       </div>

@@ -13,6 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +37,12 @@ public class HaushaltsbuchAuthenticationProvider implements AuthenticationProvid
 
         logger.info("Check username {} and passwort {} ", username,password);
 
-        UserDetails user = userDetailsService.loadUserByUsername(username);
+        UserDetails user = null;
+        try {
+            user = userDetailsService.loadUserByUsername(username);
+        } catch (UsernameNotFoundException e) {
+            logger.error("User not found with that username {} ", username,e);
+        }
 
         logger.info("Found UserDetails {} ", user);
 
