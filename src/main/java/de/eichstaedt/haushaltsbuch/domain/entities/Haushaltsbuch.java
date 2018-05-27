@@ -1,7 +1,9 @@
 package de.eichstaedt.haushaltsbuch.domain.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -93,6 +95,16 @@ public class Haushaltsbuch {
 
   public Long getId() {
     return id;
+  }
+
+  public List<Zahlungsfluss> findAllZahlungen() {
+
+    List<Zahlungsfluss> zahlungen = new ArrayList<>();
+
+    zahlungen.addAll(einnahmen);
+    zahlungen.addAll(ausgaben);
+
+    return zahlungen;
   }
 
   public String getName() {

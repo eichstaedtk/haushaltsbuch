@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Haushaltsbuch Registrierung</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link type="text/css" th:href="@{/css/haushaltsbuch.css}" href="../../css/haushaltsbuch.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-3">
+        <div class="centercontent">
+          <img id="gluecksschweinsmall" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="centercontent">
+          <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-primary">Abmelden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-9 center">
+        <form action="/zahlungen" th:action="@{/zahlungen}" method="post" th:object="${neuezahlung}">
+          <h3>Neue Zahlung erstellen</h3>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="beschreibunginput">Beschreibung</span>
+            </div>
+            <input type="text" class="form-control" aria-label="beschreibung" th:field="*{beschreibung}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="betraginput">Betrag</span>
+            </div>
+            <input type="text" class="form-control" aria-label="betrag" th:field="*{betrag}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="kategorieinput">Kategorie</span>
+            </div>
+            <input type="text" class="form-control" aria-label="kategorie" th:field="*{kategorie}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="buchungstaginput">Datum</span>
+            </div>
+            <input type="text" class="form-control" aria-label="buchungstag" th:field="*{buchungsTag}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="zahlungstyp">Zahlungstyp</span>
+            </div>
+            <input type="text" class="form-control" aria-label="zahlungstyp" th:field="*{typ}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="zahlungsintervall">Zahlungsintervall</span>
+            </div>
+            <input type="text" class="form-control" aria-label="zahlungsintervall" th:field="*{zahlungsintervall}">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" title="Zahlung buchen">Buchen</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-9 center">
+        <div><h3>Haushaltsbuch: <span th:text="${buch.name}"></span> Zahlungesverkehr</h3></div>
+        <div>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>NUMMER</th>
+              <th>BESCHREIBUNG</th>
+              <th>BETRAG</th>
+              <th>KATEGORIE</th>
+              <th>DATUM</th>
+              <th>TYP</th>
+              <th>INTERVALL</th>
+            </tr>
+            </thead>
+            <tr th:each="zahlung : ${buch.findAllZahlungen()}">
+              <td th:text="${zahlung.id}"></td>
+              <td th:text="${zahlung.beschreibung}"></td>
+              <td th:text="${zahlung.betrag}"></td>
+              <td th:text="${zahlung.kategorie}"></td>
+              <td th:text="${zahlung.buchungsTag}"></td>
+              <td th:text="${zahlung.typ}"></td>
+              <td th:text="${zahlung.zahlungsintervall}"></td>
+              <td><i class="fas fa-edit"></i></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

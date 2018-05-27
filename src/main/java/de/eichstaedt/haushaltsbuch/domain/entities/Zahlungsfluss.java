@@ -25,7 +25,7 @@ import javax.persistence.Transient;
 @Table(name = "zahlungsfluss")
 public class Zahlungsfluss {
 
-  protected Zahlungsfluss() {
+  public Zahlungsfluss() {
   }
 
   @Id
@@ -62,6 +62,7 @@ public class Zahlungsfluss {
         ", kategorie=" + kategorie +
         ", buchungsTag=" + buchungsTag +
         ", typ=" + typ +
+        ", zahlungsintervall=" + zahlungsintervall +
         '}';
   }
 
@@ -105,5 +106,34 @@ public class Zahlungsfluss {
 
   public Zahlungstyp getTyp() {
     return typ;
+  }
+
+  public Zahlungsintervall getZahlungsintervall() {
+    return zahlungsintervall;
+  }
+
+  public void setBeschreibung(String beschreibung) {
+    this.beschreibung = beschreibung;
+  }
+
+  public void setBetrag(Double betrag) {
+    this.betrag = betrag;
+  }
+
+  public void setKategorie(Kategorie kategorie) {
+    this.kategorie = kategorie;
+  }
+
+  public void setBuchungsTag(LocalDate buchungsTag) {
+    this.buchungsTag = buchungsTag;
+  }
+
+  public void setTyp(Zahlungstyp typ) {
+    this.typ = typ;
+  }
+
+  public void setZahlungsintervall(
+      Zahlungsintervall zahlungsintervall) {
+    this.zahlungsintervall = zahlungsintervall;
   }
 }
