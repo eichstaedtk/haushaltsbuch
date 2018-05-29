@@ -5,6 +5,21 @@ package de.eichstaedt.haushaltsbuch.domain.valueobjects;
  */
 public enum Zahlungsintervall {
 
-  EINAMLIG,WOECHENTLICH,MONATLICH,JAEHRLICH
+  EINAMLIG,WOECHENTLICH,MONATLICH,JAEHRLICH;
+
+  public String toString() {
+    switch (this)
+    {
+
+      case EINAMLIG:
+        return "einmalig";
+      case WOECHENTLICH:
+        return "wöchentlich";
+      case MONATLICH:
+        return "monatlich";
+      case JAEHRLICH:return "jährlich";
+      default:return "";
+    }
+  }
 
 }

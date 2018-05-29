@@ -10,6 +10,7 @@
   <link type="text/css" th:href="@{/css/haushaltsbuch.css}" href="../../css/haushaltsbuch.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 </head>
 <body>
   <div class="container">
@@ -30,7 +31,7 @@
 
     <div class="row">
       <div class="col-md-9 center">
-        <form action="/zahlungen" th:action="@{/zahlungen}" method="post" th:object="${neuezahlung}">
+        <form action="/zahlungen" th:action="@{/zahlungen}" method="post" th:object="${neuezahlung}" id="zahlungsform">
           <h3>Neue Zahlung erstellen</h3>
 
           <div class="input-group mb-3">
@@ -62,21 +63,29 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="buchungstaginput">Datum</span>
             </div>
-            <input type="text" class="form-control" aria-label="buchungstag" th:field="*{buchungsTag}">
+            <input id="buchungstag" type="text" class="form-control" aria-label="buchungstag" th:field="*{buchungsTag}">
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="zahlungstyp">Zahlungstyp</span>
             </div>
-            <input type="text" class="form-control" aria-label="zahlungstyp" th:field="*{typ}">
+            <select class="form-control" th:field="*{typ}">
+              <option th:each="typ : ${allzahlungstypen}"
+                      th:value="${{typ}}"
+                      th:text="${typ}">Alle</option>
+            </select>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="zahlungsintervall">Zahlungsintervall</span>
             </div>
-            <input type="text" class="form-control" aria-label="zahlungsintervall" th:field="*{zahlungsintervall}">
+            <select class="form-control" th:field="*{zahlungsintervall}">
+              <option th:each="zahlungsintervall : ${allzahlungsintervalle}"
+                      th:value="${{zahlungsintervall}}"
+                      th:text="${zahlungsintervall.toString()}">Alle</option>
+            </select>
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg" title="Zahlung buchen">Buchen</button>
@@ -119,5 +128,21 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      var date_input=$('input[name="buchungsTag"]'); //our date input has the name "date"
+      var container=$('form[id="zahlungsform"]').parent();
+      var options={
+        format: 'dd-mm-yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+  </script>
+
 </body>
 </html>

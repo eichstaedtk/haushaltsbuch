@@ -5,5 +5,21 @@ package de.eichstaedt.haushaltsbuch.domain.valueobjects;
  */
 public enum Zahlungstyp {
 
-  AUSGABE,EINNAHME
+  AUSGABE,EINNAHME;
+
+  @Override
+  public String toString() {
+
+    switch(this)
+    {
+      case AUSGABE:
+        return "Ausgabe";
+      case EINNAHME:
+        return "Einnahme";
+      default: return "";
+    }
+
+  }
+
+
 }

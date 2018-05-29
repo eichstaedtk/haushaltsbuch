@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
@@ -47,6 +48,7 @@ public class Zahlungsfluss {
   @JoinColumn(name = "kategorie_name", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "zahlungsfluss_kategorie_foreignkey"))
   private Kategorie kategorie;
 
+  @DateTimeFormat(pattern = "dd-MM-yyyy")
   @Column(name = "buchungstag")
   private LocalDate buchungsTag;
 

@@ -4,6 +4,8 @@ import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.services.HaushaltsbuchService;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -67,6 +69,8 @@ public class HaushaltsbuchController {
       model.addAttribute("buch",buch.get());
       model.addAttribute("neuezahlung",neueZahlung);
       model.addAttribute("allkategories",kategorieBoundaryController.findAll());
+      model.addAttribute("allzahlungstypen",Zahlungstyp.values());
+      model.addAttribute("allzahlungsintervalle",Zahlungsintervall.values());
     }
 
     return new ModelAndView("haushaltsbuch",model);
