@@ -51,7 +51,11 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="kategorieinput">Kategorie</span>
             </div>
-            <input type="text" class="form-control" aria-label="kategorie" th:field="*{kategorie}">
+            <select class="form-control" th:field="*{kategorie}">
+              <option th:each="kategorie : ${allkategories}"
+                      th:value="${kategorie.name}"
+                      th:text="${kategorie.name}">Alle</option>
+            </select>
           </div>
 
           <div class="input-group mb-3">

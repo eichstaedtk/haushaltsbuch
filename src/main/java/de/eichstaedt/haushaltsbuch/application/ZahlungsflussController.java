@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +23,13 @@ public class ZahlungsflussController {
 
 
   @PostMapping("/zahlungen")
-  public ModelAndView buchen(ModelMap model,@AuthenticationPrincipal User accountDetails,@ModelAttribute Zahlungsfluss zahlung) {
+  public ModelAndView buchen(ModelMap model,@AuthenticationPrincipal User accountDetails,@ModelAttribute Zahlungsfluss zahlung, BindingResult bindingResult) {
+
+    logger.info("Getting POST with Zahung Binding");
+
+    bindingResult.getAllErrors().stream().forEach(e -> {
+      logger.info(e.toString());
+    });
 
     logger.info("Getting POST Request with zahlung {} ",zahlung);
 

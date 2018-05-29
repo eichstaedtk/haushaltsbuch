@@ -6,13 +6,17 @@ import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
@@ -39,7 +43,8 @@ public class Zahlungsfluss {
   @Column(name = "betrag")
   private Double betrag;
 
-  @Transient
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "kategorie_name", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "zahlungsfluss_kategorie_foreignkey"))
   private Kategorie kategorie;
 
   @Column(name = "buchungstag")
@@ -110,6 +115,10 @@ public class Zahlungsfluss {
 
   public Zahlungsintervall getZahlungsintervall() {
     return zahlungsintervall;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public void setBeschreibung(String beschreibung) {

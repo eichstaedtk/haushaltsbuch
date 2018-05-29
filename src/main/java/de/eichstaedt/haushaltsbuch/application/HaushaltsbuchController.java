@@ -1,5 +1,6 @@
 package de.eichstaedt.haushaltsbuch.application;
 
+import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.services.HaushaltsbuchService;
@@ -28,6 +29,9 @@ public class HaushaltsbuchController {
 
   @Autowired
   private HaushaltsbuchService haushaltsbuchService;
+
+  @Autowired
+  private KategorieBoundaryController kategorieBoundaryController;
 
   private Zahlungsfluss neueZahlung;
 
@@ -62,6 +66,7 @@ public class HaushaltsbuchController {
 
       model.addAttribute("buch",buch.get());
       model.addAttribute("neuezahlung",neueZahlung);
+      model.addAttribute("allkategories",kategorieBoundaryController.findAll());
     }
 
     return new ModelAndView("haushaltsbuch",model);
