@@ -39,6 +39,7 @@
               <span class="input-group-text" id="beschreibunginput">Beschreibung</span>
             </div>
             <input type="text" class="form-control" aria-label="beschreibung" th:field="*{beschreibung}">
+            <span class="error" th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}">Beschreibung Fehler</span>
           </div>
 
           <div class="input-group mb-3">
@@ -46,6 +47,7 @@
               <span class="input-group-text" id="betraginput">Betrag</span>
             </div>
             <input type="text" class="form-control" aria-label="betrag" th:field="*{betrag}">
+            <span class="error" th:if="${#fields.hasErrors('betrag')}" th:errors="*{betrag}">Betrag Fehler</span>
           </div>
 
           <div class="input-group mb-3">
@@ -57,6 +59,7 @@
                       th:value="${kategorie.name}"
                       th:text="${kategorie.name}">Alle</option>
             </select>
+            <span class="error" th:if="${#fields.hasErrors('kategorie')}" th:errors="*{kategorie}">Kategorie Fehler</span>
           </div>
 
           <div class="input-group mb-3">
@@ -64,6 +67,7 @@
               <span class="input-group-text" id="buchungstaginput">Datum</span>
             </div>
             <input id="buchungstag" type="text" class="form-control" aria-label="buchungstag" th:field="*{buchungsTag}">
+            <td th:if="${#fields.hasErrors('buchungsTag')}" th:errors="*{buchungsTag}">BuchungsTag Fehler </td>
           </div>
 
           <div class="input-group mb-3">
@@ -75,6 +79,7 @@
                       th:value="${{typ}}"
                       th:text="${typ}">Alle</option>
             </select>
+            <span class="error" th:if="${#fields.hasErrors('typ')}" th:errors="*{typ}">Zahlungstyp Fehler </span>
           </div>
 
           <div class="input-group mb-3">
@@ -86,6 +91,7 @@
                       th:value="${{zahlungsintervall}}"
                       th:text="${zahlungsintervall.toString()}">Alle</option>
             </select>
+            <span class="error" th:if="${#fields.hasErrors('zahlungsintervall')}" th:errors="*{zahlungsintervall}">Zahlungsintervall Fehler </span>
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg" title="Zahlung buchen">Buchen</button>

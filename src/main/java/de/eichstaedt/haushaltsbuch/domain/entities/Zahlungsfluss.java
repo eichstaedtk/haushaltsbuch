@@ -13,10 +13,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -34,28 +37,35 @@ public class Zahlungsfluss {
   }
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @Column(name = "id")
   private Long id;
 
+  @NotNull
+  @Size(min = 2)
   @Column(name = "beschreibung")
   private String beschreibung;
 
+  @NotNull
   @Column(name = "betrag")
   private Double betrag;
 
+  @NotNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "kategorie_name", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "zahlungsfluss_kategorie_foreignkey"))
   private Kategorie kategorie;
 
+  @NotNull
   @DateTimeFormat(pattern = "dd-MM-yyyy")
   @Column(name = "buchungstag")
   private LocalDate buchungsTag;
 
+  @NotNull
   @Column(name = "typ")
   @Enumerated(EnumType.STRING)
   private Zahlungstyp typ;
 
+  @NotNull
   @Column(name = "intervall")
   @Enumerated(EnumType.STRING)
   private Zahlungsintervall zahlungsintervall;

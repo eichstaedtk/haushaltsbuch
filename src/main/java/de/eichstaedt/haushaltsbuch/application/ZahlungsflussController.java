@@ -4,6 +4,7 @@ import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryContro
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.services.HaushaltsbuchService;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,22 @@ public class ZahlungsflussController {
   private HaushaltsbuchService haushaltsbuchService;
 
   @RequestMapping( value = "/haushaltsbuch/{buchid}/zahlungen", method = RequestMethod.POST)
-  public ModelAndView buchen(ModelMap model, @AuthenticationPrincipal User accountDetails, @ModelAttribute Zahlungsfluss zahlung, BindingResult bindingResult, @PathVariable String buchid) {
+  public ModelAndView buchen(ModelMap model, @AuthenticationPrincipal User accountDetails, @Valid @ModelAttribute Zahlungsfluss zahlung, BindingResult bindingResult, @PathVariable String buchid) {
 
     logger.info("Getting POST with Zahung Binding");
 
-    bindingResult.getAllErrors().stream().forEach(e -> {
-      logger.info(e.toString());
-    });
+    if(bindingResult.hasErrors()) {
+
+      bindingResult.getAllErrors().stream().forEach(e -> {
+        logger.info(e.toString());
+      });
+
+      model.addAttribute("org.springframework.validation.BindingResult.zahlung", bindingResult);
+      model.addAttribute("neuezahlung",zahlung);
+
+
+      return new ModelAndView("redirect:/haushaltsbuch?buchid="+buchid,model);
+    }
 
     logger.info("Getting POST Request with zahlung {} ",zahlung);
 
