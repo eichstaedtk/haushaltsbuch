@@ -4,6 +4,7 @@ import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryContro
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.services.HaushaltsbuchService;
+import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Optional;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 27.05.18.
@@ -34,34 +37,35 @@ public class ZahlungsflussController {
   private HaushaltsbuchService haushaltsbuchService;
 
   @RequestMapping( value = "/haushaltsbuch/{buchid}/zahlungen", method = RequestMethod.POST)
-  public ModelAndView buchen(ModelMap model, @AuthenticationPrincipal User accountDetails, @Valid @ModelAttribute Zahlungsfluss zahlung, BindingResult bindingResult, @PathVariable String buchid) {
+  public ModelAndView buchen(ModelMap model, @AuthenticationPrincipal User accountDetails, @ModelAttribute("neuezahlung") @Valid Zahlungsfluss neuezahlung, BindingResult binding, @PathVariable String buchid,
+      RedirectAttributes redirectAttributes) {
 
     logger.info("Getting POST with Zahung Binding");
 
-    if(bindingResult.hasErrors()) {
+    if(binding.hasErrors()) {
 
-      bindingResult.getAllErrors().stream().forEach(e -> {
+      binding.getAllErrors().stream().forEach(e -> {
         logger.info(e.toString());
       });
 
-      model.addAttribute("org.springframework.validation.BindingResult.zahlung", bindingResult);
-      model.addAttribute("neuezahlung",zahlung);
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.neuezahlung",binding);
+      redirectAttributes.addFlashAttribute("neuezahlung",neuezahlung);
 
 
-      return new ModelAndView("redirect:/haushaltsbuch?buchid="+buchid,model);
+      return new ModelAndView("redirect:/haushaltsbuch?buchid="+buchid);
     }
 
-    logger.info("Getting POST Request with zahlung {} ",zahlung);
+    logger.info("Getting POST Request with zahlung {} ",neuezahlung);
 
     Optional<Haushaltsbuch> buch = haushaltsbuchService.findAllHaushaltsbuecher(accountDetails.getUsername())
             .stream().filter(b -> String.valueOf(b.getId()).equals(buchid)).findFirst();
 
     if(buch.isPresent())
     {
-      zahlungsflussBoundaryController.buchen(buch.get(),zahlung);
+      zahlungsflussBoundaryController.buchen(buch.get(),neuezahlung);
     }
 
-    return new ModelAndView("redirect:/haushaltsbuch?buchid="+buch.get().getId(),model);
+    return new ModelAndView("redirect:/haushaltsbuch?buchid="+buch.get().getId());
   }
 
 }

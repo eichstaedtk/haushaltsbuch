@@ -64,7 +64,14 @@ public class HaushaltsbuchController {
 
       logger.info("Found buch with id {} buch {} ", buchid,buch);
 
-      neueZahlung = new Zahlungsfluss();
+      if(model.containsAttribute("neuezahlung"))
+      {
+        neueZahlung = (Zahlungsfluss) model.get("neuezahlung");
+      }else {
+        neueZahlung = new Zahlungsfluss();
+      }
+
+
 
       model.addAttribute("buch",buch.get());
       model.addAttribute("neuezahlung",neueZahlung);

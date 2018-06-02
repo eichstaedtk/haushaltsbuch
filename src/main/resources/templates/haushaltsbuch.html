@@ -67,7 +67,7 @@
               <span class="input-group-text" id="buchungstaginput">Datum</span>
             </div>
             <input id="buchungstag" type="text" class="form-control" aria-label="buchungstag" th:field="*{buchungsTag}">
-            <td th:if="${#fields.hasErrors('buchungsTag')}" th:errors="*{buchungsTag}">BuchungsTag Fehler </td>
+            <span class="error" th:if="${#fields.hasErrors('buchungsTag')}" th:errors="*{buchungsTag}">BuchungsTag Fehler </span>
           </div>
 
           <div class="input-group mb-3">
