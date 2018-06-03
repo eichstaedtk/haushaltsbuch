@@ -19,6 +19,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
@@ -98,14 +100,16 @@ public class Haushaltsbuch {
     return id;
   }
 
-  public List<Zahlungsfluss> findAllZahlungen() {
+  public Page<Zahlungsfluss> findAllZahlungen() {
 
     List<Zahlungsfluss> zahlungen = new ArrayList<>();
 
     zahlungen.addAll(einnahmen);
     zahlungen.addAll(ausgaben);
 
-    return zahlungen;
+    Page<Zahlungsfluss> zahlungsflussPage = new PageImpl<>(zahlungen);
+
+    return zahlungsflussPage;
   }
 
   public String getName() {

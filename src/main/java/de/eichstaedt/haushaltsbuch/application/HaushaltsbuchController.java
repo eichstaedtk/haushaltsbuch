@@ -42,6 +42,9 @@ public class HaushaltsbuchController {
 
   private Zahlungsfluss neueZahlung;
 
+  private static final int[] PAGE_SIZES = {5, 10, 20};
+  private static final int BUTTONS_TO_SHOW = 5;
+
   @PostMapping("/haushaltsbuch")
   public ModelAndView neuesHaushaltsbuch(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "name") String haushaltsbuchName) {
 
@@ -84,12 +87,19 @@ public class HaushaltsbuchController {
         neueZahlung = (Zahlungsfluss) model.get("neuezahlung");
       }
 
+      Pager pager = new Pager(buch.get().findAllZahlungen().getTotalPages(), buch.get().findAllZahlungen().getNumber(), BUTTONS_TO_SHOW);
 
       model.addAttribute("buch",buch.get());
       model.addAttribute("neuezahlung",neueZahlung);
       model.addAttribute("allkategories",kategorieBoundaryController.findAll());
       model.addAttribute("allzahlungstypen",Zahlungstyp.values());
       model.addAttribute("allzahlungsintervalle",Zahlungsintervall.values());
+
+
+      model.addAttribute("selectedPageSize", 5);
+      model.addAttribute("pageSizes", PAGE_SIZES);
+      model.addAttribute("pager", pager);
+
     }
 
     return new ModelAndView("haushaltsbuch",model);

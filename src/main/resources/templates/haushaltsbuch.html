@@ -109,6 +109,35 @@
       <div class="col-md-9 center">
         <div><h3>Haushaltsbuch: <span th:text="${buch.name}"></span> Zahlungesverkehr</h3></div>
         <div>
+          <div class="form-group col-md-1">
+            <select class="form-control pagination" id="pageSizeSelect">
+              <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                      th:selected="${pageSize} == ${selectedPageSize}"></option>
+            </select>
+            <div th:if="${buch.findAllZahlungen().totalPages != 1}" class="form-group col-md-11 pagination-centered">
+              <ul class="pagination">
+                <li th:class="${buch.findAllZahlungen().number == 0} ? disabled">
+                  <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${buch.findAllZahlungen().number == 0} ? disabled">
+                  <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${buch.findAllZahlungen().number})}">&larr;</a>
+                </li>
+                <li th:class="${buch.findAllZahlungen().number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                  <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${page})}"
+                     th:text="${page}"></a>
+                </li>
+                <li th:class="${buch.findAllZahlungen().number + 1 == buch.findAllZahlungen().totalPages} ? disabled">
+                  <a class="pageLink"
+                     th:href="@{/(pageSize=${selectedPageSize}, page=${buch.findAllZahlungen().number + 2})}">&rarr;</a>
+                </li>
+                <li th:class="${buch.findAllZahlungen().number + 1 == buch.findAllZahlungen().totalPages} ? disabled">
+                  <a class="pageLink"
+                     th:href="@{/(pageSize=${selectedPageSize}, page=${buch.findAllZahlungen().totalPages})}">&raquo;</a>
+                </li>
+              </ul>
+            </div>
+          </div>
           <table class="table">
             <thead>
             <tr>
@@ -139,7 +168,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
