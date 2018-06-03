@@ -6,6 +6,7 @@ import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,18 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
 
         }
         return false;
+    }
+
+    @Override
+    public Optional<Zahlungsfluss> laden(String zahlungsid) {
+
+        Optional<Zahlungsfluss> zahlungsfluss = null;
+
+        if(Objects.nonNull(zahlungsid))
+        {
+            zahlungsfluss = zahlungsflussRepository.findById(Long.parseLong(zahlungsid));
+        }
+
+        return zahlungsfluss;
     }
 }

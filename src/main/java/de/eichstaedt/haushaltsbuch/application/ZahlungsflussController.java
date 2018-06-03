@@ -40,7 +40,7 @@ public class ZahlungsflussController {
   public ModelAndView buchen(ModelMap model, @AuthenticationPrincipal User accountDetails, @ModelAttribute("neuezahlung") @Valid Zahlungsfluss neuezahlung, BindingResult binding, @PathVariable String buchid,
       RedirectAttributes redirectAttributes) {
 
-    logger.info("Getting POST with Zahung Binding");
+    logger.info("Getting POST Binding for Zahlung {} ", neuezahlung);
 
     if(binding.hasErrors()) {
 
@@ -54,8 +54,6 @@ public class ZahlungsflussController {
 
       return new ModelAndView("redirect:/haushaltsbuch?buchid="+buchid);
     }
-
-    logger.info("Getting POST Request with zahlung {} ",neuezahlung);
 
     Optional<Haushaltsbuch> buch = haushaltsbuchService.findAllHaushaltsbuecher(accountDetails.getUsername())
             .stream().filter(b -> String.valueOf(b.getId()).equals(buchid)).findFirst();

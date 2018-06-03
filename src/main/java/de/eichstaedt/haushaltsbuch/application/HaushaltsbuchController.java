@@ -1,12 +1,14 @@
 package de.eichstaedt.haushaltsbuch.application;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.services.HaushaltsbuchService;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,9 @@ public class HaushaltsbuchController {
   private HaushaltsbuchService haushaltsbuchService;
 
   @Autowired
+  private ZahlungsflussBoundaryController zahlungsflussBoundaryController;
+
+  @Autowired
   private KategorieBoundaryController kategorieBoundaryController;
 
   private Zahlungsfluss neueZahlung;
@@ -52,7 +57,8 @@ public class HaushaltsbuchController {
   }
 
   @GetMapping("/haushaltsbuch")
-  public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid) {
+  public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid,
+      @RequestParam(value = "zahlungsid",required = false) String zahlungsid) {
 
     logger.info("Getting GET request for oeffen haushalstbuch {} ", buchid);
 
@@ -64,13 +70,19 @@ public class HaushaltsbuchController {
 
       logger.info("Found buch with id {} buch {} ", buchid,buch);
 
-      if(model.containsAttribute("neuezahlung"))
+      if(Objects.nonNull(zahlungsid) && !zahlungsid.isEmpty() && zahlungsflussBoundaryController.laden(zahlungsid).isPresent() )
       {
-        neueZahlung = (Zahlungsfluss) model.get("neuezahlung");
+          neueZahlung = zahlungsflussBoundaryController.laden(zahlungsid).get();
+
       }else {
+
         neueZahlung = new Zahlungsfluss();
       }
 
+      if(model.containsAttribute("neuezahlung"))
+      {
+        neueZahlung = (Zahlungsfluss) model.get("neuezahlung");
+      }
 
 
       model.addAttribute("buch",buch.get());

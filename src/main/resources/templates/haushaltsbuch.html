@@ -36,6 +36,12 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
+            </div>
+            <input hidden type="text" class="form-control" aria-label="id" th:field="*{id}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
               <span class="input-group-text" id="beschreibunginput">Beschreibung</span>
             </div>
             <input type="text" class="form-control" aria-label="beschreibung" th:field="*{beschreibung}">
@@ -113,6 +119,7 @@
               <th>DATUM</th>
               <th>TYP</th>
               <th>INTERVALL</th>
+              <th>AKTION</th>
             </tr>
             </thead>
             <tr th:each="zahlung : ${buch.findAllZahlungen()}">
@@ -123,7 +130,10 @@
               <td th:text="${zahlung.buchungsTag}"></td>
               <td th:text="${zahlung.typ}"></td>
               <td th:text="${zahlung.zahlungsintervall}"></td>
-              <td><i class="fas fa-edit"></i></td>
+              <td>
+                <a href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id},zahlungsid=${zahlung.id})}"><i class="fas fa-edit"></i></a>
+                <i class="fas fa-trash"></i>
+              </td>
             </tr>
           </table>
         </div>
