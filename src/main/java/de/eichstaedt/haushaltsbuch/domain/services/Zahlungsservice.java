@@ -64,4 +64,40 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
 
         return zahlungsfluss;
     }
+
+    @Override
+    public boolean loeschen(String haushaltsbuchid, String zahlungid) {
+
+        if(Objects.nonNull(haushaltsbuchid) && Objects.nonNull(zahlungid))
+        {
+
+            Optional<Haushaltsbuch> buch = haushaltsbuchRepository.findById(Long.parseLong(haushaltsbuchid));
+
+            if(buch.isPresent()) {
+
+                Optional<Zahlungsfluss> loeschen = zahlungsflussRepository
+                    .findById(Long.parseLong(zahlungid));
+
+                if (loeschen.isPresent()) {
+
+                    if(loeschen.get().getTyp().equals(Zahlungstyp.AUSGABE)) {
+                        buch.get().getAusgaben().remove(loeschen.get());
+                    }else {
+                        buch.get().getEinnahmen().remove(loeschen.get());
+                    }
+
+                    haushaltsbuchRepository.save(buch.get());
+
+                    zahlungsflussRepository.delete(loeschen.get());
+
+                    return true;
+                }
+
+            }
+
+        }
+
+
+        return false;
+    }
 }

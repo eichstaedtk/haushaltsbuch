@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -64,6 +65,16 @@ public class ZahlungsflussController {
     }
 
     return new ModelAndView("redirect:/haushaltsbuch?buchid="+buch.get().getId());
+  }
+
+  @RequestMapping( value = "/haushaltsbuch/{buchid}/zahlungen/loeschen", method = RequestMethod.GET)
+  public ModelAndView loeschen(ModelMap model, @AuthenticationPrincipal User accountDetails,@PathVariable String buchid,@RequestParam(value = "zahlungsid") String zahlungsid) {
+
+    logger.info("Getting GET Löschen for Zahlung {} ", zahlungsid);
+
+    zahlungsflussBoundaryController.loeschen(buchid,zahlungsid);
+
+    return new ModelAndView("redirect:/haushaltsbuch?buchid="+buchid);
   }
 
 }

@@ -132,7 +132,7 @@
               <td th:text="${zahlung.zahlungsintervall}"></td>
               <td>
                 <a href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id},zahlungsid=${zahlung.id})}"><i class="fas fa-edit"></i></a>
-                <i class="fas fa-trash"></i>
+                <a href="/haushaltsbuch" th:href="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen/loeschen'(zahlungsid=${zahlung.id})}"><i class="fas fa-trash"></i></a>
               </td>
             </tr>
           </table>

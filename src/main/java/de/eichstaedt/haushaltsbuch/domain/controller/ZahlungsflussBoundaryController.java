@@ -9,4 +9,6 @@ public interface ZahlungsflussBoundaryController {
     boolean buchen(Haushaltsbuch haushaltsbuch, Zahlungsfluss zahlungs);
 
     Optional<Zahlungsfluss> laden(String zahlungsid);
+
+    boolean loeschen(String haushaltsbuchid, String zahlungid);
 }
