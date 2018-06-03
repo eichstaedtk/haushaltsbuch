@@ -85,6 +85,19 @@ public class Registrierung {
 
   private String land;
 
+  public Registrierung(RegistrierungBuilder registrierungBuilder) {
+    this.vorname = registrierungBuilder.vorname;
+    this.nachname = registrierungBuilder.nachname;
+    this.benutzername = registrierungBuilder.benutzername;
+    this.passwort = registrierungBuilder.passwort;
+    this.passwortWiederholung = registrierungBuilder.passwortWiederholung;
+    this.email = registrierungBuilder.email;
+    this.strasse = registrierungBuilder.strasse;
+    this.stadt = registrierungBuilder.stadt;
+    this.postleitzahl = registrierungBuilder.postleitzahl;
+    this.land = registrierungBuilder.land;
+  }
+
   public String getVorname() {
     return vorname;
   }
@@ -179,5 +192,58 @@ public class Registrierung {
         ", postleitzahl='" + postleitzahl + '\'' +
         ", land='" + land + '\'' +
         '}';
+  }
+
+  public static class RegistrierungBuilder {
+
+    private String vorname;
+
+    private String nachname;
+
+    private String email;
+
+    private String benutzername;
+
+    private String passwort;
+
+    private String passwortWiederholung;
+
+    private String strasse;
+
+    private String stadt;
+
+    private String postleitzahl;
+
+    private String land;
+
+    public RegistrierungBuilder(String email, String benutzername, String passwort,
+        String passwortWiederholung) {
+      this.email = email;
+      this.benutzername = benutzername;
+      this.passwort = passwort;
+      this.passwortWiederholung = passwortWiederholung;
+    }
+
+    public RegistrierungBuilder withName(String vorname, String nachname)
+    {
+      this.vorname = vorname;
+      this.nachname = nachname;
+
+      return this;
+    }
+
+    public RegistrierungBuilder withAdresse(String stadt, String strasse, String postleitzahl, String land) {
+
+      this.stadt = stadt;
+      this.strasse = strasse;
+      this.postleitzahl = postleitzahl;
+      this.land = land;
+
+      return this;
+    }
+
+    public Registrierung build() {
+      return new Registrierung(this);
+    }
   }
 }

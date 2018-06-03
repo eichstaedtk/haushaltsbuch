@@ -42,7 +42,7 @@ public class Zahlungsfluss {
   private Long id;
 
   @NotNull
-  @Size(min = 2)
+  @Size(min = 2, message = "Bitte mindestens zwei Zeichen eingeben!")
   @Column(name = "beschreibung")
   private String beschreibung;
 
@@ -54,6 +54,7 @@ public class Zahlungsfluss {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "kategorie_name", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "zahlungsfluss_kategorie_foreignkey"))
   private Kategorie kategorie;
+
 
   @NotNull
   @DateTimeFormat(pattern = "dd-MM-yyyy")
