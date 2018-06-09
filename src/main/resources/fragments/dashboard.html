@@ -46,7 +46,10 @@
       <td th:text="${buch.id}"></td>
       <td th:text="${buch.name}"></td>
       <td th:text="${buch.erstellDatum}"></td>
-      <td><a href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id})}"><i class="fas fa-edit"></i></a></td>
+      <td>
+          <a href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id})}"><i class="fas fa-edit"></i></a>
+        <a href="/haushaltsbericht" th:href="@{/haushaltsbericht(buchid=${buch.id})}"><i class="fas fa-calculator"></i></a>
+      </td>
     </tr>
   </table>
   </div>

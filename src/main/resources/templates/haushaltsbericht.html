@@ -53,11 +53,11 @@
     $.jqplot.config.enablePlugins = true;
     var ausgaben = /*[[${ausgaben}]]*/;
     var einnahmen = /*[[${einnahmen}]]*/;
-    var ticks = ['Januar', 'Februar', 'März', 'April','Mai','Juni'];
+    var ticks = ['Januar', 'Februar', 'März', 'April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
 
     plot1 = $.jqplot('jahresbericht', [ausgaben,einnahmen], {
       // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
-      title: {text:'Jahresbericht 2018'},
+      title: {text:/*[[${titel}]]*/},
       animate: !$.jqplot.use_excanvas,
       seriesDefaults:{
         renderer:$.jqplot.BarRenderer,
