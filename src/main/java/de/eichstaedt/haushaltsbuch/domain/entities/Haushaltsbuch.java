@@ -1,9 +1,7 @@
 package de.eichstaedt.haushaltsbuch.domain.entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -19,8 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
@@ -98,18 +94,6 @@ public class Haushaltsbuch {
 
   public Long getId() {
     return id;
-  }
-
-  public Page<Zahlungsfluss> findAllZahlungen() {
-
-    List<Zahlungsfluss> zahlungen = new ArrayList<>();
-
-    zahlungen.addAll(einnahmen);
-    zahlungen.addAll(ausgaben);
-
-    Page<Zahlungsfluss> zahlungsflussPage = new PageImpl<>(zahlungen);
-
-    return zahlungsflussPage;
   }
 
   public String getName() {

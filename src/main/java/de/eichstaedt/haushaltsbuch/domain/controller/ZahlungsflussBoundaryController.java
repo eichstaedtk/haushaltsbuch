@@ -14,5 +14,5 @@ public interface ZahlungsflussBoundaryController {
 
     boolean loeschen(String haushaltsbuchid, String zahlungid);
 
-    Page<Zahlungsfluss> findAllPageable(Pageable pageable);
+    Page<Zahlungsfluss> findAllPageable(Pageable pageable, Long buchid);
 }

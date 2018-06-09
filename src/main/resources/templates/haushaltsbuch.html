@@ -114,28 +114,30 @@
               <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
                       th:selected="${pageSize} == ${selectedPageSize}"></option>
             </select>
-            <div th:if="${buch.findAllZahlungen().totalPages != 1}" class="form-group col-md-11 pagination-centered">
+            <div th:if="${zahlungen.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+              <nav aria-label="Page navigation example">
               <ul class="pagination">
-                <li th:class="${buch.findAllZahlungen().number == 0} ? disabled">
-                  <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                <li class="page-item">
+                  <a class="pageLink" th:href="@{haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
                 </li>
-                <li th:class="${buch.findAllZahlungen().number == 0} ? disabled">
-                  <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${buch.findAllZahlungen().number})}">&larr;</a>
+                <li lass="page-item">
+                  <a class="pageLink" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.number})}">&larr;</a>
                 </li>
-                <li th:class="${buch.findAllZahlungen().number == (page - 1)} ? 'active pointer-disabled'"
+                <li lass="page-item"
                     th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                  <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${page})}"
+                  <a class="pageLink" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${page})}"
                      th:text="${page}"></a>
                 </li>
-                <li th:class="${buch.findAllZahlungen().number + 1 == buch.findAllZahlungen().totalPages} ? disabled">
+                <li lass="page-item">
                   <a class="pageLink"
-                     th:href="@{/(pageSize=${selectedPageSize}, page=${buch.findAllZahlungen().number + 2})}">&rarr;</a>
+                     th:href="@{/(pageSize=${selectedPageSize}, page=${zahlungen.number + 2})}">&rarr;</a>
                 </li>
-                <li th:class="${buch.findAllZahlungen().number + 1 == buch.findAllZahlungen().totalPages} ? disabled">
+                <li lass="page-item">
                   <a class="pageLink"
-                     th:href="@{/(pageSize=${selectedPageSize}, page=${buch.findAllZahlungen().totalPages})}">&raquo;</a>
+                     th:href="@{/(pageSize=${selectedPageSize}, page=${zahlungen.totalPages})}">&raquo;</a>
                 </li>
               </ul>
+              </nav>
             </div>
           </div>
           <table class="table">
@@ -151,7 +153,7 @@
               <th>AKTION</th>
             </tr>
             </thead>
-            <tr th:each="zahlung : ${buch.findAllZahlungen()}">
+            <tr th:each="zahlung : ${zahlungen}">
               <td th:text="${zahlung.id}"></td>
               <td th:text="${zahlung.beschreibung}"></td>
               <td th:text="${zahlung.betrag}"></td>
@@ -185,7 +187,14 @@
         autoclose: true,
       };
       date_input.datepicker(options);
+      changePageAndSize();
     })
+
+    function changePageAndSize() {
+      $('#pageSizeSelect').change(function(evt) {
+        window.location.replace("/haushaltsbuch/?buchid=1&pageSize=" + this.value + "&page=1");
+      });
+    }
   </script>
 
 </body>

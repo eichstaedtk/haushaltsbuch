@@ -71,6 +71,9 @@ public class Zahlungsfluss {
   @Enumerated(EnumType.STRING)
   private Zahlungsintervall zahlungsintervall;
 
+  @Column(name = "buchid")
+  private Long buchid;
+
   @Override
   public String toString() {
     return "Zahlungsfluss{" +
@@ -81,6 +84,7 @@ public class Zahlungsfluss {
         ", buchungsTag=" + buchungsTag +
         ", typ=" + typ +
         ", zahlungsintervall=" + zahlungsintervall +
+        ", buchid='" + buchid + '\'' +
         '}';
   }
 
@@ -157,5 +161,13 @@ public class Zahlungsfluss {
   public void setZahlungsintervall(
       Zahlungsintervall zahlungsintervall) {
     this.zahlungsintervall = zahlungsintervall;
+  }
+
+  public Long getBuchid() {
+    return buchid;
+  }
+
+  public void setBuchid(Long buchid) {
+    this.buchid = buchid;
   }
 }

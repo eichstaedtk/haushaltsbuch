@@ -32,6 +32,8 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
 
         if(Objects.nonNull(haushaltsbuch) && Objects.nonNull(zahlung))
         {
+            zahlung.setBuchid(haushaltsbuch.getId());
+
             Zahlungsfluss saved = zahlungsflussRepository.save(zahlung);
 
             if(Objects.nonNull(saved))
@@ -104,8 +106,8 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
     }
 
     @Override
-    public Page<Zahlungsfluss> findAllPageable(Pageable pageable) {
+    public Page<Zahlungsfluss> findAllPageable(Pageable pageable, Long buchid) {
 
-        return zahlungsflussRepository.findAll(pageable);
+        return zahlungsflussRepository.findAllByBuchid(pageable, buchid);
     }
 }

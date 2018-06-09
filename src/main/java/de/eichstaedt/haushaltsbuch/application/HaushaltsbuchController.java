@@ -13,6 +13,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -42,8 +44,10 @@ public class HaushaltsbuchController {
 
   private Zahlungsfluss neueZahlung;
 
-  private static final int[] PAGE_SIZES = {5, 10, 20};
   private static final int BUTTONS_TO_SHOW = 5;
+  private static final int INITIAL_PAGE = 0;
+  private static final int INITIAL_PAGE_SIZE = 5;
+  private static final int[] PAGE_SIZES = {5, 10, 20};
 
   @PostMapping("/haushaltsbuch")
   public ModelAndView neuesHaushaltsbuch(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "name") String haushaltsbuchName) {
@@ -61,7 +65,8 @@ public class HaushaltsbuchController {
 
   @GetMapping("/haushaltsbuch")
   public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid,
-      @RequestParam(value = "zahlungsid",required = false) String zahlungsid) {
+      @RequestParam(value = "zahlungsid",required = false) String zahlungsid, @RequestParam("pageSize") Optional<Integer> pageSize,
+      @RequestParam("page") Optional<Integer> page) {
 
     logger.info("Getting GET request for oeffen haushalstbuch {} ", buchid);
 
@@ -87,7 +92,15 @@ public class HaushaltsbuchController {
         neueZahlung = (Zahlungsfluss) model.get("neuezahlung");
       }
 
-      Pager pager = new Pager(buch.get().findAllZahlungen().getTotalPages(), buch.get().findAllZahlungen().getNumber(), BUTTONS_TO_SHOW);
+      int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+      // Evaluate page. If requested parameter is null or less than 0 (to
+      // prevent exception), return initial size. Otherwise, return value of
+      // param. decreased by 1.
+      int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+
+      Page<Zahlungsfluss> zahlungen = zahlungsflussBoundaryController.findAllPageable(PageRequest.of(evalPage, evalPageSize),buch.get().getId());
+      Pager pager = new Pager(zahlungen.getTotalPages(),zahlungen.getNumber(), BUTTONS_TO_SHOW);
 
       model.addAttribute("buch",buch.get());
       model.addAttribute("neuezahlung",neueZahlung);
@@ -96,9 +109,10 @@ public class HaushaltsbuchController {
       model.addAttribute("allzahlungsintervalle",Zahlungsintervall.values());
 
 
-      model.addAttribute("selectedPageSize", 5);
+      model.addAttribute("selectedPageSize", evalPageSize);
       model.addAttribute("pageSizes", PAGE_SIZES);
       model.addAttribute("pager", pager);
+      model.addAttribute("zahlungen", zahlungen);
 
     }
 
