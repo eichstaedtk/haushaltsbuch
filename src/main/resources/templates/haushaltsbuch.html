@@ -15,15 +15,15 @@
 <body>
   <div class="container">
     <div class="row justify-content-md-center">
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="centercontent">
           <img id="gluecksschweinsmall" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="centercontent">
           <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn btn-primary">Abmelden</button>
+            <button style="float: right;" type="submit" class="btn btn-primary">Abmelden</button>
           </form>
         </div>
       </div>
@@ -50,7 +50,7 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="betraginput">Betrag</span>
+              <span class="input-group-text" id="betraginput">Betrag in €</span>
             </div>
             <input type="text" class="form-control" aria-label="betrag" th:field="*{betrag}">
             <span class="error" th:if="${#fields.hasErrors('betrag')}" th:errors="*{betrag}">Betrag Fehler</span>
@@ -100,16 +100,16 @@
             <span class="error" th:if="${#fields.hasErrors('zahlungsintervall')}" th:errors="*{zahlungsintervall}">Zahlungsintervall Fehler </span>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-lg" title="Zahlung buchen">Buchen</button>
+          <button style="float:right;" type="submit" class="btn btn-primary btn-lg" title="Zahlung buchen">€ Buchen</button>
         </form>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-9 center">
-        <div><h3>Haushaltsbuch: <span th:text="${buch.name}"></span> Zahlungesverkehr</h3></div>
+        <div style="margin-bottom: 2em;"><h3>Zahlungesverkehr: <span th:text="${buch.name}"></span></h3></div>
         <div>
-          <div class="form-group col-md-9 center">
+          <div class="form-group col-md-12 center">
             <nav aria-label="Page navigation example">
             <select class="form-control pagination" id="pageSizeSelect">
               <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
@@ -118,7 +118,7 @@
 
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="page-link" th:href="@{haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                  <a class="page-link" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
                 </li>
                 <li lass="page-item">
                   <a class="page-link" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.number})}">Vorheriges</a>

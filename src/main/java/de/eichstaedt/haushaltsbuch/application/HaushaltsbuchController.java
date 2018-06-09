@@ -15,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -99,7 +102,8 @@ public class HaushaltsbuchController {
       int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
 
-      Page<Zahlungsfluss> zahlungen = zahlungsflussBoundaryController.findAllPageable(PageRequest.of(evalPage, evalPageSize),buch.get().getId());
+      Page<Zahlungsfluss> zahlungen = zahlungsflussBoundaryController.findAllPageable(PageRequest.of(evalPage, evalPageSize,Sort.by(
+          new Order(Direction.DESC, "buchungsTag"))),buch.get().getId());
       Pager pager = new Pager(zahlungen.getTotalPages(),zahlungen.getNumber(), BUTTONS_TO_SHOW);
 
       model.addAttribute("buch",buch.get());
