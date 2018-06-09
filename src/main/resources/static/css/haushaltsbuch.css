@@ -55,3 +55,9 @@
   width: 50%;
   padding: 10px;
 }
+
+#pageSizeSelect{
+  float: left;
+  display: inline;
+  width: auto;
+}

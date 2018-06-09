@@ -109,37 +109,36 @@
       <div class="col-md-9 center">
         <div><h3>Haushaltsbuch: <span th:text="${buch.name}"></span> Zahlungesverkehr</h3></div>
         <div>
-          <div class="form-group col-md-1">
+          <div class="form-group col-md-9 center">
+            <nav aria-label="Page navigation example">
             <select class="form-control pagination" id="pageSizeSelect">
               <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
                       th:selected="${pageSize} == ${selectedPageSize}"></option>
             </select>
-            <div th:if="${zahlungen.totalPages != 1}" class="form-group col-md-11 pagination-centered">
-              <nav aria-label="Page navigation example">
+
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="pageLink" th:href="@{haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                  <a class="page-link" th:href="@{haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
                 </li>
                 <li lass="page-item">
-                  <a class="pageLink" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.number})}">&larr;</a>
+                  <a class="page-link" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.number})}">Vorheriges</a>
                 </li>
                 <li lass="page-item"
                     th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                  <a class="pageLink" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${page})}"
+                  <a class="page-link" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${page})}"
                      th:text="${page}"></a>
                 </li>
                 <li lass="page-item">
-                  <a class="pageLink"
-                     th:href="@{/(pageSize=${selectedPageSize}, page=${zahlungen.number + 2})}">&rarr;</a>
+                  <a class="page-link"
+                     th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.number + 2})}">Nächstes</a>
                 </li>
                 <li lass="page-item">
-                  <a class="pageLink"
-                     th:href="@{/(pageSize=${selectedPageSize}, page=${zahlungen.totalPages})}">&raquo;</a>
+                  <a class="page-link"
+                     th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.totalPages})}">&raquo;</a>
                 </li>
               </ul>
               </nav>
             </div>
-          </div>
           <table class="table">
             <thead>
             <tr>
