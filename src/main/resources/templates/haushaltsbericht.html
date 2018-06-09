@@ -51,11 +51,13 @@
   /*<![CDATA[*/
   $(document).ready(function(){
     $.jqplot.config.enablePlugins = true;
-    var s1 = /*[[${monatszahlen}]]*/;
+    var ausgaben = /*[[${ausgaben}]]*/;
+    var einnahmen = /*[[${einnahmen}]]*/;
     var ticks = ['Januar', 'Februar', 'März', 'April','Mai','Juni'];
 
-    plot1 = $.jqplot('jahresbericht', [s1], {
+    plot1 = $.jqplot('jahresbericht', [ausgaben,einnahmen], {
       // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
+      title: {text:'Jahresbericht 2018'},
       animate: !$.jqplot.use_excanvas,
       seriesDefaults:{
         renderer:$.jqplot.BarRenderer,

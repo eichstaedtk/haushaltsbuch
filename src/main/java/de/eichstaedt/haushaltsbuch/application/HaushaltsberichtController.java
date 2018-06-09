@@ -26,7 +26,8 @@ public class HaushaltsberichtController {
     logger.info("Request GET for haushaltsbericht");
 
 
-    model.addAttribute("monatszahlen",new double[]{23,56,100,45.60,100,450});
+    model.addAttribute("ausgaben",new double[]{23,56,100,45.60,100,450});
+    model.addAttribute("einnahmen",new double[]{10,206,3000,450.60,0,4150});
 
     return new ModelAndView("haushaltsbericht",model);
   }
