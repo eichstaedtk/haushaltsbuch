@@ -1,0 +1,31 @@
+<html lang="de" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="navigation">
+<div class="row">
+  <div class="col-md-9 center">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    Haushaltsbuch
+  </a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/dashboard">Dashboard<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
+      <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Abmelden</button>
+    </form>
+  </div>
+</nav>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-9 center">
+    <div class="centercontent">
+      <img id="gluecksschweinsmall" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
+    </div>
+  </div>
+</div>
+</div>
+</html>

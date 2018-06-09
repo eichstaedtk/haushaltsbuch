@@ -13,27 +13,20 @@
 </head>
 <body>
   <div class="container">
-    <div class="row justify-content-md-center">
-      <div class="col-md-3">
-        <div class="centercontent">
-          <img id="gluecksschweinsmall" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
-        </div>
+    <div th:replace="../fragments/navigation::navigation  "></div>
+    <div class="row" th:fragment="haushaltsbuch">
+      <div class="col-md-9 center">
+        <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
+          <h3>Neues Haushaltsbuch anlegen</h3>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+            </div>
+            <input type="text" class="form-control" aria-label="name" name="name">
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen">Anlegen</button>
+        </form>
       </div>
-      <div class="col-md-3">
-        <div class="centercontent">
-          <h2>Willkommen <span th:text="${user.getUsername()}"></span> im Haushaltsbuch</h2>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="centercontent">
-          <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn btn-primary">Abmelden</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div th:if="${defaultview}">
-      <div th:replace="../fragments/dashboard::defaultview"></div>
     </div>
     <div th:if="${defaultview}">
       <div th:replace="../fragments/dashboard::haushaltsbuecher"></div>

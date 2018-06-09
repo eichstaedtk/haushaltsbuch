@@ -14,21 +14,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="row justify-content-md-center">
-      <div class="col-md-6">
-        <div class="centercontent">
-          <img id="gluecksschweinsmall" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="centercontent">
-          <form th:action="@{/logout}" method="post">
-            <button style="float: right;" type="submit" class="btn btn-primary">Abmelden</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
+    <div th:replace="../fragments/navigation::navigation  "></div>
     <div class="row">
       <div class="col-md-9 center">
         <form action="/haushaltsbuch/zahlungen" th:action="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen'}" method="post" th:object="${neuezahlung}" id="zahlungsform">
