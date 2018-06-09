@@ -50,4 +50,14 @@ public class KategorieService implements KategorieBoundaryController {
 
     return result;
   }
+
+  @Override
+  public void createKategorie(String name) {
+
+    if(!kategorieRepository.findById(name).isPresent())
+    {
+      kategorieRepository.save(new Kategorie(name));
+    }
+
+  }
 }

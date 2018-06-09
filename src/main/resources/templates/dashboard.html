@@ -14,7 +14,7 @@
 <body>
   <div class="container">
     <div th:replace="../fragments/navigation::navigation  "></div>
-    <div class="row" th:fragment="haushaltsbuch">
+    <div class="row">
       <div class="col-md-9 center">
         <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
           <h3>Neues Haushaltsbuch anlegen</h3>
@@ -25,6 +25,20 @@
             <input type="text" class="form-control" aria-label="name" name="name">
           </div>
           <button type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen">Anlegen</button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9 center">
+        <form action="/kategorien" th:action="@{/kategorien}" method="post">
+          <h3>Neue Kategorie anlegen</h3>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+            </div>
+            <input type="text" class="form-control" aria-label="name" name="name">
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" title="Neue Kategorie anlegen">Anlegen</button>
         </form>
       </div>
     </div>

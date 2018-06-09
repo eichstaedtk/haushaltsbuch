@@ -12,4 +12,5 @@ public interface KategorieBoundaryController {
 
   List<Kategorie> findAll();
 
+  void createKategorie(String name);
 }

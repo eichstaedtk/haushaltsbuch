@@ -35,7 +35,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter  {
         .and()
         .formLogin().defaultSuccessUrl("/dashboard")
         .loginPage("/anmeldung").permitAll()
-             .and().logout().logoutSuccessUrl("/registrierung").invalidateHttpSession(true);
+             .and().logout().logoutSuccessUrl("/anmeldung").invalidateHttpSession(true);
   }
 
   @Override
