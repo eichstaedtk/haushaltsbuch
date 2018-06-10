@@ -15,6 +15,11 @@
 <body>
   <div class="container">
     <div th:replace="../fragments/navigation::navigation  "></div>
+     <div class="row">
+       <div class="col-md-9 center">
+       <a href="/haushaltsbericht" th:href="@{/haushaltsbuch(buchid=${buch.id})}" class="btn btn-primary btn-lg" role="button"><i class="fas fa-book"></i></a>
+       </div>
+     </div>
       <div class="row">
         <div class="col-md-9 center">
           <div id="jahresbericht">

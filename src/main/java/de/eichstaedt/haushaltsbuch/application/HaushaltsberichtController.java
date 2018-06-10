@@ -1,6 +1,7 @@
 package de.eichstaedt.haushaltsbuch.application;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ public class HaushaltsberichtController {
   @Autowired
   private ZahlungsflussBoundaryController zahlungsflussBoundaryController;
 
+  @Autowired
+  private HaushaltsbuchRepository haushaltsbuchRepository;
+
   @GetMapping("/haushaltsbericht")
   public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid)
   {
@@ -38,6 +42,7 @@ public class HaushaltsberichtController {
     model.addAttribute("ausgaben",jahresberichtModel.getAusgaben());
     model.addAttribute("einnahmen",jahresberichtModel.getEinnahmen());
     model.addAttribute("titel",jahresberichtModel.getTitel());
+    model.addAttribute("buch",haushaltsbuchRepository.findById(Long.parseLong(buchid)).get());
 
     model.addAttribute("kategorien",kategorieBerichtModel.getKategorieValues());
     model.addAttribute("kategorientitel",kategorieBerichtModel.getTitel());

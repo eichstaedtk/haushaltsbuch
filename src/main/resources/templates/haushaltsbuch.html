@@ -86,6 +86,7 @@
             <span class="error" th:if="${#fields.hasErrors('zahlungsintervall')}" th:errors="*{zahlungsintervall}">Zahlungsintervall Fehler </span>
           </div>
 
+          <a style="float: right;margin-left: 0.5em;" href="/haushaltsbericht" th:href="@{/haushaltsbericht(buchid=${buch.id})}" class="btn btn-primary btn-lg" role="button"><i class="fas fa-calculator"></i></a>
           <button style="float:right;" type="submit" class="btn btn-primary btn-lg" title="Zahlung buchen">€ Buchen</button>
         </form>
       </div>
