@@ -33,9 +33,14 @@ public class HaushaltsberichtController {
 
     JahresberichtModel jahresberichtModel = zahlungsflussBoundaryController.createJahresbericht(Long.parseLong(buchid),LocalDate.now().getYear());
 
+    KategorieBerichtModel kategorieBerichtModel = zahlungsflussBoundaryController.createJahresKategoriebericht(Long.parseLong(buchid), LocalDate.now().getYear());
+
     model.addAttribute("ausgaben",jahresberichtModel.getAusgaben());
     model.addAttribute("einnahmen",jahresberichtModel.getEinnahmen());
     model.addAttribute("titel",jahresberichtModel.getTitel());
+
+    model.addAttribute("kategorien",kategorieBerichtModel.getKategorieValues());
+    model.addAttribute("kategorientitel",kategorieBerichtModel.getTitel());
 
     return new ModelAndView("haushaltsbericht",model);
   }

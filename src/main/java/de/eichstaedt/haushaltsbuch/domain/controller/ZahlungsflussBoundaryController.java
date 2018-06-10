@@ -1,6 +1,7 @@
 package de.eichstaedt.haushaltsbuch.domain.controller;
 
 import de.eichstaedt.haushaltsbuch.application.JahresberichtModel;
+import de.eichstaedt.haushaltsbuch.application.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import java.util.Optional;
@@ -18,4 +19,6 @@ public interface ZahlungsflussBoundaryController {
     Page<Zahlungsfluss> findAllPageable(Pageable pageable, Long buchid);
 
     JahresberichtModel createJahresbericht(Long buchid, int year);
+
+    KategorieBerichtModel createJahresKategoriebericht(Long buchid, int year);
 }

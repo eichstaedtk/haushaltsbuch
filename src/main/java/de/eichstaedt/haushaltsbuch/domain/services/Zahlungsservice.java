@@ -1,13 +1,17 @@
 package de.eichstaedt.haushaltsbuch.domain.services;
 
 import de.eichstaedt.haushaltsbuch.application.JahresberichtModel;
+import de.eichstaedt.haushaltsbuch.application.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.KategorieRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,6 +30,9 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
 
     @Autowired
     private ZahlungsflussRepository zahlungsflussRepository;
+
+    @Autowired
+    private KategorieRepository kategorieRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(Zahlungsservice.class);
 
@@ -169,6 +176,43 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
             return new JahresberichtModel(ausgaben,einnahmen,"Jahresbericht "+year);
         }
 
+    }
+
+    @Override
+    public KategorieBerichtModel createJahresKategoriebericht(Long buchid, int year) {
+
+        List<Zahlungsfluss> zahlungen = zahlungsflussRepository.findByBuchidAndBuchungsTagBetween(buchid,LocalDate.of(year,1,1),LocalDate.of(year,12,31));
+
+        List<Kategorie> kategories = new ArrayList<>();
+
+        kategorieRepository.findAll().forEach(kategories::add);
+
+        Object[][] berichtsWerte = new Object[kategories.size()][2];
+
+        for(int i=0; i < kategories.size();i++)
+        {
+            Kategorie k = kategories.get(i);
+
+            double betrag = zahlungen.stream().filter(z -> z.getKategorie().getName().equals(k.getName()) && z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0);
+
+            berichtsWerte[i] = new Object[]{k.getName(),betrag};
+
+            logger.info("Add new Kategorien Value {} {}", k.getName(),betrag);
+        }
+
+        Optional<Haushaltsbuch> haushaltsbuch = haushaltsbuchRepository.findById(buchid);
+
+        KategorieBerichtModel kategorieBerichtModel = null;
+
+
+        if(haushaltsbuch.isPresent())
+        {
+            kategorieBerichtModel =  new KategorieBerichtModel(berichtsWerte,"Kategorien Ausgaben Jahresbericht "+year+" "+haushaltsbuch.get().getName());
+        }else {
+            kategorieBerichtModel =  new KategorieBerichtModel(berichtsWerte,"Kategorien Ausgaben Jahresbericht "+year);
+        }
+
+        return kategorieBerichtModel;
     }
 
     private List<Zahlungsfluss> getZahlungsflussesForBuchAndYearAndMonth(Long buchid, int year, int month, int startDay, int endDay) {

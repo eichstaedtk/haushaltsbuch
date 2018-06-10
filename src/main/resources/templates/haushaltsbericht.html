@@ -21,6 +21,12 @@
           </div>
         </div>
       </div>
+    <div class="row" style="margin-top: 2em;">
+      <div class="col-md-9 center">
+        <div id="kategorienbericht">
+        </div>
+      </div>
+    </div>
   </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -64,7 +70,42 @@
           $('#info1').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
         }
     );
+
+
+
   });
+
+
+  $(document).ready(function(){
+    var kategorie = /*[[${kategorien}]]*/;
+
+    var plot8 = $.jqplot('kategorienbericht', [kategorie], {
+      title: {text:/*[[${kategorientitel}]]*/},
+      grid: {
+        drawBorder: false,
+        drawGridlines: false,
+        background: '#ffffff',
+        shadow:false
+      },
+      axesDefaults: {
+
+      },
+      seriesDefaults:{
+        renderer:$.jqplot.PieRenderer,
+        rendererOptions: {
+          showDataLabels: true
+        }
+      },
+      legend: {
+        show: true,
+        rendererOptions: {
+          numberRows: 1
+        },
+        location: 's'
+      }
+    });
+  });
+
 
   /*]]>*/
 </script>
