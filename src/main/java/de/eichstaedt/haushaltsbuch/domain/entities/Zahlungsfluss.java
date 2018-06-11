@@ -3,6 +3,7 @@ package de.eichstaedt.haushaltsbuch.domain.entities;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -21,6 +22,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
@@ -47,8 +50,9 @@ public class Zahlungsfluss {
   private String beschreibung;
 
   @NotNull
+  @NumberFormat(style = Style.CURRENCY)
   @Column(name = "betrag")
-  private Double betrag;
+  private BigDecimal betrag;
 
   @NotNull
   @ManyToOne(fetch = FetchType.EAGER)
@@ -114,7 +118,7 @@ public class Zahlungsfluss {
     return beschreibung;
   }
 
-  public Double getBetrag() {
+  public BigDecimal getBetrag() {
     return betrag;
   }
 
@@ -142,7 +146,7 @@ public class Zahlungsfluss {
     this.beschreibung = beschreibung;
   }
 
-  public void setBetrag(Double betrag) {
+  public void setBetrag(BigDecimal betrag) {
     this.betrag = betrag;
   }
 

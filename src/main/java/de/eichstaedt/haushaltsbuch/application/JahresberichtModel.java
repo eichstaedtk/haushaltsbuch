@@ -1,27 +1,29 @@
 package de.eichstaedt.haushaltsbuch.application;
 
+import java.math.BigDecimal;
+
 /**
  * Created by konrad.eichstaedt@gmx.de on 09.06.18.
  */
 public class JahresberichtModel {
 
-  private double[] ausgaben;
+  private BigDecimal[] ausgaben;
 
-  private double[] einnahmen;
+  private BigDecimal[] einnahmen;
 
   private String titel;
 
-  public JahresberichtModel(double[] ausgaben, double[] einnahmen, String titel) {
+  public JahresberichtModel(BigDecimal[] ausgaben, BigDecimal[] einnahmen, String titel) {
     this.ausgaben = ausgaben;
     this.einnahmen = einnahmen;
     this.titel = titel;
   }
 
-  public double[] getAusgaben() {
+  public BigDecimal[] getAusgaben() {
     return ausgaben;
   }
 
-  public double[] getEinnahmen() {
+  public BigDecimal[] getEinnahmen() {
     return einnahmen;
   }
 

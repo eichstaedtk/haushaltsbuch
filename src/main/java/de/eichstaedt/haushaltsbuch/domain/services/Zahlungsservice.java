@@ -10,6 +10,7 @@ import de.eichstaedt.haushaltsbuch.domain.repository.KategorieRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,34 +139,34 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
         List<Zahlungsfluss> november = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,11,1,30);
         List<Zahlungsfluss> dezember = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,12,1,31);
 
-        januar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum);
+        januar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add);
 
 
-        double[] ausgaben = new double[]{januar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            februar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            maerz.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            april.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            mai.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            juni.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            juli.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            august.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            september.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            oktober.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            november.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            dezember.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0)};
+        BigDecimal[] ausgaben = new BigDecimal[]{januar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            februar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            maerz.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            april.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            mai.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            juni.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            juli.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            august.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            september.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            oktober.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            november.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            dezember.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0))};
 
-        double[] einnahmen = new double[]{januar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            februar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            maerz.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            april.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            mai.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            juni.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            juli.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            august.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            september.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            oktober.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            november.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0),
-            dezember.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0)};
+        BigDecimal[] einnahmen = new BigDecimal[]{januar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            februar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            maerz.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            april.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            mai.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            juni.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            juli.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            august.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            september.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            oktober.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            november.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0)),
+            dezember.stream().filter(z -> z.getTyp().equals(Zahlungstyp.EINNAHME)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0))};
 
         Optional<Haushaltsbuch> haushaltsbuch = haushaltsbuchRepository.findById(buchid);
 
@@ -193,7 +194,7 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
         {
             Kategorie k = kategories.get(i);
 
-            double betrag = zahlungen.stream().filter(z -> z.getKategorie().getName().equals(k.getName()) && z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(Double::sum).orElse(0.0);
+            BigDecimal betrag = zahlungen.stream().filter(z -> z.getKategorie().getName().equals(k.getName()) && z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add).orElse(new BigDecimal(0));
 
             berichtsWerte[i] = new Object[]{k.getName(),betrag};
 
