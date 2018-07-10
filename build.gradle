@@ -1,15 +1,20 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.1.RELEASE'
+		springBootVersion = '2.0.3.RELEASE'
 	}
 	repositories {
 		mavenCentral()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
 	}
 	dependencies {
+		classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.19.2"
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
+apply plugin: 'com.palantir.docker'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -23,6 +28,19 @@ repositories {
 	mavenCentral()
 }
 
+bootJar {
+	mustRunAfter tasks.clean
+	mainClassName = 'de.eichstaedt.haushaltsbuch.HaushaltsbuchApplication'
+	archiveName 'app.jar'
+}
+
+docker {
+	dependsOn build
+	name "${project.group}/${bootJar.baseName}"
+	files bootJar.archivePath
+	buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
+}
+
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
@@ -31,6 +49,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile("org.springframework.boot:spring-boot-starter-security")
 	compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4")
+	compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
 	compile('org.hsqldb:hsqldb:2.4.0')
 	compile("org.springframework.boot:spring-boot-devtools")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
