@@ -1,0 +1,3 @@
+CREATE USER docker;
+CREATE DATABASE haushaltsbuch;
+GRANT ALL PRIVILEGES ON DATABASE docker TO docker;

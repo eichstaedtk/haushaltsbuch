@@ -1,0 +1,16 @@
+version: '2'
+services:
+  haushaltsbuch:
+    image: de.eichstaedt/haushaltsbuch
+    ports:
+    - "8080:8080"
+    depends_on:
+    - postgres
+  postgres:
+    image: eg_postgresql
+    ports:
+     - "5432:5432"
+    environment:
+     - POSTGRES_PASSWORD=docker
+     - POSTGRES_USER=docker
+     - POSTGRES_DB=haushaltsbuch
