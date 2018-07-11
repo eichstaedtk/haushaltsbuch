@@ -120,7 +120,7 @@ public class HaushaltsbuchController {
 
     }
 
-    return new ModelAndView("haushaltsbuch",model);
+    return new ModelAndView("/haushaltsbuch",model);
   }
 
   public Zahlungsfluss getNeueZahlung() {

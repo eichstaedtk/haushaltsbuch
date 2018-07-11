@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="container">
-    <div th:replace="../fragments/navigation::navigation  "></div>
+    <div th:replace="/navigation::navigation  "></div>
     <div class="row">
       <div class="col-md-9 center">
         <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
@@ -43,10 +43,10 @@
       </div>
     </div>
     <div th:if="${defaultview}">
-      <div th:replace="../fragments/dashboard::haushaltsbuecher"></div>
+      <div th:replace="/base::haushaltsbuecher"></div>
     </div>
     <div th:if="${neueshaushaltsbuch}">
-      <div th:replace="../fragments/dashboard::haushaltsbuch"></div>
+      <div th:replace="/base::haushaltsbuch"></div>
     </div>
   </div>
   </div>

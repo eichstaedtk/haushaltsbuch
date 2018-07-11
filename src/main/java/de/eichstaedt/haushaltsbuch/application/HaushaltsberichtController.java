@@ -47,7 +47,7 @@ public class HaushaltsberichtController {
     model.addAttribute("kategorien",kategorieBerichtModel.getKategorieValues());
     model.addAttribute("kategorientitel",kategorieBerichtModel.getTitel());
 
-    return new ModelAndView("haushaltsbericht",model);
+    return new ModelAndView("/haushaltsbericht",model);
   }
 
 }

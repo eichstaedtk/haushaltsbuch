@@ -31,7 +31,7 @@ public class RegistrierungController {
 
   private static final Logger logger = LoggerFactory.getLogger(RegistrierungController.class);
 
-  @GetMapping(value = "registrierung")
+  @GetMapping(value = "/registrierung")
   public String registration(Model model) {
 
     logger.info("GET Request for registration page");
@@ -54,10 +54,10 @@ public class RegistrierungController {
     if(aktivierung)
     {
 
-      modelView.setViewName("aktivierungerfolg");
+      modelView.setViewName("/aktivierungerfolg");
 
     }else {
-      modelView.setViewName("aktivierungfehler");
+      modelView.setViewName("/aktivierungfehler");
     }
 
     return modelView;
@@ -77,11 +77,11 @@ public class RegistrierungController {
     {
 
       modelView.addObject("code",benutzer.getAktivierungsCode());
-      modelView.setViewName("registrierungerfolg");
+      modelView.setViewName("/registrierungerfolg");
 
     }else
     {
-      modelView.setViewName("registrierungfehler");
+      modelView.setViewName("/registrierungfehler");
     }
 
     return modelView;

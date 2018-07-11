@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Haushaltsbuch Jahresbericht</title>
   <meta charset="utf-8" />
@@ -14,7 +13,7 @@
 </head>
 <body>
   <div class="container">
-    <div th:replace="../fragments/navigation::navigation  "></div>
+    <div th:replace="/navigation::navigation  "></div>
      <div class="row">
        <div class="col-md-9 center">
        <a href="/haushaltsbericht" th:href="@{/haushaltsbuch(buchid=${buch.id})}" class="btn btn-primary btn-lg" role="button"><i class="fas fa-book"></i></a>
