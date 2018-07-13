@@ -89,6 +89,12 @@ Die Anwendung ist in einer 3 Schichten Architektur umgesetzt worden. Alle Klasse
                  die Steuerung der Aktivitäten innerhalb der HTML Seiten über die Controller umgesetzt wird und mit Hilfe der View die HTML Ansichten erzeugt werden. Das MVC Pattern wird bereits durch das Spring Framework Spring Web MVC umgesetzt und unterstützt.
   2. **Domain Layer**: Diese Schicht enthält alle Klassen zur Steuerung der Anwendungsdaten und Prozesse. Die Klassen sind nach dem Ansatz des operativen Design aus dem Konzept des [Domain Driven Design](http://dddcommunity.org/) realisiert worden. 
   3. **Infrastructure Layer**: Diese Schicht enthält alle Klassen zur Steuerung und Verwaltung der Infratsrukturkomponenten. Dazu zählt die Konfiguration des Anwendungsframeworks Spring Security und Spring Web MVC. 
+
+Die Aufteilung der Anwendung in diese Schichten bietet folgende Vorteile: 
+
+  * Struktur ist übersichtlich und leicht verständlich. 
+  * Eine Schicht kann einfach ausgetauscht werden. 
+  * Eine Schicht ist gut testbar. 
    
 Folgene Abbildung zeigt die Packetstruktur der Anwendung: 
 
