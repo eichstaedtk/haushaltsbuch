@@ -1,4 +1,4 @@
-# Microservice für die Erfassung und Pflege von Metadaten im Projekt Einbanddatenbank
+# Anwendung zur Führung eines Haushaltsbuches
 # Inhaltsverzeichnis #
 [1. Einführung und Ziele ](#1-einf%C3%BChrung-und-ziele)<br/>
 [1.1 Aufgabenstellung](#11-aufgabenstellung)<br/>
