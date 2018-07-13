@@ -1,4 +1,5 @@
 # Anwendung zur Führung eines Haushaltsbuches
+![Gluecksschwein](src/main/resources/static/images/gluecksschwein.jpg)
 # Inhaltsverzeichnis #
 [1. Einführung und Ziele ](#1-einf%C3%BChrung-und-ziele)<br/>
 [1.1 Aufgabenstellung](#11-aufgabenstellung)<br/>
