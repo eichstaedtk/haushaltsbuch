@@ -1,5 +1,5 @@
 # Anwendung zur Führung eines Haushaltsbuches
-![Gluecksschwein](src/main/resources/static/images/gluecksschwein.jpg | width=100)
+![Gluecksschwein](gluecksschwein_klein.jpg)
 # Inhaltsverzeichnis #
 [1. Einführung und Ziele ](#1-einf%C3%BChrung-und-ziele)<br/>
 [1.1 Aufgabenstellung](#11-aufgabenstellung)<br/>
@@ -72,7 +72,14 @@ erstellt wird, welche alle notwendigen Bestandteile und Konfigurationen für den
 Diese Vorgehensweise macht eine aufwendige und komplizierte Installation und Konfiguration auf einem Server überflüssig, sodass eine permanente wiederholbare Installation nach Phasen der Entwicklung der Anwendung durchgeführt werden kann. 
 
 Als Build Tool wurde in diesem Projekt [Gradle](https://gradle.org/) verwendet. Gradle ermöglicht es über eine Build Konfigurationsdatei den Java Build Prozess zu steuern und durchzuführen. Gradle bietet weiterhin viele Plugings 
-um den Build Prozess an die eigenen Bedürfnisse anzupassen. Es wurde zum Beispiel in diesem Projekt das Docker Plugin für das Erstellen des Docker Containers verwendet. Zusätzlich kann des Build Script mit Hilfe der Programmiersprache [Groovy](https://gradle.org/) umfangreich beeinflusst werden. 
+um den Build Prozess an die eigenen Bedürfnisse anzupassen. Es wurde zum Beispiel in diesem Projekt das Docker Plugin für das Erstellen des Docker Containers verwendet. Der Build Vorgang kann 
+mit folgendem Befehl gestartet werden: 
+
+    gradle build docker
+
+
+
+Zusätzlich kann des Build Script mit Hilfe der Programmiersprache [Groovy](https://gradle.org/) umfangreich beeinflusst werden. 
    
 # 5. Bausteinsicht
 # 6. Laufzeitsicht
