@@ -30,7 +30,7 @@ public class HaushaltsbuchService {
   public Haushaltsbuch createHaushaltsbuch(String name, String benutzerName)
   {
 
-    logger.info("Tryijg to create  haushaltsbuch with name {} for benutzer {} ", name, benutzerName);
+    logger.info("Trying to create  haushaltsbuch with name {} for benutzer {} ", name, benutzerName);
 
     Haushaltsbuch result = null;
 

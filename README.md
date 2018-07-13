@@ -90,7 +90,9 @@ Die Anwendung ist in einer 3 Schichten Architektur umgesetzt worden. Alle Klasse
   2. **Domain Layer**: Diese Schicht enthält alle Klassen zur Steuerung der Anwendungsdaten und Prozesse. Die Klassen sind nach dem Ansatz des operativen Design aus dem Konzept des [Domain Driven Design](http://dddcommunity.org/) realisiert worden. 
   3. **Infrastructure Layer**: Diese Schicht enthält alle Klassen zur Steuerung und Verwaltung der Infratsrukturkomponenten. Dazu zählt die Konfiguration des Anwendungsframeworks Spring Security und Spring Web MVC. 
    
-               
+Folgene Abbildung zeigt die Packetstruktur der Anwendung: 
+
+![Baustein Sicht 1](baustein1-haushaltsbuch.png)               
 
 # 6. Laufzeitsicht
 # 7. Verteilungssicht

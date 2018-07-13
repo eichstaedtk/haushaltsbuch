@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.infrastructure;
+package de.eichstaedt.haushaltsbuch.infrastructure.web;
 
 import de.eichstaedt.haushaltsbuch.application.validation.CurrencyConverter;
 import java.util.Locale;

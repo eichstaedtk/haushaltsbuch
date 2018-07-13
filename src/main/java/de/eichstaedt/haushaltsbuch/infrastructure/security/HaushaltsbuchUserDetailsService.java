@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.infrastructure;
+package de.eichstaedt.haushaltsbuch.infrastructure.security;
 
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;

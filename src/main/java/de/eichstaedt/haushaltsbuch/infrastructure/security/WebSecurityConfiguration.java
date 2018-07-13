@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.infrastructure;
+package de.eichstaedt.haushaltsbuch.infrastructure.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

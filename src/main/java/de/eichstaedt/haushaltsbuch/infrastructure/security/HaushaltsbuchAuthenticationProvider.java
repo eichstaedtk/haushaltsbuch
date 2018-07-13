@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.infrastructure;
+package de.eichstaedt.haushaltsbuch.infrastructure.security;
 
 import java.util.Collection;
 import org.slf4j.Logger;
