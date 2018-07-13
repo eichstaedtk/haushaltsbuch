@@ -1,7 +1,7 @@
 package de.eichstaedt.haushaltsbuch.domain.services;
 
-import de.eichstaedt.haushaltsbuch.application.JahresberichtModel;
-import de.eichstaedt.haushaltsbuch.application.KategorieBerichtModel;
+import de.eichstaedt.haushaltsbuch.application.model.JahresberichtModel;
+import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;

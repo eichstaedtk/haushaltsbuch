@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.application;
+package de.eichstaedt.haushaltsbuch.application.model;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 03.06.18.

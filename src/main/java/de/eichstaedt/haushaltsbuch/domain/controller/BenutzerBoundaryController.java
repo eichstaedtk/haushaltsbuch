@@ -1,6 +1,6 @@
 package de.eichstaedt.haushaltsbuch.domain.controller;
 
-import de.eichstaedt.haushaltsbuch.application.Registrierung;
+import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 
 /**

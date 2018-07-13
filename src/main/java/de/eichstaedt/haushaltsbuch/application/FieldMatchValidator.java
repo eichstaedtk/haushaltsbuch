@@ -1,5 +1,6 @@
 package de.eichstaedt.haushaltsbuch.application;
 
+import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.application;
+package de.eichstaedt.haushaltsbuch.application.model;
 
 import java.util.Arrays;
 

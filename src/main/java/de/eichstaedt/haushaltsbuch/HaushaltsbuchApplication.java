@@ -1,6 +1,6 @@
 package de.eichstaedt.haushaltsbuch;
 
-import de.eichstaedt.haushaltsbuch.application.Registrierung;
+import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;

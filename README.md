@@ -63,7 +63,7 @@ in der Postgres Datenbank gespeichert.
 
 Die Anwendung Haushaltsbuch wurde mit Hilfe folgender Technologien umgesetzt: 
 
-  * Java 8 
+  * [Java 8](https://www.oracle.com/de/java/index.html) 
   * [Spring Boot 2](https://spring.io/projects/spring-boot)
   * Spring Data, Spring Web MVC, Thymeleaf HTML Template Engine, Spring Security 
   
@@ -82,6 +82,13 @@ mit folgendem Befehl gestartet werden:
 Zusätzlich kann des Build Script mit Hilfe der Programmiersprache [Groovy](https://gradle.org/) umfangreich beeinflusst werden. 
    
 # 5. Bausteinsicht
+
+Die Anwendung ist in einer 3 Schichten Architektur umgesetzt worden. Alle Klassen und Packete sind dabei in folgende Schichten aufgeteilt worden: 
+
+  1. **Application Layer**: Diese Schicht enthält alle Klassen zur Verwatung der Darstellung. Die Umsetzung der HTML Ansichten ist nach dem Design Pattern "Model View Controller" umgesetzt. Dies bedeutet, dass die Daten der HTML Seiten im Model verwaltet werden 
+                 die Steuerung der Aktivitäten innerhalb der HTML Seiten über die Controller umgesetzt wird und mit Hilfe der View die HTML Ansichten erzeugt werden. Das MVC Pattern wird bereits durch das Spring Framework Spring Web MVC umgesetzt und unterstützt.
+  2. **Domain Layer**: Diese Schicht enthält alle Klassen zur Steuerung der Anwendungsdaten und Prozesse. Die Klassen sind primar nach dem Vorgehen des operativen Design aus dem Konzept des [Domain Driven Design](http://dddcommunity.org/) realisiert worden               
+
 # 6. Laufzeitsicht
 # 7. Verteilungssicht
 # 8. Betrieb und Wiederherstellung #
