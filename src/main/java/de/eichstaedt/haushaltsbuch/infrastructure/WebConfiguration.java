@@ -1,6 +1,6 @@
 package de.eichstaedt.haushaltsbuch.infrastructure;
 
-import de.eichstaedt.haushaltsbuch.application.CurrencyConverter;
+import de.eichstaedt.haushaltsbuch.application.validation.CurrencyConverter;
 import java.util.Locale;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

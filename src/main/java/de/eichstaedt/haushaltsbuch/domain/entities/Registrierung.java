@@ -1,7 +1,7 @@
 package de.eichstaedt.haushaltsbuch.domain.entities;
 
-import de.eichstaedt.haushaltsbuch.application.BenutzernameAlreadyUsed;
-import de.eichstaedt.haushaltsbuch.application.FieldMatch;
+import de.eichstaedt.haushaltsbuch.application.validation.BenutzernameAlreadyUsed;
+import de.eichstaedt.haushaltsbuch.application.validation.FieldMatch;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Pattern.List;

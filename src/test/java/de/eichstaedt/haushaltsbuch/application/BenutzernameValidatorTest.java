@@ -2,6 +2,7 @@ package de.eichstaedt.haushaltsbuch.application;
 
 import static org.hamcrest.core.Is.is;
 
+import de.eichstaedt.haushaltsbuch.application.validation.BenutzernameValidator;
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;

@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.application;
+package de.eichstaedt.haushaltsbuch.application.validation;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

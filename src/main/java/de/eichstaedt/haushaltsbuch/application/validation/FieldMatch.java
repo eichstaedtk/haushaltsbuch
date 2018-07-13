@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.application;
+package de.eichstaedt.haushaltsbuch.application.validation;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;

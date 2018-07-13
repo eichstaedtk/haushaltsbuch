@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.application;
+package de.eichstaedt.haushaltsbuch.application.validation;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import java.util.Objects;
