@@ -1,9 +1,9 @@
 package de.eichstaedt.haushaltsbuch.application.controller;
 
+import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
-import de.eichstaedt.haushaltsbuch.domain.services.HaushaltsbuchService;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ public class ZahlungsflussController {
   private ZahlungsflussBoundaryController zahlungsflussBoundaryController;
 
   @Autowired
-  private HaushaltsbuchService haushaltsbuchService;
+  private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
   @RequestMapping( value = "/haushaltsbuch/{buchid}/zahlungen", method = RequestMethod.POST)
   public ModelAndView buchen(ModelMap model, @AuthenticationPrincipal User accountDetails, @ModelAttribute("neuezahlung") @Valid Zahlungsfluss neuezahlung, BindingResult binding, @PathVariable String buchid,
@@ -56,7 +56,7 @@ public class ZahlungsflussController {
       return new ModelAndView("redirect:/haushaltsbuch?buchid="+buchid);
     }
 
-    Optional<Haushaltsbuch> buch = haushaltsbuchService.findAllHaushaltsbuecher(accountDetails.getUsername())
+    Optional<Haushaltsbuch> buch = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername())
             .stream().filter(b -> String.valueOf(b.getId()).equals(buchid)).findFirst();
 
     if(buch.isPresent())

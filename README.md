@@ -83,6 +83,16 @@ Zusätzlich kann des Build Script mit Hilfe der Programmiersprache [Groovy](http
 
 Zur Ablage der Daten ist das Datenbankmanagementsystem Postgres ausgewählt wurden. Mit Hilfe des Frameworks Spring Data, welches als Object Releational Mapper (ORM) eingesetzt ist werden die 
 Daten direkt aus den Java Klassen heraus geladen und gespeichert. 
+
+Für die Darstellung der HTML Seiten sind folgende Technologien verwwendet worden: 
+
+  * HTML 5 
+  * CSS 3 & [Bootstrap 4.0.0](https://getbootstrap.com/) Framework
+  * Javascript ECMA 6 
+  * [JQuery 3.2.1](https://jquery.com/) Framework
+  * [JQPlot 2](http://www.jqplot.com/) 
+
+Alle Seiten folgen dem Ansatz des Responsive Design. 
    
 # 5. Bausteinsicht
 
@@ -122,7 +132,7 @@ im Ordner **src/main/resources/templates** abzulegen. Darin wird der Aufbau jede
   *   aktivierungserfolg.html Stellt einen Dialog zur Bestätigung des erfolgreichen Aktivierungsprozesses dar. 
   *   aktivierungsfehler.html Zeigt mögliche Fehler des Aktivierungsprozesses. 
  
-
+Für jede Seite gibt es jeweils eine entsprechende Spring MVC Controller Klasse. 
  
 # 6. Laufzeitsicht
 # 7. Verteilungssicht

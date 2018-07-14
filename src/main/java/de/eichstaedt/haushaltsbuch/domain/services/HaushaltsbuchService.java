@@ -1,5 +1,6 @@
 package de.eichstaedt.haushaltsbuch.domain.services;
 
+import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
@@ -7,6 +8,7 @@ import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class HaushaltsbuchService {
+public class HaushaltsbuchService implements HaushaltsbuchBoundaryController {
 
   private static final Logger logger = LoggerFactory.getLogger(HaushaltsbuchService.class);
 
@@ -27,6 +29,7 @@ public class HaushaltsbuchService {
   @Autowired
   private HaushaltsbuchRepository haushaltsbuchRepository;
 
+  @Override
   public Haushaltsbuch createHaushaltsbuch(String name, String benutzerName)
   {
 
@@ -49,6 +52,7 @@ public class HaushaltsbuchService {
     return result;
   }
 
+  @Override
   public List<Haushaltsbuch> findAllHaushaltsbuecher(String benutzername) {
 
     List<Haushaltsbuch> result = new ArrayList<>();
@@ -58,6 +62,11 @@ public class HaushaltsbuchService {
     result.addAll(haushaltsbuchRepository.findByBesitzerBenutzername(benutzername));
 
     return result;
+  }
+
+  @Override
+  public Optional<Haushaltsbuch> findById(Long buchid) {
+    return haushaltsbuchRepository.findById(buchid);
   }
 
 }

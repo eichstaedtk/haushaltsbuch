@@ -1,11 +1,11 @@
 package de.eichstaedt.haushaltsbuch.application.controller;
 
 import de.eichstaedt.haushaltsbuch.application.model.Pager;
+import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
-import de.eichstaedt.haushaltsbuch.domain.services.HaushaltsbuchService;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.util.List;
@@ -38,7 +38,7 @@ public class HaushaltsbuchController {
   private static final Logger logger = LoggerFactory.getLogger(HaushaltsbuchController.class);
 
   @Autowired
-  private HaushaltsbuchService haushaltsbuchService;
+  private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
   @Autowired
   private ZahlungsflussBoundaryController zahlungsflussBoundaryController;
@@ -60,7 +60,8 @@ public class HaushaltsbuchController {
 
     model.addAttribute("user",accountDetails);
 
-    Haushaltsbuch haushaltsbuch = haushaltsbuchService.createHaushaltsbuch(haushaltsbuchName,accountDetails.getUsername());
+    Haushaltsbuch haushaltsbuch = haushaltsbuchBoundaryController
+        .createHaushaltsbuch(haushaltsbuchName,accountDetails.getUsername());
 
     logger.info("Neues Haushaltsbuch erstellt {} ", haushaltsbuch);
 
@@ -74,7 +75,7 @@ public class HaushaltsbuchController {
 
     logger.info("Getting GET request for oeffen haushalstbuch {} ", buchid);
 
-    List<Haushaltsbuch> buecher = haushaltsbuchService.findAllHaushaltsbuecher(accountDetails.getUsername());
+    List<Haushaltsbuch> buecher = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername());
 
     Optional<Haushaltsbuch> buch = buecher.stream().filter(b -> String.valueOf(b.getId()).equals(buchid)).findFirst();
 

@@ -2,8 +2,8 @@ package de.eichstaedt.haushaltsbuch.application.controller;
 
 import de.eichstaedt.haushaltsbuch.application.model.JahresberichtModel;
 import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
+import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
-import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class HaushaltsberichtController {
   private ZahlungsflussBoundaryController zahlungsflussBoundaryController;
 
   @Autowired
-  private HaushaltsbuchRepository haushaltsbuchRepository;
+  private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
   @GetMapping("/haushaltsbericht")
   public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid)
@@ -44,7 +44,7 @@ public class HaushaltsberichtController {
     model.addAttribute("ausgaben",jahresberichtModel.getAusgaben());
     model.addAttribute("einnahmen",jahresberichtModel.getEinnahmen());
     model.addAttribute("titel",jahresberichtModel.getTitel());
-    model.addAttribute("buch",haushaltsbuchRepository.findById(Long.parseLong(buchid)).get());
+    model.addAttribute("buch",haushaltsbuchBoundaryController.findById(Long.parseLong(buchid)).get());
 
     model.addAttribute("kategorien",kategorieBerichtModel.getKategorieValues());
     model.addAttribute("kategorientitel",kategorieBerichtModel.getTitel());
