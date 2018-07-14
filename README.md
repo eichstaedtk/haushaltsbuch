@@ -157,13 +157,109 @@ Alle weiteren Packages des Domain Layers enthalten die Klassen nach dem Konzept 
   * **Repository**: stellt eine Schnittstelle zu Persistenzschicht dar. Hierrüber werden die Daten gespeichert und verändert. 
   * **Service**: steuern und kontrollieren einen Geschäftsprozess, welcher mehrere Entitäten bzw. Aggragtes betrifft.  
 
+Die nachfolgende Abbildung zeigt die Klassenstruktur des Domain Layers:  
 
- 
+![Baustein5](baustein5.png)
+
+Das erste Package controller enthält wie bereits erläutert die Schnittstelle zur oberen Darstellungsschicht. Im nachfolgenden Package domain.entities sind alle Entity Klassen des Haushaltbuch Projektes. Alle Entity Klassen sind zugleich Entitätsklassen im Sinne der Persitierung. 
+Das bedeutet, dass alle Entity Klassen nach dem [Java Persistence API (JPA)](https://de.wikipedia.org/wiki/Java_Persistence_API) Standard annotiert sind. Mit Hilfe dieser Annotation kann das Spring Data Framework diese Klassen zur Persitierung in einer relationalen Datenbank verwenden. Folgender Quellcode zeigt dies am Beispiel des Haushaltbuches: 
+
+    @Entity
+    @Table(name = "haushaltsbuecher")
+    public class Haushaltsbuch {
+    
+      protected Haushaltsbuch() {
+      }
+    
+      public Haushaltsbuch(String name, Benutzer besitzer) {
+        this.name = name;
+        this.erstellDatum = LocalDate.now();
+        this.ausgaben = new HashSet<>();
+        this.einnahmen = new HashSet<>();
+        this.besitzer = besitzer;
+      }
+    
+      @Id
+      @GeneratedValue(strategy = GenerationType.SEQUENCE)
+      @Column(name = "id")
+      private Long id;
+    
+      @Column(name = "name")
+      private String name;
+    
+      @Column(name = "erstelldatum")
+      private LocalDate erstellDatum;
+    
+      @OneToMany
+      @JoinTable(name = "haushaltsbuch_ausgaben" ,joinColumns = @JoinColumn( name="zahlungsfluss_id"),
+          inverseJoinColumns = @JoinColumn( name="haushaltsbuecher_id"))
+      private Set<Zahlungsfluss> ausgaben;
+    
+      @OneToMany
+      @JoinTable(name = "haushaltsbuch_einnahmen",joinColumns = @JoinColumn( name="zahlungsfluss_id"),
+          inverseJoinColumns = @JoinColumn( name="haushaltsbuecher_id"))
+      private Set<Zahlungsfluss> einnahmen;
+    
+      @ManyToOne(fetch = FetchType.EAGER)
+      @JoinColumn(name = "besitzer_id", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "haushaltsbuch_besitzer_foreignkey"))
+      private Benutzer besitzer;
+
+Um eine Klasse als JPA Entität zu kennzeichnen, sind lediglich die Annotation @Entity und @Id notwendig. Alle anderen Annotationen dienen dazu die konkrete Umsetzung der Klassenattribute auf relationale Tabellen und Tabellenbeziehungen zu steuern. 
+Die sich in diesem Package befindenden Entitäten werden durch die Repositories domain.repository Package gespeichert. Allerdings befinden sich hier nur Interfaces wie am folgenden Beispiel aufgeführt ist: 
+
+    public interface HaushaltsbuchRepository extends CrudRepository<Haushaltsbuch,Long> {
+    
+      List<Haushaltsbuch> findByBesitzerBenutzername(String benutzername);
+    
+    }
+
+Dieses Haushaltsbuch Repository Interface beschreibt ein vollständiges Repository Interfaces um eine Haushaltsbuch Entität speichern, aktualisieren und löschen zu können. Die Implementierung dieses Repositories wird durch das Framework 
+[Spring Data](http://projects.spring.io/spring-data/) zur Verfügung gestellt. Dadurch das das Interface HaushaltsbuchRepository das CrudRepository von Spring Data erweitert können zum einen die Standards CRUD (Create Read Update Delete) Operationen genutzt und zum Anderen eigene Methoden hinzugefügt werden. 
+Ein weitere Vorteil der Verwendung dieses Frameworks ist, dass die Auswahl des relationalen DBMS verändert werden kann ohne dass der Quellcode angepasst werden muss. Um von der derzeitigen Postgres Implementierung auf eine MYSQL zu wechseln sind lediglich einige Konfigurationswerte in der Spring applicaion.properties Datei anzupassen. Im Abschnitt Installation und Konfiguration wird diese kurz beschrieben. 
+
+Alle Service Klassen im Package domain.services implementieren die entsprechenden Boundary Controller Interfaces. Aufgrund der Annotation @Component und der Tatsache, das keine weitere Implementierung im Klassenpfad des Projektes existiert 
+kann Spring via Dependency Injection die Serviceklassen erzeugen und zuweisen. 
+
+Im Package domain.valueobjects befinden sich einige Werteobjekte welche im Rahmen der Geschäftlogik benötigt werden und keine Entitäten im Sinne des DDD darstellen. Die Klasse Adresse 
+ist zum Beispiel lediglich solch ein Werteobjekt ohne eigene Identität bzw. Lebenszyklus. Wird diese einmal mit speziellen Werten erzeugt kann sich nicht mehr verändert werden, da keine entsprechenden Setter Methoden implementiert sind.    
+
+In der untersten Schicht werden einige Spring Infrastrukturkonfigurationen vorgenommen. Folgende UML Darstellung zeigt die Klassenstruktur: 
+
+![Baustein6](baustein6.png)
+
+Diese Klassen ermöglichen die Anpassung der Standardkonfiguration der Frameworkkomponenten [Spring Web MVC](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#spring-web) und [Spring Security](https://docs.spring.io/spring-security/site/docs/5.0.5.BUILD-SNAPSHOT/reference/htmlsingle/).
+Alle Details der Anpassungen sollen hier nicht beschrieben, können aber in der entsprechenden Framework Dokumentation nachvollzogen werden.    
 # 6. Laufzeitsicht
 # 7. Verteilungssicht
 # 8. Betrieb und Wiederherstellung #
+
+Diese Anwendung wurde als Serveranwendung entwickelt. Aufgrund der Kapselung in einem Docker Container kann diese Anwendung auf jedem Betriebssystem betrieben werden für welche Docker zur Verfügung gestellt wird.  
+
 ## 8.1 Ansprechpartner , Service Level 
-## 8.2 Installation / Konfiguration ##               
+## 8.2 Installation / Konfiguration ##
+
+Die Installation der Anwendung kann wie folgt durchgeführt werden: 
+
+  Installation Docker 
+    
+  Wechsel in das Quellcodeverzeichnis 
+    
+  Installation des Postgres Containers mit: 
+    
+    docker build -f DockerfilePostgres . -t eg_postgresql:latest
+    
+  Installation des Haushaltbuches Containers mit: 
+    
+    gradlew build docker
+    
+  Starten der Anwendung
+  
+    docker-compose up
+    
+  Stoppen der Anwendung
+  
+    docker-compose stop
+               
 ## 8.3 Wiederherstellung ##
 # 10. Qualitätsziele
 # 11. Risiken und technische Schulden
