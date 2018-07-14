@@ -48,12 +48,12 @@ public class Haushaltsbuch {
   @Column(name = "erstelldatum")
   private LocalDate erstellDatum;
 
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "haushaltsbuch_ausgaben" ,joinColumns = @JoinColumn( name="zahlungsfluss_id"),
       inverseJoinColumns = @JoinColumn( name="haushaltsbuecher_id"))
   private Set<Zahlungsfluss> ausgaben;
 
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "haushaltsbuch_einnahmen",joinColumns = @JoinColumn( name="zahlungsfluss_id"),
       inverseJoinColumns = @JoinColumn( name="haushaltsbuecher_id"))
   private Set<Zahlungsfluss> einnahmen;

@@ -32,7 +32,7 @@ public class HaushaltsberichtController {
   private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
   @GetMapping("/haushaltsbericht")
-  public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid)
+  public ModelAndView haushaltsbericht(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid)
   {
 
     logger.info("Request GET for haushaltsbericht");
