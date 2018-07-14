@@ -139,7 +139,15 @@ Für jede Seite gibt es jeweils eine entsprechende Spring MVC Controller Klasse.
 Für jede zenrale Anwendungsseite gibt es eine Spring Web MVC Controller Klasse. Diese stellt die Schnittstelle zwischen dem Model und der View im MVC Pattern dar. Darüber wird die Auslieferung der 
 HTML Template Seite als Antwort auf einen HTML GET oder POST Request gesteuert. 
 Zur Ausführung der entsprechenden Geschäftlogik wird jeweils ein entsprechendes Interfaces, der sogenannte Entity Boundary Controller verwendet. Diese Schnittstelle stellt die
-Kopplung zwischen dem Application und dem Domain Layer dar. Diese Architektur entkoppelt die Darstellung von der Geschäftslogik und ermöglicht es die Darstellungsschicht auch später noch einmal einfach austauschen zu können. 
+Kopplung zwischen dem Application und dem Domain Layer dar. Diese Architektur entkoppelt die Darstellung von der Geschäftslogik und ermöglicht es die Darstellungsschicht auch später noch einmal einfach austauschen zu können. So 
+nutzt zum Beispiel der KategorienController der Application Schicht den KategorienBoundaryController um Kategorien anzulegen oder sich alle Kategorien als Liste ausgeben zu lassen. Dadurch, dass der KategorienController diese Aktionen auf einem Interface ausführt
+besteht keine Kopplung zu einer konkreten Implementierung. Alle Abhängigkeiten und das Erzeugen der konkreten Implementierung wird über das Spring Dependency Injection Management erzeugt. Um eine Abhängigkeit verwenden zu können ist lediglich folgender Code notwendig: 
+
+      @Autowired
+      private KategorieBoundaryController kategorieBoundaryController;
+
+Dieser Code und die Autowired Annotation wird vom Spring Dependency Injection Framework ausgewertet und eine entsprechende Instanz vom Type des Interfaces zur Verfügung gestellt. Um den kompletten Lebenszyklus der entsprechenden Instanz kümmert sich die Laufzweitumgebung. 
+
 
  
 # 6. Laufzeitsicht
