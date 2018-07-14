@@ -33,7 +33,7 @@ public class DashboardController {
 
 
   @GetMapping(value = "dashboard")
-  public String registration(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(defaultValue = "off") boolean neueshaushaltsbuch) {
+  public String dashboard(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(defaultValue = "off") boolean neueshaushaltsbuch) {
 
     logger.info("GET Request for dashboard page {} ", neueshaushaltsbuch);
 
@@ -69,8 +69,6 @@ public class DashboardController {
 
       logger.info("Setting dashboard for default page");
     }
-
-
 
     return "/dashboard";
   }

@@ -53,4 +53,5 @@ dependencies {
 	compile('org.hsqldb:hsqldb:2.4.0')
 	compile("org.springframework.boot:spring-boot-devtools")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.0.6.RELEASE'
 }
