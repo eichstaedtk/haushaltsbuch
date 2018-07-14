@@ -241,6 +241,8 @@ Die Installation der Anwendung kann wie folgt durchgeführt werden:
 
   [Installation Docker](https://www.docker.com/community-edition#/download) 
   
+  [Installation Java 8](https://java.com/de/download/)
+  
   [Download aller Quelle](https://github.com/eichstaedtk/haushaltsbuch)
     
   Wechsel in das Quellcodeverzeichnis 
