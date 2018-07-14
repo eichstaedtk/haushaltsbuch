@@ -241,7 +241,7 @@ Die Installation der Anwendung kann wie folgt durchgeführt werden:
 
   [Installation Docker](https://www.docker.com/community-edition#/download) 
   
-  [Installation Java 8](https://java.com/de/download/)
+  [Installation Java SDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
   
   [Download aller Quelle](https://github.com/eichstaedtk/haushaltsbuch)
     
@@ -257,7 +257,11 @@ Die Installation der Anwendung kann wie folgt durchgeführt werden:
     
   Starten der Anwendung
   
-    docker-compose up
+    docker-compose -d up
+    
+    bzw. 
+    
+    docker-compose -d start
     
   Stoppen der Anwendung
   
