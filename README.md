@@ -132,7 +132,15 @@ im Ordner **src/main/resources/templates** abzulegen. Darin wird der Aufbau jede
   *   aktivierungserfolg.html Stellt einen Dialog zur Bestätigung des erfolgreichen Aktivierungsprozesses dar. 
   *   aktivierungsfehler.html Zeigt mögliche Fehler des Aktivierungsprozesses. 
  
-Für jede Seite gibt es jeweils eine entsprechende Spring MVC Controller Klasse. 
+Für jede Seite gibt es jeweils eine entsprechende Spring MVC Controller Klasse. Die folgende Abbildung zeigt die Klassen des Controller Packages aus der Application Schicht: 
+
+![Baustein Controller](baustein3.png)
+
+Für jede zenrale Anwendungsseite gibt es eine Spring Web MVC Controller Klasse. Diese stellt die Schnittstelle zwischen dem Model und der View im MVC Pattern dar. Darüber wird die Auslieferung der 
+HTML Template Seite als Antwort auf einen HTML GET oder POST Request gesteuert. 
+Zur Ausführung der entsprechenden Geschäftlogik wird jeweils ein entsprechendes Interfaces, der sogenannte Entity Boundary Controller verwendet. Diese Schnittstelle stellt die
+Kopplung zwischen dem Application und dem Domain Layer dar. Diese Architektur entkoppelt die Darstellung von der Geschäftslogik und ermöglicht es die Darstellungsschicht auch später noch einmal einfach austauschen zu können. 
+
  
 # 6. Laufzeitsicht
 # 7. Verteilungssicht
