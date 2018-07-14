@@ -39,6 +39,22 @@ public class Zahlungsfluss {
   public Zahlungsfluss() {
   }
 
+  public Zahlungsfluss(
+      String beschreibung,
+      BigDecimal betrag,
+      Kategorie kategorie,
+      LocalDate buchungsTag,
+      Zahlungstyp typ,
+      Zahlungsintervall zahlungsintervall, Long buchid) {
+    this.beschreibung = beschreibung;
+    this.betrag = betrag;
+    this.kategorie = kategorie;
+    this.buchungsTag = buchungsTag;
+    this.typ = typ;
+    this.zahlungsintervall = zahlungsintervall;
+    this.buchid = buchid;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @Column(name = "id")
