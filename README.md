@@ -118,7 +118,7 @@ In der obersten Schicht wird die komplette Darstellung mit Hilfe des Frameworks 
 ![MVC](mvc.jpg)
 
 In diesem Projekt wird die View mit Hilfe des HTML Template Frameworks [Thymeleaf](https://www.thymeleaf.org/) realisiert. Dazu ist es notwwendig für alle HTML Seiten die HTML Thymeleaf Template Dateien 
-im Ordner **src/main/resources/templates** abzulegen. Darin wird der Aufbau jeder Seite in HTML beschrieben und im die sogenannte Expression Language von Thymeleaf erweitert. Folgende Templates wurden für dieses Projekt angelegt: 
+im Ordner **src/main/resources/templates** abzulegen. Darin wird der Aufbau jeder Seite in HTML beschrieben und um die sogenannte Expression Language von Thymeleaf erweitert. Folgende Templates wurden für dieses Projekt angelegt: 
 
   *   anmeldung.html  Zeigt ein Anmeldeformular für die Nutzerauthentifizierung
   *   dashboard.html  Auf dieser Seite kann der Nutzer ein Haushaltsbuch und Kategorien anlegen, weiterhin erhält er eine Übersicht über alle seine Haushaltsbücher und kann diese daraus heraus öffnen. 
@@ -136,7 +136,7 @@ Für jede Seite gibt es jeweils eine entsprechende Spring MVC Controller Klasse.
 
 ![Baustein Controller](baustein3.png)
 
-Für jede zenrale Anwendungsseite gibt es eine Spring Web MVC Controller Klasse. Diese stellt die Schnittstelle zwischen dem Model und der View im MVC Pattern dar. Darüber wird die Auslieferung der 
+Für jede zentrale Anwendungsseite gibt es eine Spring Web MVC Controller Klasse. Diese stellt die Schnittstelle zwischen dem Model und der View im MVC Pattern dar. Darüber wird die Auslieferung der 
 HTML Template Seite als Antwort auf einen HTML GET oder POST Request gesteuert. 
 Zur Ausführung der entsprechenden Geschäftlogik wird jeweils ein entsprechendes Interfaces, der sogenannte Entity Boundary Controller verwendet. Diese Schnittstelle stellt die
 Kopplung zwischen dem Application und dem Domain Layer dar. Diese Architektur entkoppelt die Darstellung von der Geschäftslogik und ermöglicht es die Darstellungsschicht auch später noch einmal einfach austauschen zu können. So 
@@ -147,6 +147,15 @@ besteht keine Kopplung zu einer konkreten Implementierung. Alle Abhängigkeiten 
       private KategorieBoundaryController kategorieBoundaryController;
 
 Dieser Code und die Autowired Annotation wird vom Spring Dependency Injection Framework ausgewertet und eine entsprechende Instanz vom Type des Interfaces zur Verfügung gestellt. Um den kompletten Lebenszyklus der entsprechenden Instanz kümmert sich die Laufzweitumgebung. 
+Diese Art der Kopplung zwischen der Darstellungsschicht und der Geschäftlogik wurde für alle weiteren Controller analog verwendet. So enthalten alle Boundary Controller Interfaces die Beschreibung aller fachlichen Anwendungsfälle. 
+
+Alle weiteren Packages des Domain Layers enthalten die Klassen nach dem Konzept des Domain Driven Design (DDD). Das operative Design des DDD kennt dabei folgende Gruppen von Klassen: 
+
+  * **Entity**: modelliert ein individuelles Ding. Jede Entity hat eine eindeutige Identität, anhand derer man Ihre Individualität von allen anderen Objekten unterscheiden kann. 
+  * **Value Object**: Wertobjekt, modelliert ein unveränderliches konzeptionelles Ganzes. Innerhalb des Modells ist der Wert genau das: ein Wert. Im Gegensatz zur Entität besitzt es keine eindeutige Identität. 
+  * **Aggregates**: stellen eine sogenannte "root Entity" dar, welche mehrere Entities zusammenfasst. Ein Aggregate hat damit ebenfalls eine Identität und steuert die Kosistenz von mehreren Entitäten. 
+  * **Repository**: stellt eine Schnittstelle zu Persistenzschicht dar. Hierrüber werden die Daten gespeichert und verändert. 
+  * **Service**: steuern und kontrollieren einen Geschäftsprozess, welcher mehrere Entitäten bzw. Aggragtes betrifft.  
 
 
  
