@@ -24,11 +24,11 @@ import org.springframework.web.context.WebApplicationContext;
  * Created by konrad.eichstaedt@gmx.de on 14.07.18.
  */
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HaushaltsberichtControllerTest {
+public class HaushaltsbuchControllerTest {
+
 
   private MockMvc mockMvc;
 
@@ -49,11 +49,11 @@ public class HaushaltsberichtControllerTest {
   }
 
   @Test
-  public void testHaushaltsberichtPage() throws Exception {
+  public void testHaushaltsbuchPage() throws Exception {
 
-    this.mockMvc.perform(get("/haushaltsbericht?buchid=1").with(user("konrad").password("Start123"))).andDo(print()).andExpect(status().isOk())
-        .andExpect(content().string(containsString("<title>Haushaltsbuch Jahresberichte</title>")))
-        .andExpect(content().string(containsString("Jahresbericht 2018 Testbuch")));
+    this.mockMvc.perform(get("/haushaltsbuch?buchid=1").with(user("konrad").password("Start123"))).andDo(print()).andExpect(status().isOk())
+        .andExpect(content().string(containsString("<title>Haushaltsbuch</title>")))
+        .andExpect(content().string(containsString("Zahlungesverkehr: <span>Testbuch</span>")));
   }
 
 }
