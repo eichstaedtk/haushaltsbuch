@@ -27,7 +27,7 @@ public class KategorienController {
   @PostMapping("/kategorien")
   public ModelAndView neuesHaushaltsbuch(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "name") String kategorienname) {
 
-    logger.info("Getting POST request for creating neues haushalstbuch {} ", kategorienname);
+    logger.info("Getting POST request for creating neue Kategorie {} ", kategorienname);
 
     kategorieBoundaryController.createKategorie(kategorienname);
 
