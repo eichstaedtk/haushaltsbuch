@@ -273,10 +273,19 @@ Die Installation der Anwendung kann wie folgt durchgeführt werden:
 # 9. Entwurfsentscheidungen
 Folgende Entwurfsentscheidungen sind in diesem Projekt getroffen worden: 
 
-  * Einsatz von Java: Gründe dafür waren die Vorkenntnisse im Entwicklungsteam und die Plattformunabhängigkeit
-  * Einsatz des Spring Framework: Hauptgrund dafür ware die Möglichkeit der schnellen Entwicklung einer einfach zu installieren Web Anwendung. 
+  * Einsatz von Java: Gründe dafür waren die Vorkenntnisse im Entwicklungsteam und die Plattformunabhängigkeit durch die Java Virtual Machine. 
+  * Einsatz des Spring Framework: Hauptgrund für die Auwahl dies Frameworks war die Möglichkeit der schnellen Entwicklung einer einfach zu installieren Web Anwendung. Durch die Komponente Spring Boot ist die Anwendung bereits lauffähig vorkonfiguriert und kann aber in allen Details angepasst werden.  
   * Einsatz von Docker: Grund dafür war die einfache und plattformunabhängige Möglichkeit der Installation von Datenbank und Anwendung
                  
 # 10. Qualitätsziele
+
+Um die Qualität einzelner Softwarekomponenten sicherzustellen wurden sogeannte Unit und Integrationstests implementiert. Alle Tests werden zu jedem Build der Anwendung vollständig durchgeführt. Dabei erstellt Gradle für jeden Build einen Bericht in folgenden Formaten: 
+
+   * HTML
+   * XML
+   * Binary Format
+   
+Der Bericht als HTML Seite wird in folgendem Verzeichnis abgelegt: **/build/reports/tests/test/index.html
+
 # 11. Risiken und technische Schulden
 # 12. Glossar
