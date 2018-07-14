@@ -12,8 +12,6 @@
 [6. Laufzeitsicht](#6-laufzeitsicht)<br/>
 [7. Verteilungssicht](#7-verteilungssicht)<br/>
 [8. Betrieb und Wiederherstellung](#8-betrieb-und-wiederherstellung)<br/>
-[8.1 Ansprechpartner , Service Level](#81-ansprechpartner-service-level)<br/>
-[8.2 Installation / Konfiguration](#82-installation-konfiguration)<br/>
 [9. Entwurfsentscheidungen](#9-entwurfsentscheidungen)<br/>
 [10. Qualitätsziele](#10-qualit%C3%A4tsziele)<br/>
 [11. Risiken und technische Schulden](#11-risiken-und-technische-schulden)<br/>
@@ -92,7 +90,11 @@ Für die Darstellung der HTML Seiten sind folgende Technologien verwwendet worde
   * [JQuery 3.2.1](https://jquery.com/) Framework
   * [JQPlot 2](http://www.jqplot.com/) 
 
-Alle Seiten folgen dem Ansatz des Responsive Design. 
+Alle Seiten folgen dem Ansatz des Responsive Design. Als allgemeine Entwicklungsrichtlinien wurden folgende Prinzipien angewendet: 
+
+  *  Test Driven Design 
+  *  Clean Code
+  *  Domain driven Design  
    
 # 5. Bausteinsicht
 
@@ -235,12 +237,11 @@ Alle Details der Anpassungen sollen hier nicht beschrieben, können aber in der 
 
 Diese Anwendung wurde als Serveranwendung entwickelt. Aufgrund der Kapselung in einem Docker Container kann diese Anwendung auf jedem Betriebssystem betrieben werden für welche Docker zur Verfügung gestellt wird.  
 
-## 8.1 Ansprechpartner , Service Level 
-## 8.2 Installation / Konfiguration ##
-
 Die Installation der Anwendung kann wie folgt durchgeführt werden: 
 
   [Installation Docker](https://www.docker.com/community-edition#/download) 
+  
+  [Download aller Quelle](https://github.com/eichstaedtk/haushaltsbuch)
     
   Wechsel in das Quellcodeverzeichnis 
     
@@ -259,8 +260,14 @@ Die Installation der Anwendung kann wie folgt durchgeführt werden:
   Stoppen der Anwendung
   
     docker-compose stop
-               
-## 8.3 Wiederherstellung ##
+
+# 9. Entwurfsentscheidungen
+Folgende Entwurfsentscheidungen sind in diesem Projekt getroffen worden: 
+
+  * Einsatz von Java: Gründe dafür waren die Vorkenntnisse im Entwicklungsteam und die Plattformunabhängigkeit
+  * Einsatz des Spring Framework: Hauptgrund dafür ware die Möglichkeit der schnellen Entwicklung einer einfach zu installieren Web Anwendung. 
+  * Einsatz von Docker: Grund dafür war die einfache und plattformunabhängige Möglichkeit der Installation von Datenbank und Anwendung
+                 
 # 10. Qualitätsziele
 # 11. Risiken und technische Schulden
 # 12. Glossar
