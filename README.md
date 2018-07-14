@@ -18,12 +18,15 @@
 [12. Glossar](#12-glossar)<br/>
 
 # 1. Einführung und Ziele #
-Zielstellung dieser Anwendung ist es Anwendern das Erstellen eines gemeinsam zu nutzenden Haushaltbuches zur Eingabe der finanziellen Ausgaben und Einnahmen zu ermöglichen. Dazu soll es dem Anwender ermöglicht werden, alle Ausgaben und Einnahmen eines Haushaltes digital zu erfassen und entsprechende Ein- und Ausgabekategorien zuordnen zu können. 
+Zielstellung dieser Anwendung ist es Anwendern das Erstellen eines gemeinsam zu nutzenden Haushaltbuches zur Eingabe aller finanziellen Ausgaben und Einnahmen zu ermöglichen. Dazu soll es dem Anwender ermöglicht werden, alle Zahlungsflüsse eines Haushaltes digital zu erfassen und entsprechende Ein- und Ausgabekategorien zuordnen zu können. 
 Anwender sollen mehrere Haushaltsbücher gleichzeitig führen können. Jeder Anwender soll anderen Anwendern es ermöglichen können, gemeinsam ein Haushaltsbuch zu führen. Haushaltsbücher anderer Anwender dürfen nur durch autorisierte Anwender eingesehen und verwaltet werden. 
 Die Software soll über die eingegebenen Ausgaben und Einnahmen Berichte über bestimmte Zeiträume und Kategorien darstellen können. Dazu soll der Benutzer jeweils die Möglichkeit bekommen den Berichtszeitraum und eine zur Verfügung stehende Berichtsform wählen zu können. Alle zur Verfügung stehenden Kategorien der Einnahmen und Ausgaben müssen durch die Benutzer selbst erstellt und gepflegt werden können. 
-Alle Benutzer sollen sich mit einem Benutzernamen und Passwort an dem System authentifizieren. Die Softwareanwendung soll in einem Web Browser aufgerufen und gesteuert werden können. Dabei sollen die derzeit populären Browser Chrome und Firefox unterstützt werden. 
+Alle Benutzer sollen sich mit einem Benutzernamen und Passwort an dem System authentifizieren. Die Softwareanwendung soll in einem Web Browser aufgerufen und gesteuert werden können. Dabei sollen die derzeit aktuellen Versionden der Browser Chrome und Firefox unterstützt werden. 
 
 ## 1.1 Aufgabenstellung ##
+
+Die Aufgabenstellung für das Entwicklungsteam ist es, die im Pflichtenheft definierten Anforderungen in Form einer installierbaren und ausführbaren Anwendung umzusetzen. Dazu sollen die notwendigen Technologien 
+ausgewählt, die Konzeption der Anwendung erstellt und die Umsetzung durchgeführt werden.  
 
 ## 1.2 Qualitätsziele ##
 Folgende nicht funktionale Anforderungen müssen bei Implementierung der Anwendung berücksichtigt werden. 
