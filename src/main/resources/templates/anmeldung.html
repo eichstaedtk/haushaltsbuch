@@ -31,7 +31,9 @@
               <button type="submit" class="btn btn-primary">Anmeldung</button>
 
             </form>
-
+        <div style="float: right;">
+          <span> Für die Nutzung <a href="/registrierung">registrieren</a>. </span>
+        </div>
         <div th:if="${param.error != null}" class="alert alert-danger" role="alert">
           <p>Anmeldung fehlgeschlagen:<span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span></p>
         </div>

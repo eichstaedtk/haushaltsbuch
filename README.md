@@ -61,7 +61,7 @@ Wie bereits beschrieben kann der Nutzer die Anwendung im Internet aufrufen. Dazu
 in der Postgres Datenbank gespeichert.
 # 4. Lösungsstrategie
 
-Die Anwendung Haushaltsbuch wurde mit Hilfe folgender Technologien umgesetzt: 
+Die Anwendung Haushaltsbuch wurde mit Hilfe folgender Software Technologien umgesetzt: 
 
   * [Java 8](https://www.oracle.com/de/java/index.html) 
   * [Spring Boot 2](https://spring.io/projects/spring-boot)
@@ -80,6 +80,9 @@ mit folgendem Befehl gestartet werden:
 
 
 Zusätzlich kann des Build Script mit Hilfe der Programmiersprache [Groovy](https://gradle.org/) umfangreich beeinflusst werden. 
+
+Zur Ablage der Daten ist das Datenbankmanagementsystem Postgres ausgewählt wurden. Mit Hilfe des Frameworks Spring Data, welches als Object Releational Mapper (ORM) eingesetzt ist werden die 
+Daten direkt aus den Java Klassen heraus geladen und gespeichert. 
    
 # 5. Bausteinsicht
 
@@ -100,6 +103,27 @@ Folgene Abbildung zeigt die Packetstruktur der Anwendung:
 
 ![Baustein Sicht 1](baustein1-haushaltsbuch.png)               
 
+In der obersten Schicht wird die komplette Darstellung mit Hilfe des Frameworks Spring MVC realisiert. Folgende Abbildung zeigt eine Beispiel MVC Architektur: 
+
+![MVC](mvc.jpg)
+
+In diesem Projekt wird die View mit Hilfe des HTML Template Frameworks [Thymeleaf](https://www.thymeleaf.org/) realisiert. Dazu ist es notwwendig für alle HTML Seiten die HTML Thymeleaf Template Dateien 
+im Ordner **src/main/resources/templates** abzulegen. Darin wird der Aufbau jeder Seite in HTML beschrieben und im die sogenannte Expression Language von Thymeleaf erweitert. Folgende Templates wurden für dieses Projekt angelegt: 
+
+  *   anmeldung.html  Zeigt ein Anmeldeformular für die Nutzerauthentifizierung
+  *   dashboard.html  Auf dieser Seite kann der Nutzer ein Haushaltsbuch und Kategorien anlegen, weiterhin erhält er eine Übersicht über alle seine Haushaltsbücher und kann diese daraus heraus öffnen. 
+  *   haushaltsbericht.html Diese Seite zeigt zwei Berichte zu einem Haushaltsbuch
+  *   haushaltsbuch.html Diese Seite zeigt die Details eines Haushaltsbuches und ermöglicht die Eingabe von Einnahmen und Ausgaben. 
+  *   registrierung.html Diese Seite stellt ein Formular zur Abfrage von Nutzerdaten zur Verfügung über welches sich der Nutzer registrieren kann 
+  *   registrierungserfolg.html Zeigt einen Dialog zur Bestätigung der erfolgreichen Registrierung. Im Dialog gibt es einen Aktivierungslink um eine Anmeldung zu ermöglichen.
+  *   registrierungsfehler.html Zeigt mögliche Fehler des Registrierungsprozesses. 
+  *   navigation.html  In dieser Datei wird lediglich ein Teilfragment der Gesamtdarstellung beschrieben. Hier wird die zentrale Navigationskomponente beschrieben welche durch die anderen Seiten eingebunden wird. 
+  *   base.html Enthält Teilfragmente für die Seite haushaltsbuch. 
+  *   aktivierungserfolg.html Stellt einen Dialog zur Bestätigung des erfolgreichen Aktivierungsprozesses dar. 
+  *   aktivierungsfehler.html Zeigt mögliche Fehler des Aktivierungsprozesses. 
+ 
+
+ 
 # 6. Laufzeitsicht
 # 7. Verteilungssicht
 # 8. Betrieb und Wiederherstellung #
