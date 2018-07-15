@@ -1,6 +1,7 @@
 package de.eichstaedt.haushaltsbuch.application.validation;
 
 import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
+import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
@@ -44,10 +45,12 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
               
               logger.info("Passwort Mismatch first {} second {}",firstObj, secondObj); 
               
-              
-              context.buildConstraintViolationWithTemplate("Passwort Wiederholung stimmt nicht mit Passwort überein!")
-              .addConstraintViolation()
-              .disableDefaultConstraintViolation();
+              if(Objects.nonNull(context)) {
+                  context.buildConstraintViolationWithTemplate(
+                      "Passwort Wiederholung stimmt nicht mit Passwort überein!")
+                      .addConstraintViolation()
+                      .disableDefaultConstraintViolation();
+              }
               
               return false;
             }
