@@ -8,6 +8,7 @@ import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import java.util.Optional;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -26,6 +27,11 @@ public class HaushaltsbuchRepositoryTest {
 
   @Autowired
   private HaushaltsbuchRepository haushaltsbuchRepository;
+
+  @Before
+  public void setUp() throws Exception {
+    haushaltsbuchRepository.deleteAll();
+  }
 
   @Test
   public void testSave() {
