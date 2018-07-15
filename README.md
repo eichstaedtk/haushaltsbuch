@@ -12,6 +12,7 @@
 [6. Laufzeitsicht](#6-laufzeitsicht)<br/>
 [7. Verteilungssicht](#7-verteilungssicht)<br/>
 [8. Betrieb und Wiederherstellung](#8-betrieb-und-wiederherstellung)<br/>
+[8.1 Konfiguration](#8.1-konfiguration)<br/>
 [9. Entwurfsentscheidungen](#9-entwurfsentscheidungen)<br/>
 [10. Qualitätsziele](#10-qualit%C3%A4tsziele)<br/>
 [11. Risiken und technische Schulden](#11-risiken-und-technische-schulden)<br/>
@@ -269,6 +270,22 @@ Die Installation der Anwendung kann wie folgt durchgeführt werden:
   Stoppen der Anwendung
   
     docker-compose stop
+
+# 8.1 Konfiguration #
+
+Die Anwendung kann mit Hilfe von Umgebungsvariablen oder einer Konfigurationsdatei des Spring Frameworks konfiguriertw werden. Mit Hilfe des Frameworks Spring Cloud ist es sogar möglich, die Konfigurationsdateien
+in ein Git Repository auszulagern. Das Spring Framework unterstützt auch die Verwendung unterschiedlicher Konfigurationsdateien für unterschiedliche Profile. So können zum Beispiel Konfigurtionswerte für 
+Laufzeitumgebungen für Test, Produktion oder Continuous Integration zu setzen. In diesem Projekt werden nur zwischen dem Standardprofil und dem produktiven Profil unterschieden. 
+
+Um zum Beispiel die Datenbankverbindung zur Postgres Datenbank zu konfigurieren sind folgende Werte in der applications.properties gesetzt: 
+
+     spring.datasource.url=jdbc:postgresql://postgres:5432/haushaltsbuch
+     spring.datasource.username=docker
+     spring.datasource.password=docker
+     spring.datasource.driver-class-name=org.postgresql.Driver
+     spring.jpa.hibernate.ddl-auto=update
+     
+Die ersten drei Werte sind Verbindungsparameter der JDBC Verbindung. Der 4 Wert setzt die zentrale Treiberklasse und der letzte Wert veranlasst das JPA Framework zur automatischen Aktualisierung der Postgres Datenbank falls notwendig. 
 
 # 9. Entwurfsentscheidungen
 Folgende Entwurfsentscheidungen sind in diesem Projekt getroffen worden: 
