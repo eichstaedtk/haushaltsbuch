@@ -279,7 +279,7 @@ Folgende Entwurfsentscheidungen sind in diesem Projekt getroffen worden:
                  
 # 10. Qualitätsziele
 
-Um die Qualität einzelner Softwarekomponenten sicherzustellen wurden sogeannte Unit und Integrationstests implementiert. Alle Tests werden zu jedem Build der Anwendung vollständig durchgeführt. Dabei erstellt Gradle für jeden Build einen Bericht in folgenden Formaten: 
+Um die Qualität einzelner Softwarekomponenten sicherzustellen wurden Unit und Integrationstests implementiert. Alle Tests werden mit jedem Build der Anwendung vollständig durchgeführt. Dabei erstellt Gradle für jeden Build einen Bericht in folgenden Formaten: 
 
    * HTML
    * XML
