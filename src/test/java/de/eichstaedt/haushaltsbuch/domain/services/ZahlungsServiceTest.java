@@ -7,6 +7,7 @@ import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
+import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.KategorieRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
@@ -48,6 +49,9 @@ public class ZahlungsServiceTest {
   @Autowired
   private ZahlungsflussRepository zahlungsflussRepository;
 
+  @Autowired
+  private BenutzerRepository benutzerRepository;
+
   private Logger logger = LoggerFactory.getLogger(ZahlungsServiceTest.class);
 
   @Test
@@ -74,12 +78,15 @@ public class ZahlungsServiceTest {
   }
 
   private Haushaltsbuch createHaushaltsbuch() {
+
     PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
 
     Mockito.when(passwordEncoder.encode("Start123")).thenReturn("3432423");
 
-    Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad", "konrad.eichstaedt@gmx.de",
+    Benutzer benutzer = new Benutzer.BenutzerBuilder("tester", "konrad.eichstaedt@gmx.de",
         "Start123", passwordEncoder).build();
+
+    benutzerRepository.save(benutzer);
 
     Haushaltsbuch haushaltsbuch = new Haushaltsbuch("Buch 2018", benutzer);
 

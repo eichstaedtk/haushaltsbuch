@@ -6,7 +6,6 @@ import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +30,12 @@ public class BenutzernameValidatorTest {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @Before
-  public void setup() {
-    benutzerRepository.deleteAll();
-  }
-
   @Test
   public void testisValid() {
 
     BenutzernameValidator validator = new BenutzernameValidator(benutzerBoundaryController);
 
-    Assert.assertThat(validator.isValid("konrad",null),is(true));
+    Assert.assertThat(validator.isValid("zufall",null),is(true));
 
   }
 

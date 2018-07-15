@@ -285,7 +285,13 @@ Um die Qualität einzelner Softwarekomponenten sicherzustellen wurden sogeannte 
    * XML
    * Binary Format
    
-Der Bericht als HTML Seite wird in folgendem Verzeichnis abgelegt: **/build/reports/tests/test/index.html
+Der Bericht als HTML Seite wird in folgendem Verzeichnis abgelegt: **/build/reports/tests/test/index.html. Mit folgendem Befehl kann aus dem Projektverzeichnis heraus der Bericht erzeugt werden: 
+
+    gradle clean test
+
+Der Bericht vom 15.07.2018 ist in folgender Abbildung zu sehen: 
+
+![Testbericht](testreport15072018.jpg)
 
 # 11. Risiken und technische Schulden
 # 12. Glossar

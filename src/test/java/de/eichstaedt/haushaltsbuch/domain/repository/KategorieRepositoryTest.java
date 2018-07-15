@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.is;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import java.util.Optional;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +22,28 @@ public class KategorieRepositoryTest {
   @Autowired
   private KategorieRepository kategorieRepository;
 
-  @Before
-  public void setUp() throws Exception {
-    kategorieRepository.deleteAll();
-  }
 
   @Test
   public void testSave() {
 
-    Kategorie kategorie = new Kategorie("Versicherung");
+    Kategorie kategorie = new Kategorie("VersicherungsTest");
 
     Kategorie saved = kategorieRepository.save(kategorie);
 
-    Assert.assertThat(kategorieRepository.findById("Versicherung").get(),is(kategorie));
+    Assert.assertThat(kategorieRepository.findById("VersicherungsTest").get(),is(kategorie));
+
+    kategorieRepository.deleteById("VersicherungsTest");
   }
 
   @Test
   public void testDelete() {
 
-    Kategorie kategorie = new Kategorie("Versicherung");
+    Kategorie kategorie = new Kategorie("VersicherungLoeschen");
 
     kategorieRepository.save(kategorie);
 
-    kategorieRepository.deleteById("Versicherung");
+    kategorieRepository.deleteById("VersicherungLoeschen");
 
-    Assert.assertThat(kategorieRepository.findById("Versicherung"),is(Optional.empty()));
+    Assert.assertThat(kategorieRepository.findById("VersicherungLoeschen"),is(Optional.empty()));
   }
 }

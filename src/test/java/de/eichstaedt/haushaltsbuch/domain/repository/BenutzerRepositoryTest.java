@@ -4,7 +4,6 @@ import static org.hamcrest.core.Is.is;
 
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +25,11 @@ public class BenutzerRepositoryTest {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @Before
-  public void setup() {
-    benutzerRepository.deleteAll();
-  }
-
   @Test
   public void testSave() {
 
-    Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad","konrad@gmx.de","Start123",passwordEncoder)
-        .withName("Konrad","Eichstädt")
+    Benutzer benutzer = new Benutzer.BenutzerBuilder("klaus","konrad@gmx.de","Start123",passwordEncoder)
+        .withName("Klaus","Eichstädt")
         .withWohnort("Göttliner Dorfstrasse 12a","14712","Ratenow","Deutschland")
         .build();
 
@@ -49,7 +43,7 @@ public class BenutzerRepositoryTest {
   @Test
   public void testDeleteById() {
 
-    Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad","konrad@gmx.de","Start123",passwordEncoder)
+    Benutzer benutzer = new Benutzer.BenutzerBuilder("klaus123","konrad@gmx.de","Start123",passwordEncoder)
         .withName("Konrad","Eichstädt")
         .withWohnort("Göttliner Dorfstrasse 12a","14712","Ratenow","Deutschland")
         .build();

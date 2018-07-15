@@ -2,6 +2,7 @@ package de.eichstaedt.haushaltsbuch.domain.services;
 
 import static org.hamcrest.Matchers.is;
 
+import de.eichstaedt.haushaltsbuch.domain.repository.KategorieRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,8 +22,13 @@ public class KategorieServiceTest {
   @Autowired
   private KategorieService kategorieService;
 
+  @Autowired
+  private KategorieRepository kategorieRepository;
+
   @Test
   public void testcreateDefaultKategories() {
+
+    kategorieRepository.deleteAll();
 
     kategorieService.createDefaultKategories();
 
