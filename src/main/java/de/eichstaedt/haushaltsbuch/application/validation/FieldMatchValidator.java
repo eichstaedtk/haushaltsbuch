@@ -53,9 +53,9 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
             }
             
         }
-        catch (final Exception ignore)
+        catch (final Exception e)
         {
-            // ignore
+            logger.error("Error during validation of passwort",e);
         }
         return true;
     }

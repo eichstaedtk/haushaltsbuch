@@ -95,9 +95,9 @@ Für die Darstellung der HTML Seiten sind folgende Technologien verwwendet worde
 
 Alle Seiten folgen dem Ansatz des Responsive Design. Als allgemeine Entwicklungsrichtlinien wurden folgende Prinzipien angewendet: 
 
-  *  Test Driven Design 
-  *  Clean Code
-  *  Domain driven Design  
+  *  [Test Driven Development](https://www.it-agile.de/wissen/agiles-engineering/testgetriebene-entwicklung-tdd/) 
+  *  [Clean Code](http://clean-code-developer.de/)
+  *  [Domain Driven Design, DDD](http://dddcommunity.org/)
    
 # 5. Bausteinsicht
 

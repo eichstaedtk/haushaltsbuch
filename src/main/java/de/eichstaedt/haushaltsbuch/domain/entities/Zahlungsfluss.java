@@ -22,8 +22,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
-import org.springframework.format.annotation.NumberFormat.Style;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
@@ -66,7 +64,6 @@ public class Zahlungsfluss {
   private String beschreibung;
 
   @NotNull
-  @NumberFormat(style = Style.CURRENCY)
   @Column(name = "betrag")
   private BigDecimal betrag;
 
