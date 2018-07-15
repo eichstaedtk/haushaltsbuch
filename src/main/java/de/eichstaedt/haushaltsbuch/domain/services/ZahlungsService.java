@@ -24,7 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Zahlungsservice implements ZahlungsflussBoundaryController {
+public class ZahlungsService implements ZahlungsflussBoundaryController {
 
     @Autowired
     private HaushaltsbuchRepository haushaltsbuchRepository;
@@ -35,7 +35,7 @@ public class Zahlungsservice implements ZahlungsflussBoundaryController {
     @Autowired
     private KategorieRepository kategorieRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(Zahlungsservice.class);
+    private static final Logger logger = LoggerFactory.getLogger(ZahlungsService.class);
 
     @Override
     public boolean buchen(Haushaltsbuch haushaltsbuch, Zahlungsfluss zahlung) {
