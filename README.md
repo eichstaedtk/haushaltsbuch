@@ -279,7 +279,9 @@ Folgende Entwurfsentscheidungen sind in diesem Projekt getroffen worden:
                  
 # 10. Qualitätsziele
 
-Um die Qualität einzelner Softwarekomponenten sicherzustellen wurden Unit und Integrationstests implementiert. Alle Tests werden mit jedem Build der Anwendung vollständig durchgeführt. Dabei erstellt Gradle für jeden Build einen Bericht in folgenden Formaten: 
+Um die Qualität einzelner Softwarekomponenten sicherzustellen wurden Unit und Integrationstests implementiert. Die Spring Testing Komponente des Frameworks ermöglicht es sehr einfach Tests zu schreiben 
+welche Zugriff auf die komplette Laufzeitumgebung haben und Persistenzschicht haben. Es können ebenfalls auch sehr einfach Tests für das Aufrufen einzelner Seiten implementiert werden.  
+Alle Tests werden mit jedem Build der Anwendung vollständig durchgeführt. Dabei erstellt Gradle für jeden Build einen Bericht in folgenden Formaten: 
 
    * HTML
    * XML
