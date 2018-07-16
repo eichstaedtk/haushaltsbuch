@@ -3,7 +3,9 @@ package de.eichstaedt.haushaltsbuch.domain.repository;
 import static org.hamcrest.core.Is.is;
 
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,16 @@ public class BenutzerRepositoryTest {
 
   @Autowired
   private PasswordEncoder passwordEncoder;
+
+  @Before
+  public void setUp() throws Exception {
+    benutzerRepository.deleteAll();
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    benutzerRepository.deleteAll();
+  }
 
   @Test
   public void testSave() {

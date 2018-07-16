@@ -18,7 +18,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -53,6 +55,20 @@ public class ZahlungsServiceTest {
   private BenutzerRepository benutzerRepository;
 
   private Logger logger = LoggerFactory.getLogger(ZahlungsServiceTest.class);
+
+  @Before
+  public void setUp() throws Exception {
+    haushaltsbuchRepository.deleteAll();
+    benutzerRepository.deleteAll();
+    zahlungsflussRepository.deleteAll();
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    haushaltsbuchRepository.deleteAll();
+    benutzerRepository.deleteAll();
+    zahlungsflussRepository.deleteAll();
+  }
 
   @Test
   public void testbuchen() {

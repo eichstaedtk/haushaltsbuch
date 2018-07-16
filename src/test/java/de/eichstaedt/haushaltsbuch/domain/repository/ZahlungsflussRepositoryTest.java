@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,13 @@ public class ZahlungsflussRepositoryTest {
   @Autowired
   private KategorieRepository kategorieRepository;
 
-  @After
+  @Before
   public void setUp() throws Exception {
+    zahlungsflussRepository.deleteAll();
+  }
+
+  @After
+  public void tearDown() throws Exception {
     zahlungsflussRepository.deleteAll();
   }
 

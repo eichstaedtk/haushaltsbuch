@@ -7,7 +7,9 @@ import static org.hamcrest.Matchers.nullValue;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import java.util.Optional;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -27,6 +29,21 @@ public class HaushaltsbuchRepositoryTest {
   @Autowired
   private HaushaltsbuchRepository haushaltsbuchRepository;
 
+  @Autowired
+  private BenutzerRepository benutzerRepository;
+
+  @Before
+  public void setUp() throws Exception {
+    haushaltsbuchRepository.deleteAll();
+    benutzerRepository.deleteAll();
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    haushaltsbuchRepository.deleteAll();
+    benutzerRepository.deleteAll();
+  }
+
   @Test
   public void testSave() {
 
@@ -35,6 +52,7 @@ public class HaushaltsbuchRepositoryTest {
     Mockito.when(passwordEncoder.encode("Start123")).thenReturn("3432423");
 
     Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad","konrad.eichstaedt@gmx.de","Start123",passwordEncoder).build();
+    benutzer = benutzerRepository.save(benutzer);
 
     Haushaltsbuch haushaltsbuch = new Haushaltsbuch("Buch 2018",benutzer);
 
@@ -57,6 +75,7 @@ public class HaushaltsbuchRepositoryTest {
     Mockito.when(passwordEncoder.encode("Start123")).thenReturn("3432423");
 
     Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad","konrad.eichstaedt@gmx.de","Start123",passwordEncoder).build();
+    benutzer = benutzerRepository.save(benutzer);
 
     Haushaltsbuch haushaltsbuch = new Haushaltsbuch("Buch 2018",benutzer);
 
@@ -74,9 +93,8 @@ public class HaushaltsbuchRepositoryTest {
 
     Mockito.when(passwordEncoder.encode("Start123")).thenReturn("3432423");
 
-    haushaltsbuchRepository.deleteAll();
-
     Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad","konrad.eichstaedt@gmx.de","Start123",passwordEncoder).build();
+    benutzer = benutzerRepository.save(benutzer);
 
     Haushaltsbuch haushaltsbuch = new Haushaltsbuch("Buch 2018",benutzer);
 

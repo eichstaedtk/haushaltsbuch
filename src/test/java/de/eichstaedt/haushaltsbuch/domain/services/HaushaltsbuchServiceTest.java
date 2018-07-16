@@ -42,11 +42,13 @@ public class HaushaltsbuchServiceTest {
   @After
   public void tearDown() throws Exception {
     haushaltsbuchRepository.deleteAll();
+    benutzerRepository.deleteAll();
   }
 
   @Before
   public void setUp() throws Exception {
     haushaltsbuchRepository.deleteAll();
+    benutzerRepository.deleteAll();
   }
 
   @Test
@@ -70,9 +72,6 @@ public class HaushaltsbuchServiceTest {
 
     Assert.assertThat(haushaltsbuch.getName(),is("Buch 2018 Konrad"));
 
-    haushaltsbuchRepository.deleteById(haushaltsbuch.getId());
-
-    benutzerRepository.delete(benutzer);
   }
 
   @Test
@@ -98,10 +97,6 @@ public class HaushaltsbuchServiceTest {
     Assert.assertThat(haushaltsbuchService.findAllHaushaltsbuecher(benutzer.getBenutzername()).contains(haushaltsbuch1),is(true));
 
     Assert.assertThat(haushaltsbuchService.findAllHaushaltsbuecher(benutzer.getBenutzername()).contains(haushaltsbuch2),is(true));
-
-    haushaltsbuchRepository.deleteAll();
-
-    benutzerRepository.delete(benutzer);
   }
 
   @Test
@@ -120,9 +115,5 @@ public class HaushaltsbuchServiceTest {
     Optional<Haushaltsbuch> result = haushaltsbuchService.findById(haushaltsbuch1.getId());
 
     Assert.assertThat(result,is(Optional.of(haushaltsbuch1)));
-
-    haushaltsbuchRepository.deleteById(haushaltsbuch1.getId());
-
-    benutzerRepository.delete(benutzer);
   }
 }

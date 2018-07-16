@@ -42,5 +42,7 @@ public class KategorieServiceTest {
 
     Assert.assertThat(kategorieService.findAll().contains(new Kategorie("Neue Kategorie")),is(true));
 
+    kategorieRepository.deleteById("Neue Kategorie");
+
   }
 }

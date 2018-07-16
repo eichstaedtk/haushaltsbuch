@@ -9,6 +9,7 @@ import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class BenutzerServiceTest {
 
   @Autowired
   private PasswordEncoder passwordEncoder;
+
+  @Before
+  public void setUp() throws Exception {
+    benutzerRepository.deleteAll();
+  }
 
   @After
   public void setup() {
