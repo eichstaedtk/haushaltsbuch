@@ -37,7 +37,7 @@ public class DashboardController {
   private Haushaltsbuch selectedHaushaltsbuch;
 
 
-  @GetMapping(value = "dashboard")
+  @GetMapping(value = "/dashboard")
   public String dashboard(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(defaultValue = "off") boolean neueshaushaltsbuch) {
 
     logger.info("GET Request for dashboard page {} ", neueshaushaltsbuch);
