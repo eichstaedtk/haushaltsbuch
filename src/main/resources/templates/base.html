@@ -50,9 +50,9 @@
       <td th:text="${buch.name}"></td>
       <td th:text="${buch.erstellDatum}"></td>
       <td>
-          <a href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id})}"><i class="fas fa-edit"></i></a>
-          <a href="/haushaltsbericht" th:href="@{/haushaltsbericht(buchid=${buch.id})}"><i class="fas fa-calculator"></i></a>
-          <a href="/haushaltsbuch" th:href="@{'/haushaltsbuch/'+${buch.id}+'/loeschen'}"><i class="fas fa-trash"></i></a>
+          <a title="Haushaltsbuch öffnen" href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id})}"><i class="fas fa-edit"></i></a>
+          <a title="Haushalstbuch Berichte anzeigen" href="/haushaltsbericht" th:href="@{/haushaltsbericht(buchid=${buch.id})}"><i class="fas fa-calculator"></i></a>
+          <a title="Haushaltsbuch löschen" href="/haushaltsbuch" th:href="@{'/haushaltsbuch/'+${buch.id}+'/loeschen'}"><i class="fas fa-trash"></i></a>
       </td>
     </tr>
   </table>
