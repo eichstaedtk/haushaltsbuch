@@ -59,5 +59,25 @@
   </div>
   </div>
 </div>
+
+<div class="row" th:fragment="kategorien">
+  <div class="col-md-9 center">
+    <div><h3>Deine Kategorien</h3></div>
+    <div>
+      <div class="table-wrapper-scroll-y">
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>NAME</th>
+        </tr>
+        </thead>
+        <tr th:each="kategorie : ${kategorien}">
+          <td th:text="${kategorie.name}"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
 </body>
 </html>

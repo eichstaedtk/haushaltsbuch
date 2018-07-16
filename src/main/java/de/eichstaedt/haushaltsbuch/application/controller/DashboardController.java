@@ -1,7 +1,9 @@
 package de.eichstaedt.haushaltsbuch.application.controller;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,6 +31,9 @@ public class DashboardController {
   @Autowired
   private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
+  @Autowired
+  private KategorieBoundaryController kategorieBoundaryController;
+
   private Haushaltsbuch selectedHaushaltsbuch;
 
 
@@ -42,12 +47,18 @@ public class DashboardController {
     model.addAttribute("neueshaushaltsbuch",neueshaushaltsbuch);
 
     List<Haushaltsbuch> haushaltsbuecher = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername());
+    List<Kategorie> kategorien = kategorieBoundaryController.findAll();
 
     Optional<Haushaltsbuch> latest = haushaltsbuecher.stream().sorted((h1, h2) -> h2.getId().compareTo(h1.getId())).findFirst();
 
     if(Objects.nonNull(haushaltsbuecher)) {
       model.addAttribute("haushaltsbuecher", haushaltsbuecher);
     }
+
+    if(Objects.nonNull(kategorien)) {
+      model.addAttribute("kategorien", kategorien);
+    }
+
 
     if(latest.isPresent())
     {
