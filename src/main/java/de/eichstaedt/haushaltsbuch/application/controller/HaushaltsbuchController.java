@@ -1,6 +1,7 @@
 package de.eichstaedt.haushaltsbuch.application.controller;
 
 import de.eichstaedt.haushaltsbuch.application.model.Pager;
+import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltbuchLoeschenFailedException;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
@@ -24,9 +25,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 19.05.18.
@@ -123,6 +126,28 @@ public class HaushaltsbuchController {
     }
 
     return new ModelAndView("/haushaltsbuch",model);
+  }
+
+  @GetMapping("/haushaltsbuch/{buchid}/loeschen")
+  public ModelAndView haushltsbuchLoeschen(ModelMap model,@AuthenticationPrincipal User accountDetails, @PathVariable String buchid, RedirectAttributes redirectAttributes) {
+
+    logger.info("Getting request for haushaltsbuch loeschen for buch {} ", buchid);
+
+    try {
+
+      haushaltsbuchBoundaryController.loeschen(Long.valueOf(buchid), accountDetails.getUsername());
+
+    } catch (HaushaltbuchLoeschenFailedException e) {
+      logger.error("Loeschen for haushaltsbuch failed", e);
+
+      redirectAttributes.addFlashAttribute("errorloeschenbuch",e.getLocalizedMessage());
+    }
+
+    List<Haushaltsbuch> haushaltsbuecher = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername());
+
+    model.addAttribute("haushaltsbuecher", haushaltsbuecher);
+
+    return new ModelAndView("redirect:/dashboard",model);
   }
 
   public Zahlungsfluss getNeueZahlung() {

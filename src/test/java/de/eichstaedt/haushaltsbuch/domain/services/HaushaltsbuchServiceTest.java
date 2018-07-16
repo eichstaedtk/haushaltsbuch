@@ -4,10 +4,18 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
+import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltbuchLoeschenFailedException;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
+import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 import org.junit.After;
 import org.junit.Assert;
@@ -39,16 +47,21 @@ public class HaushaltsbuchServiceTest {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
+  @Autowired
+  private ZahlungsflussRepository zahlungsflussRepository;
+
   @After
   public void tearDown() throws Exception {
     haushaltsbuchRepository.deleteAll();
     benutzerRepository.deleteAll();
+    zahlungsflussRepository.deleteAll();
   }
 
   @Before
   public void setUp() throws Exception {
     haushaltsbuchRepository.deleteAll();
     benutzerRepository.deleteAll();
+    zahlungsflussRepository.deleteAll();
   }
 
   @Test
@@ -115,5 +128,31 @@ public class HaushaltsbuchServiceTest {
     Optional<Haushaltsbuch> result = haushaltsbuchService.findById(haushaltsbuch1.getId());
 
     Assert.assertThat(result,is(Optional.of(haushaltsbuch1)));
+  }
+
+  @Test(expected = HaushaltbuchLoeschenFailedException.class)
+  public void testloeschen() throws HaushaltbuchLoeschenFailedException {
+
+    Benutzer benutzer = new Benutzer.BenutzerBuilder("klaus123","konrad@gmx.de","Start123",passwordEncoder)
+        .withName("Konrad","Eichstädt")
+        .withWohnort("Göttliner Dorfstrasse 12a","14712","Ratenow","Deutschland")
+        .build();
+
+
+    benutzerRepository.save(benutzer);
+
+    Haushaltsbuch haushaltsbuch = haushaltsbuchService.createHaushaltsbuch("Buch 2018/1 Konrad",benutzer.getBenutzername());
+
+    Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),new Kategorie("Versicherung"),LocalDate
+        .now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+
+
+    ausgabe = zahlungsflussRepository.save(ausgabe);
+
+    haushaltsbuch.getAusgaben().add(ausgabe);
+
+    haushaltsbuchRepository.save(haushaltsbuch);
+
+    haushaltsbuchService.loeschen(haushaltsbuch.getId(),benutzer.getBenutzername());
   }
 }

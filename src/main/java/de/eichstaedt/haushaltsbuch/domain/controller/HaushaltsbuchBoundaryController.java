@@ -11,6 +11,8 @@ public interface HaushaltsbuchBoundaryController {
 
   Haushaltsbuch createHaushaltsbuch(String name, String benutzerName);
 
+  void loeschen(Long id, String benutzerName) throws HaushaltbuchLoeschenFailedException;
+
   List<Haushaltsbuch> findAllHaushaltsbuecher(String benutzername);
 
   Optional<Haushaltsbuch> findById(Long buchid);

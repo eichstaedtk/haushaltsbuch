@@ -1,5 +1,6 @@
 package de.eichstaedt.haushaltsbuch.domain.services;
 
+import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltbuchLoeschenFailedException;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
@@ -50,6 +51,28 @@ public class HaushaltsbuchService implements HaushaltsbuchBoundaryController {
     }
 
     return result;
+  }
+
+  @Override
+  public void loeschen(Long id, String benutzerName) throws HaushaltbuchLoeschenFailedException {
+
+    logger.info("Trying to delete haushaltsbuch with id {} ", id);
+
+    Optional<Haushaltsbuch> haushaltsbuch = haushaltsbuchRepository.findById(id);
+
+    if(haushaltsbuch.isPresent())
+    {
+      Haushaltsbuch buch = haushaltsbuch.get();
+
+      if(buch.getEinnahmen().isEmpty() && buch.getAusgaben().isEmpty() && buch.getBesitzer().getBenutzername().equals(benutzerName))
+      {
+        haushaltsbuchRepository.deleteById(buch.getId());
+
+      }else {
+        throw new HaushaltbuchLoeschenFailedException("Haushaltsbuch enthält Ausgaben oder Einnahmen oder gehört einem anderen Benutzer");
+      }
+    }
+
   }
 
   @Override
