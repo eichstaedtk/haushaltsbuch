@@ -253,6 +253,9 @@ Diese generieren auf Basis einer JPA Implementierung, in diesem Fall Hibernate, 
 dann in das Model der View, sodass der Nutzer eine entsprechende HTTP Antwort erhält. 
 
 # 7. Verteilungssicht
+
+Die Verteilungssicht kann zum jetzigen Zeitpunkt noch nicht beschrieben werden, da eine Installation in einem Rechenzentrum noch nicht geplant ist. 
+
 # 8. Betrieb und Wiederherstellung #
 
 Diese Anwendung wurde als Serveranwendung entwickelt. Aufgrund der Kapselung in einem Docker Container kann, diese Anwendung auf jedem Betriebssystem betrieben werden, für welche Docker zur Verfügung gestellt wird.  
