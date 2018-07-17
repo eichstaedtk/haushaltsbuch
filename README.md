@@ -161,7 +161,13 @@ Alle weiteren Packages des Domain Layers enthalten die Klassen nach dem Konzept 
   * **Value Object**: Wertobjekt, modelliert ein unveränderliches konzeptionelles Ganzes. Innerhalb des Modells ist der Wert genau das: ein Wert. Im Gegensatz zur Entität besitzt es keine eindeutige Identität. 
   * **Aggregates**: Stellen eine sogenannte "root Entity" dar, welche mehrere Entities zusammenfasst. Ein Aggregate hat damit ebenfalls eine Identität und steuert die Kosistenz von mehreren Entitäten. 
   * **Repository**: Stellt eine Schnittstelle zu Persistenzschicht dar. Hierrüber werden die Daten gespeichert und verändert. 
-  * **Service**: Steuern und kontrollieren einen Geschäftsprozess, welcher mehrere Entitäten bzw. Aggregates betrifft.  
+  * **Service**: Steuern und kontrollieren einen Geschäftsprozess, welcher mehrere Entitäten bzw. Aggregates betrifft. 
+  
+In der nachfolgenden Abbildung sind die zentralen Klassen des fachlichen Modells aufgeführt. Diese sind das Haushaltbuch, der Zahlungsfluss, der Benutzer und die Kategorie. Jeder Benutzer kann mehrere Haushaltsbücher anlegen. In jedem Haushaltsbuch sind
+jeweils die Ausgaben und Einnahmen als ein Set von Zahlungsfluss modelliert. 
+
+![Entitäten](haushaltsbuchentitaeten.png)   
+   
 
 Die nachfolgende Abbildung zeigt die Klassenstruktur des Domain Layers:  
 
