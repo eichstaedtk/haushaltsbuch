@@ -242,6 +242,16 @@ In der untersten Schicht werden einige Spring Infrastrukturkonfigurationen vorge
 Diese Klassen ermöglichen die Anpassung der Standardkonfiguration der Frameworkkomponenten [Spring Web MVC](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#spring-web) und [Spring Security](https://docs.spring.io/spring-security/site/docs/5.0.5.BUILD-SNAPSHOT/reference/htmlsingle/).
 Alle Details der Anpassungen sollen hier nicht beschrieben werden, können aber in der entsprechenden Framework Dokumentation nachvollzogen werden.    
 # 6. Laufzeitsicht
+
+Die nachfolgende Abbildung zeigt die zentralen Komponenten der Anwendung zur Laufzeit. 
+
+![Laufzeit](laufzeitumgebung.png)
+
+Im ersten Schritt gibt der Nutzer eine HTTP Anfrage mit Hilfe des Browsers ein. Hierbei verwendet er die URL des installierten Anwendungsservers. Zum jetzigen Zeitpunkt ist das der in Spring Boot eingebettet Tomcat Server. Dieser leitet die Anfrage an das zentrale Dispatcher Servlet weiter. 
+Im selben Augenblick werden die zur weiteren Verarbeitung benötigten Spring MVC Bean Komponenten erzeugt. Dieser erarbeiten den HTTP Request und erzeugen eine entsprechende Antwort. Für den Fall, dass Daten aus der Datenbank abgefragt werden, müssen auch die entsprechenden Spring Data JPA Kompoenten erzeugt werden. 
+Diese generieren auf Basis einer JPA Implementierung, in diesem Fall Hibernate, eine SQL Anfrage welche durch den Postgres Server beantwortet werden muss. Sobald diese beantwortet ist, werden die Daten via OR Mapping in die Bean Komponenten übertragen und zur Weiterverarbeitung des Requests verwendet. Die MVC Komponente überträgt diese Daten 
+dann in das Model der View, sodass der Nutzer eine entsprechende HTTP Antwort erhält. 
+
 # 7. Verteilungssicht
 # 8. Betrieb und Wiederherstellung #
 
