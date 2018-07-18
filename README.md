@@ -26,7 +26,7 @@ Alle Benutzer sollen sich mit einem Benutzernamen und Passwort an dem System aut
 
 ## 1.1 Aufgabenstellung ##
 
-Die Aufgabenstellung für das Entwicklungsteam ist es, die im Pflichtenheft definierten Anforderungen in Form einer installierbaren und ausführbaren Anwendung umzusetzen. Dazu sollen die notwendigen Technologien 
+Die Aufgabenstellung für das Entwicklungsteam ist es, die im [Pflichtenheft](pflichtenheftHaushaltsbuch.pdf) definierten Anforderungen in Form einer installierbaren und ausführbaren Anwendung umzusetzen. Dazu sollen die notwendigen Technologien 
 ausgewählt, die Konzeption der Anwendung erstellt und die Umsetzung durchgeführt werden.  
 
 ## 1.2 Qualitätsziele ##
