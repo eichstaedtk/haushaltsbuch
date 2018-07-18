@@ -55,6 +55,7 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
                     haushaltsbuch.getEinnahmen().add(saved);
                 }
 
+                haushaltsbuch.setAenderungsdatum(LocalDate.now());
                 haushaltsbuch = haushaltsbuchRepository.save(haushaltsbuch);
 
                 logger.info("Haushaltsbuch saved {}",haushaltsbuch);
@@ -100,6 +101,7 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
                         buch.get().getEinnahmen().remove(loeschen.get());
                     }
 
+                    buch.get().setAenderungsdatum(LocalDate.now());
                     haushaltsbuchRepository.save(buch.get());
 
                     zahlungsflussRepository.delete(loeschen.get());

@@ -68,3 +68,7 @@
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+.row {
+  margin-bottom: 30px;
+}

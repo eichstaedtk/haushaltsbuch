@@ -42,6 +42,7 @@
       <th>NUMMER</th>
       <th>NAME</th>
       <th>ERSTELLT AM</th>
+      <th>GEÄNDERT AM</th>
       <th>Aktion</th>
     </tr>
     </thead>
@@ -49,6 +50,7 @@
       <td th:text="${buch.id}"></td>
       <td th:text="${buch.name}"></td>
       <td th:text="${buch.erstellDatum}"></td>
+      <td th:text="${buch.aenderungsdatum}"></td>
       <td>
           <a title="Haushaltsbuch öffnen" href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id})}"><i class="fas fa-edit"></i></a>
           <a title="Haushalstbuch Berichte anzeigen" href="/haushaltsbericht" th:href="@{/haushaltsbericht(buchid=${buch.id})}"><i class="fas fa-calculator"></i></a>

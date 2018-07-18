@@ -32,6 +32,7 @@ public class Haushaltsbuch {
   public Haushaltsbuch(String name, Benutzer besitzer) {
     this.name = name;
     this.erstellDatum = LocalDate.now();
+    this.aenderungsdatum = LocalDate.now();
     this.ausgaben = new HashSet<>();
     this.einnahmen = new HashSet<>();
     this.besitzer = besitzer;
@@ -47,6 +48,9 @@ public class Haushaltsbuch {
 
   @Column(name = "erstelldatum")
   private LocalDate erstellDatum;
+
+  @Column(name = "aenderungsdatum")
+  private LocalDate aenderungsdatum;
 
   @OneToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "haushaltsbuch_ausgaben" ,joinColumns = @JoinColumn( name="zahlungsfluss_id"),
@@ -86,6 +90,7 @@ public class Haushaltsbuch {
         "id=" + id +
         ", name='" + name + '\'' +
         ", erstellDatum=" + erstellDatum +
+        ", aenderungsdatum=" + aenderungsdatum +
         ", ausgaben=" + ausgaben +
         ", einnahmen=" + einnahmen +
         ", besitzer=" + besitzer +
@@ -116,4 +121,11 @@ public class Haushaltsbuch {
     return besitzer;
   }
 
+  public LocalDate getAenderungsdatum() {
+    return aenderungsdatum;
+  }
+
+  public void setAenderungsdatum(LocalDate aenderungsdatum) {
+    this.aenderungsdatum = aenderungsdatum;
+  }
 }
