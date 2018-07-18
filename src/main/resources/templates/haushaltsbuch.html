@@ -16,9 +16,16 @@
     <div th:replace="/navigation::navigation  "></div>
     <div class="row">
       <div class="col-md-9 center">
+        <div>
+          <img id="gluecksschweinsmall" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
+          <h1 style="float: right;"><span th:text="${buch.name}"></span></h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9 center">
         <form action="/haushaltsbuch/zahlungen" th:action="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen'}" method="post" th:object="${neuezahlung}" id="zahlungsform">
           <h3>Neue Zahlung erstellen</h3>
-
           <div class="input-group mb-3">
             <div class="input-group-prepend">
             </div>
@@ -93,7 +100,7 @@
 
     <div class="row">
       <div class="col-md-9 center">
-        <div style="margin-bottom: 2em;"><h3>Zahlungesverkehr: <span th:text="${buch.name}"></span></h3></div>
+        <div style="margin-bottom: 2em;"><h3>Zahlungesverkehr</h3></div>
         <div>
           <div class="form-group col-md-12 center">
             <nav aria-label="Page navigation example">

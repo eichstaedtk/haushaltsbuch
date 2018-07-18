@@ -16,6 +16,13 @@
     <div th:replace="/navigation::navigation  "></div>
     <div class="row">
       <div class="col-md-9 center">
+        <div>
+          <img id="gluecksschweinsmall" th:src="@{/images/gluecksschwein.jpg}" alt="Glücksschwein">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9 center">
         <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
           <h3>Neues Haushaltsbuch anlegen</h3>
           <div class="input-group mb-3">
