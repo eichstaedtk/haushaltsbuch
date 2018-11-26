@@ -92,15 +92,13 @@ public class BenutzerService implements BenutzerBoundaryController {
   @Override
   public boolean aktiviereBenutzerMitCode(String code) {
 
-    if(Objects.nonNull(code))
-    {
+    if(Objects.nonNull(code) && !code.isEmpty()) {
 
       Benutzer benutzer = benutzerRepository.findByAktivierungsCode(code);
 
-      if(Objects.nonNull(benutzer))
-      {
+      if (Objects.nonNull(benutzer)) {
 
-        if(LocalDateTime.now().isBefore(benutzer.getAktivierungBis())) {
+        if (LocalDateTime.now().isBefore(benutzer.getAktivierungBis())) {
 
           benutzer.aktivieren();
 
