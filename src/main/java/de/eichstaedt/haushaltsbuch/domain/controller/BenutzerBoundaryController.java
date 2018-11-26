@@ -8,9 +8,9 @@ import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
  */
 public interface BenutzerBoundaryController {
 
-  Benutzer erstelleAnwendungsBenutzerVonRegistrierung(Registrierung registrierung);
+  Benutzer erstelleUndSpeichereBenutzerAusRegistrierung(Registrierung registrierung);
 
-  boolean isBenutzernameFree(String benutzername);
+  boolean isBenutzernameFreiZurVerwendung(String benutzername);
 
   boolean aktiviereBenutzerMitCode(String code);
 }

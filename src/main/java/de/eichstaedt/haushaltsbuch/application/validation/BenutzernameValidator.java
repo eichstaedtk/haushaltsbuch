@@ -35,7 +35,7 @@ public class BenutzernameValidator implements ConstraintValidator<BenutzernameAl
 
       logger.info("Check Benutzername {} " ,value);
 
-      return benutzerBoundaryController.isBenutzernameFree(value);
+      return benutzerBoundaryController.isBenutzernameFreiZurVerwendung(value);
     }
 
     return false;

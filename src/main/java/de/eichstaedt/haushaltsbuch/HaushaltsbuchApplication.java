@@ -41,7 +41,7 @@ public class HaushaltsbuchApplication {
 
 		kategorieBoundaryController.createDefaultKategories();
 
-		if(benutzerBoundaryController.isBenutzernameFree("konrad")) {
+		if(benutzerBoundaryController.isBenutzernameFreiZurVerwendung("konrad")) {
 			Registrierung defaultBenutzer = new Registrierung.RegistrierungBuilder(
 					"konrad.eichstaedt@gmx.de", "konrad", "Start123", "Start123")
 					.withName("Konrad", "Eichstädt")
@@ -49,7 +49,7 @@ public class HaushaltsbuchApplication {
 					.build();
 
 			Benutzer konrad = benutzerBoundaryController
-					.erstelleAnwendungsBenutzerVonRegistrierung(defaultBenutzer);
+					.erstelleUndSpeichereBenutzerAusRegistrierung(defaultBenutzer);
 
 			benutzerBoundaryController.aktiviereBenutzerMitCode(konrad.getAktivierungsCode());
 

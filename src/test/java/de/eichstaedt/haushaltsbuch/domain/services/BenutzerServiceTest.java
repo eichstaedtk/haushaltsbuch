@@ -50,7 +50,7 @@ public class BenutzerServiceTest {
 
     Registrierung registrierung = new Registrierung();
 
-    Benutzer benutzer = benutzerService.erstelleAnwendungsBenutzerVonRegistrierung(registrierung);
+    Benutzer benutzer = benutzerService.erstelleUndSpeichereBenutzerAusRegistrierung(registrierung);
 
     Assert.assertThat(benutzer,is(nullValue()));
   }
@@ -60,7 +60,7 @@ public class BenutzerServiceTest {
 
     Registrierung registrierung = new Registrierung("konrad","konrad.eichstaedt@gmx.de","Start123");
 
-    Benutzer benutzer = benutzerService.erstelleAnwendungsBenutzerVonRegistrierung(registrierung);
+    Benutzer benutzer = benutzerService.erstelleUndSpeichereBenutzerAusRegistrierung(registrierung);
 
     Assert.assertThat(benutzer,is(notNullValue()));
 
@@ -72,7 +72,7 @@ public class BenutzerServiceTest {
   @Test
   public void testisBenutzernameFree() {
 
-    Assert.assertThat(benutzerService.isBenutzernameFree("konrad"),is(true));
+    Assert.assertThat(benutzerService.isBenutzernameFreiZurVerwendung("konrad"),is(true));
 
   }
 
@@ -83,7 +83,7 @@ public class BenutzerServiceTest {
 
     benutzerRepository.save(benutzer);
 
-    Assert.assertThat(benutzerService.isBenutzernameFree("konrad"),is(false));
+    Assert.assertThat(benutzerService.isBenutzernameFreiZurVerwendung("konrad"),is(false));
 
   }
 

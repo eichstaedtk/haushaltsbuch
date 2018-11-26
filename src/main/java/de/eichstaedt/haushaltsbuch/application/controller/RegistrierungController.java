@@ -72,7 +72,7 @@ public class RegistrierungController {
 
     ModelAndView modelView = new ModelAndView();
 
-    Benutzer benutzer = benutzerBoundaryController.erstelleAnwendungsBenutzerVonRegistrierung(registrierungForm);
+    Benutzer benutzer = benutzerBoundaryController.erstelleUndSpeichereBenutzerAusRegistrierung(registrierungForm);
 
     if(Objects.nonNull(benutzer))
     {

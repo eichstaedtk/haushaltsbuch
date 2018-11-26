@@ -35,7 +35,7 @@ public class BenutzerService implements BenutzerBoundaryController {
   private PasswordEncoder passwordEncoder;
 
   @Override
-  public Benutzer erstelleAnwendungsBenutzerVonRegistrierung(Registrierung registrierung) {
+  public Benutzer erstelleUndSpeichereBenutzerAusRegistrierung(Registrierung registrierung) {
 
     Benutzer benutzer = null;
 
@@ -73,7 +73,7 @@ public class BenutzerService implements BenutzerBoundaryController {
   }
 
   @Override
-  public boolean isBenutzernameFree(String benutzername) {
+  public boolean isBenutzernameFreiZurVerwendung(String benutzername) {
 
     if (Objects.nonNull(benutzername) && !benutzername.isEmpty()) {
 
