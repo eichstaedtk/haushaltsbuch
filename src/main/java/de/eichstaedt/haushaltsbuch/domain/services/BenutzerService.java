@@ -1,12 +1,11 @@
 package de.eichstaedt.haushaltsbuch.domain.services;
 
-import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
+import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,16 @@ public class BenutzerService implements BenutzerBoundaryController {
   private static final Logger logger = LoggerFactory.getLogger(BenutzerService.class);
 
   @Autowired
+  public BenutzerService(
+      BenutzerRepository benutzerRepository,
+      PasswordEncoder passwordEncoder) {
+    this.benutzerRepository = benutzerRepository;
+    this.passwordEncoder = passwordEncoder;
+  }
+
   private BenutzerRepository benutzerRepository;
 
-  @Autowired
+
   private PasswordEncoder passwordEncoder;
 
   @Override
@@ -37,31 +43,7 @@ public class BenutzerService implements BenutzerBoundaryController {
 
       logger.info("Erstelle Benutzer von Registrierung {} ", registrierung);
 
-      if (Stream.of(registrierung.getBenutzername(), registrierung.getPasswort(),
-          registrierung.getPasswort()).allMatch(Objects::nonNull)) {
-
-        benutzer = new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
-            registrierung.getEmail(), registrierung.getPasswort(), passwordEncoder).build();
-
-        if (Stream.of(registrierung.getVorname(), registrierung.getNachname())
-            .allMatch(Objects::nonNull)) {
-          benutzer = new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
-              registrierung.getEmail(), registrierung.getPasswort(), passwordEncoder)
-              .withName(registrierung.getVorname(), registrierung.getNachname()).build();
-
-          if (Stream.of(registrierung.getLand(), registrierung.getPostleitzahl(),
-              registrierung.getStadt(), registrierung.getStrasse()).allMatch(Objects::nonNull)) {
-            benutzer = new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
-                registrierung.getEmail(), registrierung.getPasswort(), passwordEncoder)
-                .withName(registrierung.getVorname(), registrierung.getNachname())
-                .withWohnort(registrierung.getStrasse(), registrierung.getPostleitzahl(),
-                    registrierung.getStadt(), registrierung.getLand())
-                .build();
-          }
-
-        }
-
-      }
+      benutzer = erstelleBenutzerAusRegistrierung(registrierung);
 
       if (Objects.nonNull(benutzer)) {
         benutzer = benutzerRepository.save(benutzer);
@@ -72,6 +54,22 @@ public class BenutzerService implements BenutzerBoundaryController {
     logger.info("Benutzer wurde erstellt {} ", benutzer);
 
     return benutzer;
+  }
+
+  Benutzer erstelleBenutzerAusRegistrierung(Registrierung registrierung) {
+
+    if(Objects.nonNull(registrierung) && Objects.nonNull(registrierung.getPasswort()) && Objects.nonNull(passwordEncoder)) {
+
+      return new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
+          registrierung.getEmail(), registrierung.getPasswort(), passwordEncoder)
+          .withName(registrierung.getVorname(), registrierung.getNachname())
+          .withWohnort(registrierung.getStrasse(), registrierung.getPostleitzahl(),
+              registrierung.getStadt(), registrierung.getLand())
+          .build();
+
+    }
+
+    return null;
   }
 
   @Override
