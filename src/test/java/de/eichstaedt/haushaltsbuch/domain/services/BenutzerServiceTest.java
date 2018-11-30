@@ -1,12 +1,11 @@
 package de.eichstaedt.haushaltsbuch.domain.services;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
+import java.util.Optional;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,9 +49,9 @@ public class BenutzerServiceTest {
 
     Registrierung registrierung = new Registrierung();
 
-    Benutzer benutzer = benutzerService.erstelleUndSpeichereBenutzerAusRegistrierung(registrierung);
+    Optional<Benutzer> benutzer = benutzerService.erstelleUndSpeichereBenutzerAusRegistrierung(registrierung);
 
-    Assert.assertThat(benutzer,is(nullValue()));
+    Assert.assertThat(benutzer.isPresent(),is(false));
   }
 
   @Test
@@ -60,13 +59,13 @@ public class BenutzerServiceTest {
 
     Registrierung registrierung = new Registrierung("konrad","konrad.eichstaedt@gmx.de","Start123");
 
-    Benutzer benutzer = benutzerService.erstelleUndSpeichereBenutzerAusRegistrierung(registrierung);
+    Optional<Benutzer> benutzer = benutzerService.erstelleUndSpeichereBenutzerAusRegistrierung(registrierung);
 
-    Assert.assertThat(benutzer,is(notNullValue()));
+    Assert.assertThat(benutzer.isPresent(),is(true));
 
-    Assert.assertThat(benutzerRepository.findById(benutzer.getBenutzername()).isPresent(),is(true));
+    Assert.assertThat(benutzerRepository.findById(benutzer.get().getBenutzername()).isPresent(),is(true));
 
-    Assert.assertThat(benutzer.isAktiviert(),is(false));
+    Assert.assertThat(benutzer.get().isAktiviert(),is(false));
   }
 
   @Test
