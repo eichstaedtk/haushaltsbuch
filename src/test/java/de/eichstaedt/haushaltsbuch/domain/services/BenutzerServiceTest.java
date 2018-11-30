@@ -1,13 +1,14 @@
 package de.eichstaedt.haushaltsbuch.domain.services;
 
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import java.util.Optional;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,39 +52,57 @@ public class BenutzerServiceTest {
 
     Optional<Benutzer> benutzer = benutzerService.erstelleUndSpeichereBenutzerAusRegistrierung(registrierung);
 
-    Assert.assertThat(benutzer.isPresent(),is(false));
+    assertThat(benutzer.isPresent(),is(false));
   }
 
   @Test
-  public void testerstelleAnwendungsBenutzerVonRegistrierungNotValid1() {
+  public void testerstelleAnwendungsBenutzerVonRegistrierungValid() {
 
     Registrierung registrierung = new Registrierung("konrad","konrad.eichstaedt@gmx.de","Start123");
 
     Optional<Benutzer> benutzer = benutzerService.erstelleUndSpeichereBenutzerAusRegistrierung(registrierung);
 
-    Assert.assertThat(benutzer.isPresent(),is(true));
+    assertThat(benutzer.isPresent(),is(true));
 
-    Assert.assertThat(benutzerRepository.findById(benutzer.get().getBenutzername()).isPresent(),is(true));
+    assertThat(benutzerRepository.findById(benutzer.get().getBenutzername()).isPresent(),is(true));
 
-    Assert.assertThat(benutzer.get().isAktiviert(),is(false));
+    assertThat(benutzer.get().isAktiviert(),is(false));
   }
 
   @Test
-  public void testisBenutzernameFree() {
+  public void testisBenutzernameFreiZurVerwendungTrue() {
 
-    Assert.assertThat(benutzerService.isBenutzernameFreiZurVerwendung("konrad"),is(true));
+    assertThat(benutzerService.isBenutzernameFreiZurVerwendung("konrad"),is(true));
 
   }
 
   @Test
-  public void testisBenutzernameFreeFalse() {
+  public void testisBenutzernameFreiZurVerwendungFalse() {
 
     Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad","konrad.eichstaedt@gmx.de","Start123",passwordEncoder).build();
 
     benutzerRepository.save(benutzer);
 
-    Assert.assertThat(benutzerService.isBenutzernameFreiZurVerwendung("konrad"),is(false));
+    assertThat(benutzerService.isBenutzernameFreiZurVerwendung("konrad"),is(false));
 
   }
 
+  @Test
+  public void testaktiviereBenutzerMitCode() {
+
+    Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad","konrad.eichstaedt@gmx.de","Start123",passwordEncoder).build();
+
+    benutzerRepository.save(benutzer);
+
+    boolean aktiviert = benutzerService.aktiviereBenutzerMitCode(benutzer.getAktivierungsCode());
+
+    assertThat(aktiviert,is(true));
+
+    Benutzer aktivierterBenutzer = benutzerRepository.findByBenutzername(benutzer.getBenutzername());
+
+    assertThat(aktivierterBenutzer.getAktivierungsCode(),is(nullValue()));
+
+    assertThat(aktivierterBenutzer.getAktivierungBis(),is(nullValue()));
+
+  }
 }
