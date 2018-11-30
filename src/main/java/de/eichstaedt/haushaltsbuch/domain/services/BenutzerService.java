@@ -6,6 +6,7 @@ import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,9 @@ public class BenutzerService implements BenutzerBoundaryController {
   private PasswordEncoder passwordEncoder;
 
   @Override
-  public Benutzer erstelleUndSpeichereBenutzerAusRegistrierung(Registrierung registrierung) {
+  public Optional<Benutzer> erstelleUndSpeichereBenutzerAusRegistrierung(Registrierung registrierung) {
 
-    Benutzer benutzer = null;
+    Optional<Benutzer> benutzer = Optional.empty();
 
     if (Objects.nonNull(registrierung)) {
 
@@ -45,31 +46,32 @@ public class BenutzerService implements BenutzerBoundaryController {
 
       benutzer = erstelleBenutzerAusRegistrierung(registrierung);
 
-      if (Objects.nonNull(benutzer)) {
-        benutzer = benutzerRepository.save(benutzer);
+      if (benutzer.isPresent()) {
+
+        benutzerRepository.save(benutzer.get());
+
+        logger.info("Benutzer wurde erstellt {} ", benutzer.get());
       }
 
     }
 
-    logger.info("Benutzer wurde erstellt {} ", benutzer);
-
     return benutzer;
   }
 
-  Benutzer erstelleBenutzerAusRegistrierung(Registrierung registrierung) {
+  Optional<Benutzer> erstelleBenutzerAusRegistrierung(Registrierung registrierung) {
 
     if(Objects.nonNull(registrierung) && Objects.nonNull(registrierung.getPasswort()) && Objects.nonNull(passwordEncoder)) {
 
-      return new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
+      return Optional.of(new Benutzer.BenutzerBuilder(registrierung.getBenutzername(),
           registrierung.getEmail(), registrierung.getPasswort(), passwordEncoder)
           .withName(registrierung.getVorname(), registrierung.getNachname())
           .withWohnort(registrierung.getStrasse(), registrierung.getPostleitzahl(),
               registrierung.getStadt(), registrierung.getLand())
-          .build();
+          .build());
 
     }
 
-    return null;
+    return Optional.empty();
   }
 
   @Override

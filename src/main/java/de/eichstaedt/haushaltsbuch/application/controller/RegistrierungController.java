@@ -3,7 +3,7 @@ package de.eichstaedt.haushaltsbuch.application.controller;
 import de.eichstaedt.haushaltsbuch.domain.controller.BenutzerBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
 import de.eichstaedt.haushaltsbuch.domain.entities.Registrierung;
-import java.util.Objects;
+import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,12 +72,12 @@ public class RegistrierungController {
 
     ModelAndView modelView = new ModelAndView();
 
-    Benutzer benutzer = benutzerBoundaryController.erstelleUndSpeichereBenutzerAusRegistrierung(registrierungForm);
+    Optional<Benutzer> benutzer = benutzerBoundaryController.erstelleUndSpeichereBenutzerAusRegistrierung(registrierungForm);
 
-    if(Objects.nonNull(benutzer))
+    if(benutzer.isPresent())
     {
 
-      modelView.addObject("code",benutzer.getAktivierungsCode());
+      modelView.addObject("code",benutzer.get().getAktivierungsCode());
       modelView.setViewName("/registrierungerfolg");
 
     }else
