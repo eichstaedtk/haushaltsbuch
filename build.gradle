@@ -29,9 +29,10 @@ repositories {
 }
 
 bootJar {
+	launchScript()
 	mustRunAfter tasks.clean
 	mainClassName = 'de.eichstaedt.haushaltsbuch.HaushaltsbuchApplication'
-	archiveName 'app.jar'
+	archiveName 'haushaltsbuch.jar'
 }
 
 docker {

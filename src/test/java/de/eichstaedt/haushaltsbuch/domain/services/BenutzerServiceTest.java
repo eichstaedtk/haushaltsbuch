@@ -35,7 +35,7 @@ public class BenutzerServiceTest {
   private PasswordEncoder passwordEncoder;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     benutzerRepository.deleteAll();
   }
 
