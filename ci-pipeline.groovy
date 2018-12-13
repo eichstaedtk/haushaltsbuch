@@ -1,10 +1,14 @@
 pipeline {
 
+    agent any
+
     environment {
         branch = 'master'
         scmUrl = 'https://github.com/eichstaedtk/haushaltsbuch'
     }
+
     stages {
+
         stage('Git checkout') {
             steps {
                 git branch: branch, credentialsId: 'eichstaedtk', url: scmUrl
