@@ -331,5 +331,7 @@ Der Bericht vom 15.07.2018 ist in folgender Abbildung zu sehen:
 
 ![Testbericht](testreport15072018.jpg)
 
+Jeder Build wird durch einen CI-Server durchgeführt. 
+
 # 11. Risiken und technische Schulden
 # 12. Glossar
