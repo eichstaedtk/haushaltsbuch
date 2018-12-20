@@ -60,7 +60,7 @@
             <span class="error" th:if="${#fields.hasErrors('kategorie')}" th:errors="*{kategorie}">Kategorie Fehler</span>
           </div>
 
-          <div class="input-group mb-3">
+          <div th:if="${neuezahlung instanceof T(de.eichstaedt.haushaltsbuch.domain.entities.EinmaligerZahlungsfluss)}" class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="buchungstaginput">Datum</span>
             </div>
@@ -80,7 +80,7 @@
             <span class="error" th:if="${#fields.hasErrors('typ')}" th:errors="*{typ}">Zahlungstyp Fehler </span>
           </div>
 
-          <div class="input-group mb-3">
+          <div th:if="${neuezahlung instanceof T(de.eichstaedt.haushaltsbuch.domain.entities.WiederkehrenderZahlungsfluss)}" class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="zahlungsintervall">Zahlungsintervall</span>
             </div>

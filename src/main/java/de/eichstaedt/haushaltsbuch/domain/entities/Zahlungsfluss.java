@@ -1,7 +1,6 @@
 package de.eichstaedt.haushaltsbuch.domain.entities;
 
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -65,10 +64,6 @@ public class Zahlungsfluss {
   @Enumerated(EnumType.STRING)
   protected Zahlungstyp typ;
 
-  @NotNull
-  @Column(name = "intervall")
-  @Enumerated(EnumType.STRING)
-  protected Zahlungsintervall zahlungsintervall;
 
   @Column(name = "buchid")
   protected Long buchid;
@@ -81,7 +76,6 @@ public class Zahlungsfluss {
         ", betrag=" + betrag +
         ", kategorie=" + kategorie +
         ", typ=" + typ +
-        ", zahlungsintervall=" + zahlungsintervall +
         ", buchid='" + buchid + '\'' +
         '}';
   }
@@ -124,10 +118,6 @@ public class Zahlungsfluss {
     return typ;
   }
 
-  public Zahlungsintervall getZahlungsintervall() {
-    return zahlungsintervall;
-  }
-
   public void setId(Long id) {
     this.id = id;
   }
@@ -146,11 +136,6 @@ public class Zahlungsfluss {
 
   public void setTyp(Zahlungstyp typ) {
     this.typ = typ;
-  }
-
-  public void setZahlungsintervall(
-      Zahlungsintervall zahlungsintervall) {
-    this.zahlungsintervall = zahlungsintervall;
   }
 
   public Long getBuchid() {

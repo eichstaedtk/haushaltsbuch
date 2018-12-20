@@ -6,13 +6,12 @@ import static org.hamcrest.Matchers.nullValue;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltbuchLoeschenFailedException;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
-import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligeZahlung;
+import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligerZahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
-import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.EinmalZahlungsflussRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -143,8 +142,8 @@ public class HaushaltsbuchServiceTest {
 
     Haushaltsbuch haushaltsbuch = haushaltsbuchService.createHaushaltsbuch("Buch 2018/1 Konrad",benutzer.getBenutzername());
 
-    EinmaligeZahlung ausgabe = new EinmaligeZahlung("Beschreibung",new BigDecimal(2.45),new Kategorie("Versicherung"),LocalDate
-        .now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+    EinmaligerZahlungsfluss ausgabe = new EinmaligerZahlungsfluss("Beschreibung",new BigDecimal(2.45),new Kategorie("Versicherung"),LocalDate
+        .now(),Zahlungstyp.AUSGABE,1l);
 
 
     ausgabe = einmalZahlungsflussRepository.save(ausgabe);

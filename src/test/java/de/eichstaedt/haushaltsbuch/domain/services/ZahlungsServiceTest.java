@@ -5,14 +5,13 @@ import static org.hamcrest.Matchers.is;
 import de.eichstaedt.haushaltsbuch.application.model.JahresberichtModel;
 import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
-import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligeZahlung;
+import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligerZahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.EinmalZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.KategorieRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -77,9 +76,9 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    EinmaligeZahlung zahlungsfluss = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45),
+    EinmaligerZahlungsfluss zahlungsfluss = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
-        .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
+        .now(), Zahlungstyp.AUSGABE, 1l);
 
     boolean gebucht = zahlungsService.buchen(buch, zahlungsfluss);
 
@@ -119,13 +118,13 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    EinmaligeZahlung zahlungsfluss = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45),
+    EinmaligerZahlungsfluss zahlungsfluss = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
-        .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
+        .now(), Zahlungstyp.AUSGABE,  1l);
 
     zahlungsfluss = einmalZahlungsflussRepository.save(zahlungsfluss);
 
-    Optional<EinmaligeZahlung> result = zahlungsService.laden(String.valueOf(zahlungsfluss.getId()));
+    Optional<EinmaligerZahlungsfluss> result = zahlungsService.laden(String.valueOf(zahlungsfluss.getId()));
 
     Assert.assertThat(result, is(Optional.of(zahlungsfluss)));
   }
@@ -137,9 +136,9 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    EinmaligeZahlung zahlungsfluss = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45),
+    EinmaligerZahlungsfluss zahlungsfluss = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
-        .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
+        .now(), Zahlungstyp.AUSGABE,  1l);
 
     zahlungsService.buchen(buch, zahlungsfluss);
 
@@ -159,17 +158,17 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    EinmaligeZahlung ausgabe = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45), versicherung,
+    EinmaligerZahlungsfluss ausgabe = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(2.45), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE,  buch.getId());
 
-    EinmaligeZahlung ausgabe1 = new EinmaligeZahlung("Beschreibung", new BigDecimal(5.55), versicherung,
+    EinmaligerZahlungsfluss ausgabe1 = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(5.55), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE,  buch.getId());
 
-    EinmaligeZahlung einahme = new EinmaligeZahlung("Beschreibung", new BigDecimal(155.55), versicherung,
+    EinmaligerZahlungsfluss einahme = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(155.55), versicherung,
         LocalDate
-            .now(), Zahlungstyp.EINNAHME, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.EINNAHME, buch.getId());
 
     einmalZahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1, einahme));
 
@@ -199,17 +198,17 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    EinmaligeZahlung ausgabe = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45), versicherung,
+    EinmaligerZahlungsfluss ausgabe = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(2.45), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE, buch.getId());
 
-    EinmaligeZahlung ausgabe1 = new EinmaligeZahlung("Beschreibung", new BigDecimal(5.55), versicherung,
+    EinmaligerZahlungsfluss ausgabe1 = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(5.55), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE, buch.getId());
 
-    EinmaligeZahlung einahme = new EinmaligeZahlung("Beschreibung", new BigDecimal(155.55),
+    EinmaligerZahlungsfluss einahme = new EinmaligerZahlungsfluss("Beschreibung", new BigDecimal(155.55),
         new Kategorie("Gehalt"), LocalDate
-        .now(), Zahlungstyp.EINNAHME, Zahlungsintervall.EINMALIG, buch.getId());
+        .now(), Zahlungstyp.EINNAHME, buch.getId());
 
     einmalZahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1, einahme));
 
