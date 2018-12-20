@@ -3,11 +3,12 @@ package de.eichstaedt.haushaltsbuch.domain.services;
 import de.eichstaedt.haushaltsbuch.application.model.JahresberichtModel;
 import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligeZahlung;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.KategorieRepository;
-import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.EinmalZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
@@ -30,7 +31,7 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
     private HaushaltsbuchRepository haushaltsbuchRepository;
 
     @Autowired
-    private ZahlungsflussRepository zahlungsflussRepository;
+    private EinmalZahlungsflussRepository einmalZahlungsflussRepository;
 
     @Autowired
     private KategorieRepository kategorieRepository;
@@ -38,13 +39,13 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
     private static final Logger logger = LoggerFactory.getLogger(ZahlungsService.class);
 
     @Override
-    public boolean buchen(Haushaltsbuch haushaltsbuch, Zahlungsfluss zahlung) {
+    public boolean buchen(Haushaltsbuch haushaltsbuch, EinmaligeZahlung zahlung) {
 
         if(Objects.nonNull(haushaltsbuch) && Objects.nonNull(zahlung))
         {
             zahlung.setBuchid(haushaltsbuch.getId());
 
-            Zahlungsfluss saved = zahlungsflussRepository.save(zahlung);
+            EinmaligeZahlung saved = einmalZahlungsflussRepository.save(zahlung);
 
             if(Objects.nonNull(saved))
             {
@@ -68,13 +69,13 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
     }
 
     @Override
-    public Optional<Zahlungsfluss> laden(String zahlungsid) {
+    public Optional<EinmaligeZahlung> laden(String zahlungsid) {
 
-        Optional<Zahlungsfluss> zahlungsfluss = null;
+        Optional<EinmaligeZahlung> zahlungsfluss = null;
 
         if(Objects.nonNull(zahlungsid))
         {
-            zahlungsfluss = zahlungsflussRepository.findById(Long.parseLong(zahlungsid));
+            zahlungsfluss = einmalZahlungsflussRepository.findById(Long.parseLong(zahlungsid));
         }
 
         return zahlungsfluss;
@@ -90,7 +91,7 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
 
             if(buch.isPresent()) {
 
-                Optional<Zahlungsfluss> loeschen = zahlungsflussRepository
+                Optional<EinmaligeZahlung> loeschen = einmalZahlungsflussRepository
                     .findById(Long.parseLong(zahlungid));
 
                 if (loeschen.isPresent()) {
@@ -104,7 +105,7 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
                     buch.get().setAenderungsdatum(LocalDate.now());
                     haushaltsbuchRepository.save(buch.get());
 
-                    zahlungsflussRepository.delete(loeschen.get());
+                    einmalZahlungsflussRepository.delete(loeschen.get());
 
                     return true;
                 }
@@ -118,9 +119,9 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
     }
 
     @Override
-    public Page<Zahlungsfluss> findAllPageable(Pageable pageable, Long buchid) {
+    public Page<EinmaligeZahlung> findAllPageable(Pageable pageable, Long buchid) {
 
-        return zahlungsflussRepository.findAllByBuchid(pageable, buchid);
+        return einmalZahlungsflussRepository.findAllByBuchid(pageable, buchid);
     }
 
     @Override
@@ -128,18 +129,18 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
 
         logger.info("Creating Jahresbericht for Buch {} und Jahr {} ", buchid, year);
 
-        List<Zahlungsfluss> januar = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,1,1,31);
-        List<Zahlungsfluss> februar = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,2,1,28);
-        List<Zahlungsfluss> maerz = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,3,1,31);
-        List<Zahlungsfluss> april = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,4,1,30);
-        List<Zahlungsfluss> mai = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,5,1,31);
-        List<Zahlungsfluss> juni = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,6,1,30);
-        List<Zahlungsfluss> juli = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,7,1,31);
-        List<Zahlungsfluss> august = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,8,1,31);
-        List<Zahlungsfluss> september = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,9,1,30);
-        List<Zahlungsfluss> oktober = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,10,1,31);
-        List<Zahlungsfluss> november = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,11,1,30);
-        List<Zahlungsfluss> dezember = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,12,1,31);
+        List<EinmaligeZahlung> januar = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,1,1,31);
+        List<EinmaligeZahlung> februar = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,2,1,28);
+        List<EinmaligeZahlung> maerz = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,3,1,31);
+        List<EinmaligeZahlung> april = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,4,1,30);
+        List<EinmaligeZahlung> mai = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,5,1,31);
+        List<EinmaligeZahlung> juni = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,6,1,30);
+        List<EinmaligeZahlung> juli = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,7,1,31);
+        List<EinmaligeZahlung> august = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,8,1,31);
+        List<EinmaligeZahlung> september = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,9,1,30);
+        List<EinmaligeZahlung> oktober = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,10,1,31);
+        List<EinmaligeZahlung> november = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,11,1,30);
+        List<EinmaligeZahlung> dezember = getZahlungsflussesForBuchAndYearAndMonth(buchid, year,12,1,31);
 
         januar.stream().filter(z -> z.getTyp().equals(Zahlungstyp.AUSGABE)).map(Zahlungsfluss::getBetrag).reduce(BigDecimal::add);
 
@@ -184,7 +185,8 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
     @Override
     public KategorieBerichtModel createJahresKategoriebericht(Long buchid, int year) {
 
-        List<Zahlungsfluss> zahlungen = zahlungsflussRepository.findByBuchidAndBuchungsTagBetween(buchid,LocalDate.of(year,1,1),LocalDate.of(year,12,31));
+        List<EinmaligeZahlung> zahlungen = einmalZahlungsflussRepository
+            .findByBuchidAndBuchungsTagBetween(buchid,LocalDate.of(year,1,1),LocalDate.of(year,12,31));
 
         List<Kategorie> kategories = new ArrayList<>();
 
@@ -218,8 +220,8 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
         return kategorieBerichtModel;
     }
 
-    private List<Zahlungsfluss> getZahlungsflussesForBuchAndYearAndMonth(Long buchid, int year, int month, int startDay, int endDay) {
-        return zahlungsflussRepository.findByBuchidAndBuchungsTagBetween(buchid,LocalDate
+    private List<EinmaligeZahlung> getZahlungsflussesForBuchAndYearAndMonth(Long buchid, int year, int month, int startDay, int endDay) {
+        return einmalZahlungsflussRepository.findByBuchidAndBuchungsTagBetween(buchid,LocalDate
             .of(year,month,startDay),LocalDate.of(year,month,endDay));
     }
 }

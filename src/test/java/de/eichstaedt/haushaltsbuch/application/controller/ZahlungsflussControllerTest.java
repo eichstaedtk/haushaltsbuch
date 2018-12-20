@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
-import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
+import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligeZahlung;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
@@ -54,7 +54,7 @@ public class ZahlungsflussControllerTest {
   @Test
   public void testBuchen() throws Exception {
 
-    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(15.00),new Kategorie("Versicherung"),LocalDate.now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1L);
+    EinmaligeZahlung zahlungsfluss = new EinmaligeZahlung("Beschreibung",new BigDecimal(15.00),new Kategorie("Versicherung"),LocalDate.now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1L);
 
     this.mockMvc.perform(post("/haushaltsbuch/1/zahlungen").with(user("konrad").password("Start123")).contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("beschreibung", zahlungsfluss.getBeschreibung())

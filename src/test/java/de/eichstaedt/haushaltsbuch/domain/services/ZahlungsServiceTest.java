@@ -5,12 +5,12 @@ import static org.hamcrest.Matchers.is;
 import de.eichstaedt.haushaltsbuch.application.model.JahresberichtModel;
 import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
+import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligeZahlung;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
-import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.EinmalZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.KategorieRepository;
-import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
@@ -49,7 +49,7 @@ public class ZahlungsServiceTest {
   private KategorieRepository kategorieRepository;
 
   @Autowired
-  private ZahlungsflussRepository zahlungsflussRepository;
+  private EinmalZahlungsflussRepository einmalZahlungsflussRepository;
 
   @Autowired
   private BenutzerRepository benutzerRepository;
@@ -60,14 +60,14 @@ public class ZahlungsServiceTest {
   public void setUp() throws Exception {
     haushaltsbuchRepository.deleteAll();
     benutzerRepository.deleteAll();
-    zahlungsflussRepository.deleteAll();
+    einmalZahlungsflussRepository.deleteAll();
   }
 
   @After
   public void tearDown() throws Exception {
     haushaltsbuchRepository.deleteAll();
     benutzerRepository.deleteAll();
-    zahlungsflussRepository.deleteAll();
+    einmalZahlungsflussRepository.deleteAll();
   }
 
   @Test
@@ -77,7 +77,7 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45),
+    EinmaligeZahlung zahlungsfluss = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
         .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
 
@@ -119,13 +119,13 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45),
+    EinmaligeZahlung zahlungsfluss = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
         .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
 
-    zahlungsfluss = zahlungsflussRepository.save(zahlungsfluss);
+    zahlungsfluss = einmalZahlungsflussRepository.save(zahlungsfluss);
 
-    Optional<Zahlungsfluss> result = zahlungsService.laden(String.valueOf(zahlungsfluss.getId()));
+    Optional<EinmaligeZahlung> result = zahlungsService.laden(String.valueOf(zahlungsfluss.getId()));
 
     Assert.assertThat(result, is(Optional.of(zahlungsfluss)));
   }
@@ -137,7 +137,7 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45),
+    EinmaligeZahlung zahlungsfluss = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
         .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
 
@@ -159,19 +159,19 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45), versicherung,
+    EinmaligeZahlung ausgabe = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45), versicherung,
         LocalDate
             .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
 
-    Zahlungsfluss ausgabe1 = new Zahlungsfluss("Beschreibung", new BigDecimal(5.55), versicherung,
+    EinmaligeZahlung ausgabe1 = new EinmaligeZahlung("Beschreibung", new BigDecimal(5.55), versicherung,
         LocalDate
             .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
 
-    Zahlungsfluss einahme = new Zahlungsfluss("Beschreibung", new BigDecimal(155.55), versicherung,
+    EinmaligeZahlung einahme = new EinmaligeZahlung("Beschreibung", new BigDecimal(155.55), versicherung,
         LocalDate
             .now(), Zahlungstyp.EINNAHME, Zahlungsintervall.EINMALIG, buch.getId());
 
-    zahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1, einahme));
+    einmalZahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1, einahme));
 
     JahresberichtModel jahresberichtModel = zahlungsService
         .createJahresbericht(buch.getId(), LocalDate.now().getYear());
@@ -199,19 +199,19 @@ public class ZahlungsServiceTest {
 
     Kategorie versicherung = createKategorie();
 
-    Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45), versicherung,
+    EinmaligeZahlung ausgabe = new EinmaligeZahlung("Beschreibung", new BigDecimal(2.45), versicherung,
         LocalDate
             .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
 
-    Zahlungsfluss ausgabe1 = new Zahlungsfluss("Beschreibung", new BigDecimal(5.55), versicherung,
+    EinmaligeZahlung ausgabe1 = new EinmaligeZahlung("Beschreibung", new BigDecimal(5.55), versicherung,
         LocalDate
             .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
 
-    Zahlungsfluss einahme = new Zahlungsfluss("Beschreibung", new BigDecimal(155.55),
+    EinmaligeZahlung einahme = new EinmaligeZahlung("Beschreibung", new BigDecimal(155.55),
         new Kategorie("Gehalt"), LocalDate
         .now(), Zahlungstyp.EINNAHME, Zahlungsintervall.EINMALIG, buch.getId());
 
-    zahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1, einahme));
+    einmalZahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1, einahme));
 
     KategorieBerichtModel kategorieBerichtModel = zahlungsService
         .createJahresKategoriebericht(buch.getId(), LocalDate.now().getYear());

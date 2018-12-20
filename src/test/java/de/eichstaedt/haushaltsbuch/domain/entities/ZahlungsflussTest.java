@@ -18,7 +18,7 @@ public class ZahlungsflussTest {
   @Test
   public void testCreation() {
 
-    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),new Kategorie("Test"),LocalDate.now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+    EinmaligeZahlung zahlungsfluss = new EinmaligeZahlung("Beschreibung",new BigDecimal(2.45),new Kategorie("Test"),LocalDate.now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
 
     Assert.assertThat(zahlungsfluss.getTyp(),is(Zahlungstyp.AUSGABE));
 

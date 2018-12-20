@@ -4,7 +4,6 @@ import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
@@ -16,12 +15,13 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 26.04.18.
@@ -32,25 +32,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "zahlungsfluss")
+@Inheritance(
+    strategy = InheritanceType.SINGLE_TABLE
+)
 public class Zahlungsfluss {
 
   public Zahlungsfluss() {
-  }
-
-  public Zahlungsfluss(
-      String beschreibung,
-      BigDecimal betrag,
-      Kategorie kategorie,
-      LocalDate buchungsTag,
-      Zahlungstyp typ,
-      Zahlungsintervall zahlungsintervall, Long buchid) {
-    this.beschreibung = beschreibung;
-    this.betrag = betrag;
-    this.kategorie = kategorie;
-    this.buchungsTag = buchungsTag;
-    this.typ = typ;
-    this.zahlungsintervall = zahlungsintervall;
-    this.buchid = buchid;
   }
 
   @Id
@@ -61,35 +48,30 @@ public class Zahlungsfluss {
   @NotNull
   @Size(min = 2, message = "Bitte mindestens zwei Zeichen eingeben!")
   @Column(name = "beschreibung")
-  private String beschreibung;
+  protected String beschreibung;
 
   @NotNull
   @Column(name = "betrag")
-  private BigDecimal betrag;
+  protected BigDecimal betrag;
 
   @NotNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "kategorie_name", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "zahlungsfluss_kategorie_foreignkey"))
-  private Kategorie kategorie;
+  protected Kategorie kategorie;
 
-
-  @NotNull
-  @DateTimeFormat(pattern = "dd-MM-yyyy")
-  @Column(name = "buchungstag")
-  private LocalDate buchungsTag;
 
   @NotNull
   @Column(name = "typ")
   @Enumerated(EnumType.STRING)
-  private Zahlungstyp typ;
+  protected Zahlungstyp typ;
 
   @NotNull
   @Column(name = "intervall")
   @Enumerated(EnumType.STRING)
-  private Zahlungsintervall zahlungsintervall;
+  protected Zahlungsintervall zahlungsintervall;
 
   @Column(name = "buchid")
-  private Long buchid;
+  protected Long buchid;
 
   @Override
   public String toString() {
@@ -98,7 +80,6 @@ public class Zahlungsfluss {
         ", beschreibung='" + beschreibung + '\'' +
         ", betrag=" + betrag +
         ", kategorie=" + kategorie +
-        ", buchungsTag=" + buchungsTag +
         ", typ=" + typ +
         ", zahlungsintervall=" + zahlungsintervall +
         ", buchid='" + buchid + '\'' +
@@ -139,10 +120,6 @@ public class Zahlungsfluss {
     return kategorie;
   }
 
-  public LocalDate getBuchungsTag() {
-    return buchungsTag;
-  }
-
   public Zahlungstyp getTyp() {
     return typ;
   }
@@ -165,10 +142,6 @@ public class Zahlungsfluss {
 
   public void setKategorie(Kategorie kategorie) {
     this.kategorie = kategorie;
-  }
-
-  public void setBuchungsTag(LocalDate buchungsTag) {
-    this.buchungsTag = buchungsTag;
   }
 
   public void setTyp(Zahlungstyp typ) {

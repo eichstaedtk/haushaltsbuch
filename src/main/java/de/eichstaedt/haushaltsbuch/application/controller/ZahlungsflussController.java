@@ -2,8 +2,8 @@ package de.eichstaedt.haushaltsbuch.application.controller;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligeZahlung;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
-import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -38,7 +38,7 @@ public class ZahlungsflussController {
   private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
   @RequestMapping( value = "/haushaltsbuch/{buchid}/zahlungen", method = RequestMethod.POST)
-  public ModelAndView buchen(ModelMap model, @AuthenticationPrincipal User accountDetails, @ModelAttribute("neuezahlung") @Valid Zahlungsfluss neuezahlung, BindingResult binding, @PathVariable String buchid,
+  public ModelAndView buchen(ModelMap model, @AuthenticationPrincipal User accountDetails, @ModelAttribute("neuezahlung") @Valid EinmaligeZahlung neuezahlung, BindingResult binding, @PathVariable String buchid,
       RedirectAttributes redirectAttributes) {
 
     logger.info("Getting POST Binding for Zahlung {} ", neuezahlung);

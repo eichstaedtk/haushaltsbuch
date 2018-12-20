@@ -55,12 +55,12 @@ public class Haushaltsbuch {
   @OneToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "haushaltsbuch_ausgaben" ,joinColumns = @JoinColumn( name="zahlungsfluss_id"),
       inverseJoinColumns = @JoinColumn( name="haushaltsbuecher_id"))
-  private Set<Zahlungsfluss> ausgaben;
+  private Set<EinmaligeZahlung> ausgaben;
 
   @OneToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "haushaltsbuch_einnahmen",joinColumns = @JoinColumn( name="zahlungsfluss_id"),
       inverseJoinColumns = @JoinColumn( name="haushaltsbuecher_id"))
-  private Set<Zahlungsfluss> einnahmen;
+  private Set<EinmaligeZahlung> einnahmen;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "besitzer_id", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "haushaltsbuch_besitzer_foreignkey"))
@@ -109,11 +109,11 @@ public class Haushaltsbuch {
     return erstellDatum;
   }
 
-  public Set<Zahlungsfluss> getAusgaben() {
+  public Set<EinmaligeZahlung> getAusgaben() {
     return ausgaben;
   }
 
-  public Set<Zahlungsfluss> getEinnahmen() {
+  public Set<EinmaligeZahlung> getEinnahmen() {
     return einnahmen;
   }
 

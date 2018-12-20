@@ -6,11 +6,11 @@ import static org.hamcrest.Matchers.nullValue;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltbuchLoeschenFailedException;
 import de.eichstaedt.haushaltsbuch.domain.entities.Benutzer;
+import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligeZahlung;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
-import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
-import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.EinmalZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
@@ -48,20 +48,20 @@ public class HaushaltsbuchServiceTest {
   private PasswordEncoder passwordEncoder;
 
   @Autowired
-  private ZahlungsflussRepository zahlungsflussRepository;
+  private EinmalZahlungsflussRepository einmalZahlungsflussRepository;
 
   @After
   public void tearDown() throws Exception {
     haushaltsbuchRepository.deleteAll();
     benutzerRepository.deleteAll();
-    zahlungsflussRepository.deleteAll();
+    einmalZahlungsflussRepository.deleteAll();
   }
 
   @Before
   public void setUp() throws Exception {
     haushaltsbuchRepository.deleteAll();
     benutzerRepository.deleteAll();
-    zahlungsflussRepository.deleteAll();
+    einmalZahlungsflussRepository.deleteAll();
   }
 
   @Test
@@ -143,11 +143,11 @@ public class HaushaltsbuchServiceTest {
 
     Haushaltsbuch haushaltsbuch = haushaltsbuchService.createHaushaltsbuch("Buch 2018/1 Konrad",benutzer.getBenutzername());
 
-    Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),new Kategorie("Versicherung"),LocalDate
+    EinmaligeZahlung ausgabe = new EinmaligeZahlung("Beschreibung",new BigDecimal(2.45),new Kategorie("Versicherung"),LocalDate
         .now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
 
 
-    ausgabe = zahlungsflussRepository.save(ausgabe);
+    ausgabe = einmalZahlungsflussRepository.save(ausgabe);
 
     haushaltsbuch.getAusgaben().add(ausgabe);
 

@@ -5,6 +5,7 @@ import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltbuchLoeschenFailedE
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligeZahlung;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
@@ -49,7 +50,7 @@ public class HaushaltsbuchController {
   @Autowired
   private KategorieBoundaryController kategorieBoundaryController;
 
-  private Zahlungsfluss neueZahlung;
+  private EinmaligeZahlung neueZahlung;
 
   private static final int BUTTONS_TO_SHOW = 5;
   private static final int INITIAL_PAGE = 0;
@@ -92,12 +93,12 @@ public class HaushaltsbuchController {
 
       }else {
 
-        neueZahlung = new Zahlungsfluss();
+        neueZahlung = new EinmaligeZahlung();
       }
 
       if(model.containsAttribute("neuezahlung"))
       {
-        neueZahlung = (Zahlungsfluss) model.get("neuezahlung");
+        neueZahlung = (EinmaligeZahlung) model.get("neuezahlung");
       }
 
       int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
@@ -107,7 +108,7 @@ public class HaushaltsbuchController {
       int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
 
-      Page<Zahlungsfluss> zahlungen = zahlungsflussBoundaryController.findAllPageable(PageRequest.of(evalPage, evalPageSize,Sort.by(
+      Page<EinmaligeZahlung> zahlungen = zahlungsflussBoundaryController.findAllPageable(PageRequest.of(evalPage, evalPageSize,Sort.by(
           new Order(Direction.DESC, "buchungsTag"))),buch.get().getId());
       Pager pager = new Pager(zahlungen.getTotalPages(),zahlungen.getNumber(), BUTTONS_TO_SHOW);
 
