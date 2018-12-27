@@ -7,7 +7,6 @@ import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.EinmaligerZahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
-import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.util.List;
@@ -50,8 +49,6 @@ public class HaushaltsbuchController {
   @Autowired
   private KategorieBoundaryController kategorieBoundaryController;
 
-  private Zahlungsfluss neueZahlung;
-
   private static final int BUTTONS_TO_SHOW = 5;
   private static final int INITIAL_PAGE = 0;
   private static final int INITIAL_PAGE_SIZE = 5;
@@ -79,9 +76,8 @@ public class HaushaltsbuchController {
 
     logger.info("Getting GET request for oeffen haushalstbuch {} ", buchid);
 
-    List<Haushaltsbuch> buecher = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername());
-
-    Optional<Haushaltsbuch> buch = buecher.stream().filter(b -> String.valueOf(b.getId()).equals(buchid)).findFirst();
+    Optional<Haushaltsbuch> buch = haushaltsbuchBoundaryController.findById(Long.parseLong(buchid));
+    EinmaligerZahlungsfluss aktiveZahlung;
 
     if(buch.isPresent()) {
 
@@ -89,22 +85,19 @@ public class HaushaltsbuchController {
 
       if(Objects.nonNull(zahlungsid) && !zahlungsid.isEmpty() && zahlungsflussBoundaryController.laden(zahlungsid).isPresent() )
       {
-          neueZahlung = zahlungsflussBoundaryController.laden(zahlungsid).get();
+        aktiveZahlung = zahlungsflussBoundaryController.laden(zahlungsid).get();
 
       }else {
 
-        neueZahlung = new Zahlungsfluss();
+        aktiveZahlung = new EinmaligerZahlungsfluss();
       }
 
       if(model.containsAttribute("neuezahlung"))
       {
-        neueZahlung = (EinmaligerZahlungsfluss) model.get("neuezahlung");
+        aktiveZahlung = (EinmaligerZahlungsfluss) model.get("neuezahlung");
       }
 
       int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-      // Evaluate page. If requested parameter is null or less than 0 (to
-      // prevent exception), return initial size. Otherwise, return value of
-      // param. decreased by 1.
       int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
 
@@ -113,7 +106,7 @@ public class HaushaltsbuchController {
       Pager pager = new Pager(zahlungen.getTotalPages(),zahlungen.getNumber(), BUTTONS_TO_SHOW);
 
       model.addAttribute("buch",buch.get());
-      model.addAttribute("neuezahlung",neueZahlung);
+      model.addAttribute("neuezahlung",aktiveZahlung);
       model.addAttribute("allkategories",kategorieBoundaryController.findAll());
       model.addAttribute("allzahlungstypen",Zahlungstyp.values());
       model.addAttribute("allzahlungsintervalle",Zahlungsintervall.values());
@@ -149,9 +142,5 @@ public class HaushaltsbuchController {
     model.addAttribute("haushaltsbuecher", haushaltsbuecher);
 
     return new ModelAndView("redirect:/dashboard",model);
-  }
-
-  public Zahlungsfluss getNeueZahlung() {
-    return neueZahlung;
   }
 }

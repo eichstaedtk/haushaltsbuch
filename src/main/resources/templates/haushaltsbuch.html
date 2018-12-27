@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-md-9 center">
         <form action="/haushaltsbuch/zahlungen" th:action="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen'}" method="post" th:object="${neuezahlung}" id="zahlungsform">
-          <h3>Neue Zahlung erstellen</h3>
+          <h3>Einmalige Zahlung erstellen</h3>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
             </div>
@@ -141,7 +141,6 @@
               <th>KATEGORIE</th>
               <th>DATUM</th>
               <th>TYP</th>
-              <th>INTERVALL</th>
               <th>AKTION</th>
             </tr>
             </thead>
@@ -152,7 +151,6 @@
               <td th:text="${zahlung.kategorie.name}"></td>
               <td th:text="${zahlung.buchungsTag}"></td>
               <td th:text="${zahlung.typ}"></td>
-              <td th:text="${zahlung.zahlungsintervall}"></td>
               <td>
                 <a title="Zahlung bearbeiten" href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id},zahlungsid=${zahlung.id})}"><i class="fas fa-edit"></i></a>
                 <a title="Zahlung löschen " href="/haushaltsbuch" th:href="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen/loeschen'(zahlungsid=${zahlung.id})}"><i class="fas fa-trash"></i></a>
