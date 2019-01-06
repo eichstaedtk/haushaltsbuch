@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
+import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,7 +54,7 @@ public class HaushaltsberichtControllerTest {
 
     this.mockMvc.perform(get("/haushaltsbericht?buchid=1").with(user("konrad").password("Start123"))).andDo(print()).andExpect(status().isOk())
         .andExpect(content().string(containsString("<title>Haushaltsbuch Jahresberichte</title>")))
-        .andExpect(content().string(containsString("Jahresbericht 2018 Testbuch")));
+        .andExpect(content().string(containsString("Jahresbericht "+LocalDate.now().getYear() +" Testbuch")));
   }
 
 }
