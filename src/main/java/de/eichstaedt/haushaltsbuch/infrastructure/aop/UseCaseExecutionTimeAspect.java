@@ -28,7 +28,7 @@ public class UseCaseExecutionTimeAspect {
 
     LocalDateTime end = LocalDateTime.now();
 
-    logger.info("Ending Use Case {} within milliseconds {} ",pjp.toLongString(), ChronoUnit.MILLIS.between(start, end));
+    logger.info("Use Case {} within {} ms.",pjp.toLongString(), ChronoUnit.MILLIS.between(start, end));
 
     return retVal;
 
