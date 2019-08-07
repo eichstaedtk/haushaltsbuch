@@ -21,6 +21,17 @@
 
       <div th:replace="/base::haushaltsbuecher"></div>
 
+      <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
+        <h3>Neues Haushaltsbuch anlegen</h3>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+          </div>
+          <input type="text" class="form-control" aria-label="name" name="name">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen">Anlegen</button>
+      </form>
+
     </div>
   </div>
 </div>

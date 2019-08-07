@@ -16,16 +16,6 @@
     <div class="row">
       <div th:replace="/navigation::subnavigation  "></div>
       <div class="col-md-9">
-        <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
-          <h3>Neues Haushaltsbuch anlegen</h3>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-            </div>
-            <input type="text" class="form-control" aria-label="name" name="name">
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen">Anlegen</button>
-        </form>
 
         <form action="/kategorien" th:action="@{/kategorien}" method="post">
           <h3>Neue Kategorie anlegen</h3>
@@ -39,7 +29,6 @@
         </form>
 
         <div th:if="${defaultview}">
-          <div th:replace="/base::haushaltsbuecher"></div>
           <div th:replace="/base::kategorien"></div>
         </div>
         <div th:if="${neueshaushaltsbuch}">

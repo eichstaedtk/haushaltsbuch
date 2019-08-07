@@ -7,16 +7,16 @@
       <img th:src="@{/images/sparschwein.png}" alt="Glücksschwein" width="70" height="71" >
     </a>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li th:class="${#httpServletRequest.requestURI == '/dashboard'}? 'nav-item active' : 'nav-item'">
         <a class="nav-link" href="/dashboard">Dashboard<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li th:class="${#httpServletRequest.requestURI == '/buecher'}? 'nav-item active' : 'nav-item'">
         <a class="nav-link" href="/buecher">Bücher</a>
       </li>
-      <li class="nav-item">
+      <li th:class="${#httpServletRequest.requestURI == '/berichte'}? 'nav-item active' : 'nav-item'">
         <a class="nav-link" href="#">Berichte</a>
       </li>
-      <li class="nav-item">
+      <li th:class="${#httpServletRequest.requestURI == '/kategorien'}? 'nav-item active' : 'nav-item'">
         <a class="nav-link" href="#">Kategorien</a>
       </li>
     </ul>
@@ -29,6 +29,6 @@
 </div>
 
 <div class="col-md-3" th:fragment="subnavigation">
-    <h3>Subnavigation</h3>
+    <h3 th:text="${subnav.title}">Subnavigation</h3>
 </div>
 </html>

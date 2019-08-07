@@ -68,7 +68,7 @@ public class HaushaltsbuchController {
 
     logger.info("Neues Haushaltsbuch erstellt {} ", haushaltsbuch);
 
-    return new ModelAndView("redirect:/dashboard",model);
+    return new ModelAndView("redirect:/buecher",model);
   }
 
   @GetMapping("/haushaltsbuch")

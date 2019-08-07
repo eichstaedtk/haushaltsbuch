@@ -4,6 +4,7 @@ import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryContro
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,24 +50,22 @@ public class DashboardController {
     List<Haushaltsbuch> haushaltsbuecher = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername());
     List<Kategorie> kategorien = kategorieBoundaryController.findAll();
 
-    Optional<Haushaltsbuch> latest = haushaltsbuecher.stream().sorted((h1, h2) -> h2.getId().compareTo(h1.getId())).findFirst();
-
     if(Objects.nonNull(haushaltsbuecher)) {
-      model.addAttribute("haushaltsbuecher", haushaltsbuecher);
+      Optional<Haushaltsbuch> latest = haushaltsbuecher.stream().sorted((h1, h2) -> h2.getId().compareTo(h1.getId())).findFirst();
+
+      if(latest.isPresent())
+      {
+        selectedHaushaltsbuch = latest.get();
+
+        model.addAttribute("selectedHaushaltsbuch", selectedHaushaltsbuch);
+        logger.info("Setting selected haushaltsbuch to {} ", selectedHaushaltsbuch);
+      }
     }
 
     if(Objects.nonNull(kategorien)) {
       model.addAttribute("kategorien", kategorien);
     }
 
-
-    if(latest.isPresent())
-    {
-      selectedHaushaltsbuch = latest.get();
-
-      model.addAttribute("selectedHaushaltsbuch", selectedHaushaltsbuch);
-      logger.info("Setting selected haushaltsbuch to {} ", selectedHaushaltsbuch);
-    }
 
     if(neueshaushaltsbuch)
     {
@@ -80,6 +79,11 @@ public class DashboardController {
 
       logger.info("Setting dashboard for default page");
     }
+
+    SubnavigationModel subnavigationModel = new SubnavigationModel("Dashboard", Arrays
+        .asList());
+
+    model.addAttribute("subnav",subnavigationModel);
 
     return "/dashboard";
   }
