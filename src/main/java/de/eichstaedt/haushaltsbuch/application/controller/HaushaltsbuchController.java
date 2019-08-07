@@ -9,6 +9,7 @@ import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -122,6 +123,11 @@ public class HaushaltsbuchController {
       model.addAttribute("pageSizes", PAGE_SIZES);
       model.addAttribute("pager", pager);
       model.addAttribute("zahlungen", zahlungen);
+
+      SubnavigationModel subnavigationModel = new SubnavigationModel(buch.get().getName(), Arrays
+          .asList("Zahlungsverkehr","Neue Zahlung"));
+
+      model.addAttribute("subnav",subnavigationModel);
 
     }
 

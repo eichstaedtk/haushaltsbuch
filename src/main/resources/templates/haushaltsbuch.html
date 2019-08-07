@@ -17,9 +17,6 @@
     <div class="row">
       <div th:replace="/navigation::subnavigation  "></div>
       <div class="col-md-9">
-        <div>
-          <h1 style="float: right;"><span th:text="${buch.name}"></span></h1>
-        </div>
 
         <form action="/haushaltsbuch/zahlungen" th:action="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen'}" method="post" th:object="${neuezahlung}" id="zahlungsform">
           <h3>Neue Zahlung erstellen</h3>

@@ -5,6 +5,7 @@ import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import java.time.LocalDate;
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,11 @@ public class HaushaltsberichtController {
 
     model.addAttribute("kategorien",kategorieBerichtModel.getKategorieValues());
     model.addAttribute("kategorientitel",kategorieBerichtModel.getTitel());
+
+    SubnavigationModel subnavigationModel = new SubnavigationModel("Berichte", Arrays
+        .asList());
+
+    model.addAttribute("subnav",subnavigationModel);
 
     return new ModelAndView("/haushaltsbericht",model);
   }

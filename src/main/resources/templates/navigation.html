@@ -11,7 +11,7 @@
         <a class="nav-link" href="/dashboard">Dashboard<span class="sr-only">(current)</span></a>
       </li>
       <li th:class="${#httpServletRequest.requestURI == '/buecher'}? 'nav-item active' : 'nav-item'">
-        <a class="nav-link" href="/buecher">Bücher</a>
+        <a class="nav-link" href="/buecher?active=Meine Bücher">Bücher</a>
       </li>
       <li th:class="${#httpServletRequest.requestURI == '/berichte'}? 'nav-item active' : 'nav-item'">
         <a class="nav-link" href="#">Berichte</a>
