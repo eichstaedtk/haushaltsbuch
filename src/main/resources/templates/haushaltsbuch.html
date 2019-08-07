@@ -15,14 +15,12 @@
   <div class="container">
     <div th:replace="/navigation::navigation  "></div>
     <div class="row">
-      <div class="col-md-9 center">
+      <div th:replace="/navigation::subnavigation  "></div>
+      <div class="col-md-9">
         <div>
           <h1 style="float: right;"><span th:text="${buch.name}"></span></h1>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-9 center">
+
         <form action="/haushaltsbuch/zahlungen" th:action="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen'}" method="post" th:object="${neuezahlung}" id="zahlungsform">
           <h3>Neue Zahlung erstellen</h3>
           <div class="input-group mb-3">
@@ -94,19 +92,15 @@
           <a style="float: right;margin-left: 0.5em;" href="/haushaltsbericht" th:href="@{/haushaltsbericht(buchid=${buch.id})}" class="btn btn-primary btn-lg" role="button"><i class="fas fa-calculator"></i></a>
           <button style="float:right;" type="submit" class="btn btn-primary btn-lg" title="Zahlung buchen">€ Buchen</button>
         </form>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-9 center">
         <div style="margin-bottom: 2em;"><h3>Zahlungesverkehr</h3></div>
         <div>
           <div class="form-group col-md-12 center">
             <nav aria-label="Page navigation example">
-            <select class="form-control pagination" id="pageSizeSelect">
-              <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
-                      th:selected="${pageSize} == ${selectedPageSize}"></option>
-            </select>
+              <select class="form-control pagination" id="pageSizeSelect">
+                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+              </select>
 
               <ul class="pagination">
                 <li class="page-item">
@@ -129,8 +123,8 @@
                      th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.totalPages})}">&raquo;</a>
                 </li>
               </ul>
-              </nav>
-            </div>
+            </nav>
+          </div>
           <table class="table">
             <thead>
             <tr>

@@ -6,7 +6,8 @@
 </head>
 <body>
 <div class="row" th:fragment="defaultview" id="buchaktionen">
-  <div class="col-md-9 center">
+  <div th:replace="/navigation::subnavigation  "></div>
+  <div class="col-md-9">
   <form action="/dashboard" th:action="@{/dashboard}" method="get" th:object="${dashboardController}">
     <input type="checkbox" checked name="neueshaushaltsbuch" style="visibility: hidden"/>
     <button id="neueshaushaltsbuch" type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen"><i class="fas fa-book"></i></button>
@@ -14,9 +15,7 @@
   </div>
 </div>
 
-<div class="row" th:fragment="haushaltsbuch">
-  <div class="col-md-9 center">
-  <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
+  <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post" th:fragment="haushaltsbuch">
     <h3>Neues Haushaltsbuch anlegen</h3>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -26,11 +25,9 @@
     </div>
     <button type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen">Anlegen</button>
   </form>
-  </div>
-</div>
 
-<div class="row" th:fragment="haushaltsbuecher">
-  <div class="col-md-9 center">
+
+  <div th:fragment="haushaltsbuecher">
   <div><h3>Deine Haushaltsbücher</h3></div>
   <div>
     <div class="alert alert-danger" role="alert" th:if="${errorloeschenbuch}">
@@ -60,10 +57,9 @@
   </table>
   </div>
   </div>
-</div>
 
-<div class="row" th:fragment="kategorien">
-  <div class="col-md-9 center">
+
+  <div th:fragment="kategorien">
     <div><h3>Deine Kategorien</h3></div>
     <div>
       <div class="table-wrapper-scroll-y">
@@ -79,7 +75,6 @@
       </table>
     </div>
   </div>
-</div>
 </div>
 </body>
 </html>

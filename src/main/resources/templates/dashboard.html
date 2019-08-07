@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Haushaltsbuch Dashboard</title>
   <meta charset="utf-8" />
@@ -15,7 +14,8 @@
   <div class="container">
     <div th:replace="/navigation::navigation  "></div>
     <div class="row">
-      <div class="col-md-9 center">
+      <div th:replace="/navigation::subnavigation  "></div>
+      <div class="col-md-9">
         <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
           <h3>Neues Haushaltsbuch anlegen</h3>
           <div class="input-group mb-3">
@@ -26,10 +26,7 @@
           </div>
           <button type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen">Anlegen</button>
         </form>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-9 center">
+
         <form action="/kategorien" th:action="@{/kategorien}" method="post">
           <h3>Neue Kategorie anlegen</h3>
           <div class="input-group mb-3">
@@ -40,17 +37,18 @@
           </div>
           <button type="submit" class="btn btn-primary btn-lg" title="Neue Kategorie anlegen">Anlegen</button>
         </form>
+
+        <div th:if="${defaultview}">
+          <div th:replace="/base::haushaltsbuecher"></div>
+          <div th:replace="/base::kategorien"></div>
+        </div>
+        <div th:if="${neueshaushaltsbuch}">
+          <div th:replace="/base::haushaltsbuch"></div>
+        </div>
       </div>
     </div>
-    <div th:if="${defaultview}">
-      <div th:replace="/base::haushaltsbuecher"></div>
-      <div th:replace="/base::kategorien"></div>
+      </div>
     </div>
-    <div th:if="${neueshaushaltsbuch}">
-      <div th:replace="/base::haushaltsbuch"></div>
-    </div>
-  </div>
-  </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
