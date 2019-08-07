@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 2019-08-07.
@@ -31,9 +32,9 @@ public class BuecherController {
   private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
   @GetMapping(value = "/buecher")
-  public String buecherView(Model model,@AuthenticationPrincipal User accountDetails) {
+  public String buecherView(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(required = false) String active) {
 
-    logger.info("Calling Buecher View");
+    logger.info("Calling Buecher View {} ",active);
 
     if(accountDetails != null) {
 
@@ -45,6 +46,7 @@ public class BuecherController {
       }
 
       SubnavigationModel subnavigationModel = new SubnavigationModel("Bücher", Arrays.asList("Meine Bücher","Neues Buch erstellen"));
+      subnavigationModel.setActiveItem(active);
 
       model.addAttribute("subnav",subnavigationModel);
     }

@@ -16,11 +16,21 @@ public class SubnavigationModel {
 
   private List<String> navItems;
 
+  private String activeItem;
+
   public String getTitle() {
     return title;
   }
 
   public List<String> getNavItems() {
     return navItems;
+  }
+
+  public String getActiveItem() {
+    return activeItem;
+  }
+
+  public void setActiveItem(String activeItem) {
+    this.activeItem = activeItem;
   }
 }

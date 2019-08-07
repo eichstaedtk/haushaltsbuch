@@ -19,8 +19,15 @@
     <div th:replace="/navigation::subnavigation  "></div>
     <div class="col-md-9">
 
-      <div th:replace="/base::haushaltsbuecher"></div>
+      <div th:if="${subnav.activeItem == null}">
+        <h3>Verwalte deine Haushaltsbücher</h3>
+      </div>
 
+      <div th:if="${subnav.activeItem == 'Meine Bücher'}">
+        <div th:replace="/base::haushaltsbuecher"></div>
+      </div>
+
+      <div th:if="${subnav.activeItem == 'Neues Buch erstellen'}">
       <form action="/haushaltsbuch" th:action="@{/haushaltsbuch}" method="post">
         <h3>Neues Haushaltsbuch anlegen</h3>
         <div class="input-group mb-3">
@@ -31,6 +38,7 @@
         </div>
         <button type="submit" class="btn btn-primary btn-lg" title="Neues Haushaltsbuch anlegen">Anlegen</button>
       </form>
+      </div>
 
     </div>
   </div>
