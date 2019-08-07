@@ -4,9 +4,21 @@
   <div class="col-md-9 center">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <a class="navbar-brand" href="#">
+      <img th:src="@{/images/sparschwein.png}" alt="Glücksschwein" width="70" height="71" >
+    </a>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="/dashboard">Dashboard<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Bücher</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Berichte</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Kategorien</a>
       </li>
     </ul>
     <form th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
@@ -14,7 +26,6 @@
     </form>
   </div>
 </nav>
-<img id="sparschwein" th:src="@{/images/sparschwein.png}" alt="sparschwein" style="max-height: 150px;">
 </div>
 </div>
 </div>

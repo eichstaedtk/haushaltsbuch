@@ -43,6 +43,13 @@ docker {
 	buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
 }
 
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
@@ -53,7 +60,7 @@ dependencies {
 	compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4")
 	compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
 	compile('org.hsqldb:hsqldb:2.4.0')
-	compile("org.springframework.boot:spring-boot-devtools")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.0.6.RELEASE'
 	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.19.0'
