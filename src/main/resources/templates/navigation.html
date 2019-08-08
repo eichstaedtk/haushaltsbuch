@@ -13,8 +13,8 @@
       <li th:class="${#httpServletRequest.requestURI == '/buecher'}? 'nav-item active' : 'nav-item'">
         <a class="nav-link" href="/buecher?active=Meine Bücher">Bücher</a>
       </li>
-      <li th:class="${#httpServletRequest.requestURI == '/berichte'}? 'nav-item active' : 'nav-item'">
-        <a class="nav-link" href="#">Berichte</a>
+      <li th:class="${#httpServletRequest.requestURI == '/haushaltsbericht'}? 'nav-item active' : 'nav-item'">
+        <a class="nav-link" href="/haushaltsbericht">Berichte</a>
       </li>
       <li th:class="${#httpServletRequest.requestURI == '/kategorien'}? 'nav-item active' : 'nav-item'">
         <a class="nav-link" href="#">Kategorien</a>
@@ -28,7 +28,7 @@
 </div>
 </div>
 
-<div class="col-md-3" th:fragment="subnavigation">
+<div th:if="${subnav}" class="col-md-3" th:fragment="subnavigation">
     <h3 th:text="${subnav.title}">Subnavigation</h3>
 
   <nav class="nav flex-column">

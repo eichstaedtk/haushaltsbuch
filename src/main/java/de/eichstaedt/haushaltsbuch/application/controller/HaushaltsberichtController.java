@@ -34,34 +34,40 @@ public class HaushaltsberichtController {
   private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
   @GetMapping("/haushaltsbericht")
-  public ModelAndView haushaltsbericht(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid)
+  public ModelAndView haushaltsbericht(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid", required = false) String buchid)
   {
 
     logger.info("Request GET for haushaltsbericht");
 
-    JahresberichtModel jahresberichtModel = zahlungsflussBoundaryController.createJahresbericht(Long.parseLong(buchid),LocalDate.now().getYear());
+    if(buchid != null) {
 
-    KategorieBerichtModel kategorieBerichtModel = zahlungsflussBoundaryController.createJahresKategoriebericht(Long.parseLong(buchid), LocalDate.now().getYear());
+      JahresberichtModel jahresberichtModel = zahlungsflussBoundaryController
+          .createJahresbericht(Long.parseLong(buchid), LocalDate.now().getYear());
 
-    model.addAttribute("ausgaben",jahresberichtModel.getAusgaben());
-    model.addAttribute("einnahmen",jahresberichtModel.getEinnahmen());
-    model.addAttribute("titel",jahresberichtModel.getTitel());
-    model.addAttribute("buch",haushaltsbuchBoundaryController.findById(Long.parseLong(buchid)).get());
+      KategorieBerichtModel kategorieBerichtModel = zahlungsflussBoundaryController
+          .createJahresKategoriebericht(Long.parseLong(buchid), LocalDate.now().getYear());
 
-    model.addAttribute("kategorien",kategorieBerichtModel.getKategorieValues());
-    model.addAttribute("kategorientitel",kategorieBerichtModel.getTitel());
+      model.addAttribute("ausgaben", jahresberichtModel.getAusgaben());
+      model.addAttribute("einnahmen", jahresberichtModel.getEinnahmen());
+      model.addAttribute("titel", jahresberichtModel.getTitel());
+      model.addAttribute("buch",
+          haushaltsbuchBoundaryController.findById(Long.parseLong(buchid)).get());
 
-    Map<String,String> links = new HashMap<>();
+      model.addAttribute("kategorien", kategorieBerichtModel.getKategorieValues());
+      model.addAttribute("kategorientitel", kategorieBerichtModel.getTitel());
 
-    haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername()).stream().forEach(b -> {
-      links.put(b.getName(),"/haushaltsbericht?buchid="+b.getId()+"&active="+b.getName());
-    });
+      Map<String, String> links = new HashMap<>();
 
+      haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername()).stream()
+          .forEach(b -> {
+            links.put(b.getName(),
+                "/haushaltsbericht?buchid=" + b.getId() + "&active=" + b.getName());
+          });
 
+      SubnavigationModel subnavigationModel = new SubnavigationModel("Berichte", links);
 
-    SubnavigationModel subnavigationModel = new SubnavigationModel("Berichte", links);
-
-    model.addAttribute("subnav",subnavigationModel);
+      model.addAttribute("subnav", subnavigationModel);
+    }
 
     return new ModelAndView("/haushaltsbericht",model);
   }
