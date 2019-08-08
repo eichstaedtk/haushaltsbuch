@@ -19,7 +19,7 @@
 
         <h4 style="margin-bottom: 3em;" th:text="'Willkommen ' + ${user.getUsername()} + ' in der Verwaltung deiner Haushaltsausgaben und Einnahmen.'"></h4>
 
-        <div id="kategorienbericht">
+        <div id="kategorienbericht" style="height: 600px;width: 600px;margin-left: 0px;">
         </div>
       </div>
     </div>
@@ -64,6 +64,7 @@
           renderer:$.jqplot.PieRenderer,
           rendererOptions: {
             showDataLabels: true,
+            diameter:450,
             dataLabels: myLabels
           }
         },
