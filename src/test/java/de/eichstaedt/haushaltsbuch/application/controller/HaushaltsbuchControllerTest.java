@@ -53,7 +53,7 @@ public class HaushaltsbuchControllerTest {
 
     this.mockMvc.perform(get("/haushaltsbuch?buchid=1").with(user("konrad").password("Start123"))).andDo(print()).andExpect(status().isOk())
         .andExpect(content().string(containsString("<title>Haushaltsbuch</title>")))
-        .andExpect(content().string(containsString("<span>Testbuch</span>")));
+        .andExpect(content().string(containsString("<h3>Testbuch</h3>")));
   }
 
 }
