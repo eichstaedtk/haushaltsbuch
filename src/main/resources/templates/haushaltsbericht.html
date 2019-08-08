@@ -27,7 +27,7 @@
 
            <div id="jahresbericht"></div>
 
-          <div id="kategorienbericht">
+          <div id="kategorienbericht" style="width:100%;height:100%;">
           </div>
        </div>
      </div>
@@ -83,6 +83,12 @@
   $(document).ready(function(){
     var kategorie = /*[[${kategorien}]]*/;
 
+    var total = 0;
+    $(kategorie).map(function(){total += this[1];})
+
+    myLabels = $.makeArray($(kategorie).map(function(){return this[1] + " " + Math.round(this[1]/total * 100) + "%";}));
+
+
     var plot8 = $.jqplot('kategorienbericht', [kategorie], {
       title: {text:/*[[${kategorientitel}]]*/},
       grid: {
@@ -97,7 +103,9 @@
       seriesDefaults:{
         renderer:$.jqplot.PieRenderer,
         rendererOptions: {
-          showDataLabels: true
+          showDataLabels: true,
+          dataLabels: myLabels,
+          diameter:null
         }
       },
       legend: {
