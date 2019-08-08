@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,9 @@ public class HaushaltsberichtController {
 
   @Autowired
   private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
+
+  @Autowired
+  private CommonViewController commonViewController;
 
   @GetMapping("/haushaltsbericht")
   public ModelAndView haushaltsbericht(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid", required = false) String buchid)
@@ -67,6 +71,8 @@ public class HaushaltsberichtController {
       SubnavigationModel subnavigationModel = new SubnavigationModel("Berichte", links);
 
       model.addAttribute("subnav", subnavigationModel);
+
+      commonViewController.addHaushaltsbuecherToModel((Model)model,accountDetails.getUsername());
     }
 
     return new ModelAndView("/haushaltsbericht",model);

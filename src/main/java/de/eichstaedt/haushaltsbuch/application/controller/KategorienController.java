@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,9 @@ public class KategorienController {
   @Autowired
   private KategorieBoundaryController kategorieBoundaryController;
 
+  @Autowired
+  private CommonViewController commonViewController;
+
   @PostMapping("/kategorien")
   public ModelAndView neuesHaushaltsbuch(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "name") String kategorienname) {
 
@@ -41,7 +45,7 @@ public class KategorienController {
   }
 
   @GetMapping("/kategorien")
-  public ModelAndView kategorien(ModelMap model,@RequestParam(defaultValue = "Alle Kategorien") String active) {
+  public ModelAndView kategorien(ModelMap model,@RequestParam(defaultValue = "Alle Kategorien") String active,@AuthenticationPrincipal User accountDetails) {
 
     List<Kategorie> kategorien = kategorieBoundaryController.findAll();
 
@@ -58,6 +62,8 @@ public class KategorienController {
     subnavigationModel.setActiveItem(active);
 
     model.addAttribute("subnav",subnavigationModel);
+
+    commonViewController.addHaushaltsbuecherToModel((Model)model,accountDetails.getUsername());
 
     return new ModelAndView("/kategorien",model);
   }

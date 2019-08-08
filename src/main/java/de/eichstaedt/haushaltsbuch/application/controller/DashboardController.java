@@ -1,7 +1,6 @@
 package de.eichstaedt.haushaltsbuch.application.controller;
 
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
-import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import java.util.HashMap;
 import java.util.List;
@@ -31,10 +30,10 @@ public class DashboardController {
   @Autowired
   private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
-  @Autowired
-  private KategorieBoundaryController kategorieBoundaryController;
-
   private Haushaltsbuch selectedHaushaltsbuch;
+
+  @Autowired
+  private CommonViewController commonViewController;
 
 
   @GetMapping(value = "/dashboard")
@@ -43,6 +42,8 @@ public class DashboardController {
     logger.info("GET Request for dashboard page {} ", neueshaushaltsbuch);
 
     model.addAttribute("user",accountDetails);
+
+    commonViewController.addHaushaltsbuecherToModel(model,accountDetails.getUsername());
 
     model.addAttribute("neueshaushaltsbuch",neueshaushaltsbuch);
 

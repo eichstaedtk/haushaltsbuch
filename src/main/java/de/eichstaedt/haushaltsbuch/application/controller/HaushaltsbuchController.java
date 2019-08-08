@@ -25,6 +25,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +50,9 @@ public class HaushaltsbuchController {
 
   @Autowired
   private KategorieBoundaryController kategorieBoundaryController;
+
+  @Autowired
+  private CommonViewController commonViewController;
 
   private Zahlungsfluss neueZahlung;
 
@@ -117,6 +121,8 @@ public class HaushaltsbuchController {
       SubnavigationModel subnavigationModel = new SubnavigationModel(buch.get().getName(), links);
 
       model.addAttribute("subnav",subnavigationModel);
+
+      commonViewController.addHaushaltsbuecherToModel((Model)model,accountDetails.getUsername());
 
     }
 

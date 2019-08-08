@@ -3,9 +3,7 @@ package de.eichstaedt.haushaltsbuch.application.controller;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,9 @@ public class BuecherController {
   @Autowired
   private HaushaltsbuchBoundaryController haushaltsbuchBoundaryController;
 
+  @Autowired
+  private CommonViewController commonViewController;
+
   @PostMapping("/buecher")
   public ModelAndView neuesHaushaltsbuch(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "name") String haushaltsbuchName) {
 
@@ -57,12 +58,7 @@ public class BuecherController {
 
     if(accountDetails != null) {
 
-      List<Haushaltsbuch> haushaltsbuecher = haushaltsbuchBoundaryController
-          .findAllHaushaltsbuecher(accountDetails.getUsername());
-
-      if (Objects.nonNull(haushaltsbuecher)) {
-        model.addAttribute("haushaltsbuecher", haushaltsbuecher);
-      }
+      commonViewController.addHaushaltsbuecherToModel(model,accountDetails.getUsername());
 
       Map<String,String> links = new HashMap<>();
       links.put("Meine Bücher","/buecher?active=Meine Bücher");
