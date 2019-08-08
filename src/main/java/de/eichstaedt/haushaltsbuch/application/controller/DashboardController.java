@@ -4,7 +4,7 @@ import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryContro
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -80,8 +80,7 @@ public class DashboardController {
       logger.info("Setting dashboard for default page");
     }
 
-    SubnavigationModel subnavigationModel = new SubnavigationModel("Dashboard", Arrays
-        .asList());
+    SubnavigationModel subnavigationModel = new SubnavigationModel("Dashboard", new HashMap<>());
 
     model.addAttribute("subnav",subnavigationModel);
 

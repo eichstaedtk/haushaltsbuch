@@ -9,8 +9,9 @@ import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -27,7 +28,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -57,20 +57,6 @@ public class HaushaltsbuchController {
   private static final int INITIAL_PAGE_SIZE = 5;
   private static final int[] PAGE_SIZES = {5, 10, 20};
 
-  @PostMapping("/haushaltsbuch")
-  public ModelAndView neuesHaushaltsbuch(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "name") String haushaltsbuchName) {
-
-    logger.info("Getting POST request for creating neues haushalstbuch {} ", haushaltsbuchName);
-
-    model.addAttribute("user",accountDetails);
-
-    Haushaltsbuch haushaltsbuch = haushaltsbuchBoundaryController
-        .createHaushaltsbuch(haushaltsbuchName,accountDetails.getUsername());
-
-    logger.info("Neues Haushaltsbuch erstellt {} ", haushaltsbuch);
-
-    return new ModelAndView("redirect:/buecher",model);
-  }
 
   @GetMapping("/haushaltsbuch")
   public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid,
@@ -124,8 +110,11 @@ public class HaushaltsbuchController {
       model.addAttribute("pager", pager);
       model.addAttribute("zahlungen", zahlungen);
 
-      SubnavigationModel subnavigationModel = new SubnavigationModel(buch.get().getName(), Arrays
-          .asList("Zahlungsverkehr","Neue Zahlung"));
+      Map<String,String> links = new HashMap<>();
+      links.put("Zahlungsverkehr","");
+      links.put("Neue Zahlung","");
+
+      SubnavigationModel subnavigationModel = new SubnavigationModel(buch.get().getName(), links);
 
       model.addAttribute("subnav",subnavigationModel);
 
@@ -153,7 +142,7 @@ public class HaushaltsbuchController {
 
     model.addAttribute("haushaltsbuecher", haushaltsbuecher);
 
-    return new ModelAndView("redirect:/dashboard",model);
+    return new ModelAndView("redirect:/buecher",model);
   }
 
   public Zahlungsfluss getNeueZahlung() {

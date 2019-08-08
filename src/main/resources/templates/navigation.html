@@ -32,7 +32,7 @@
     <h3 th:text="${subnav.title}">Subnavigation</h3>
 
   <nav class="nav flex-column">
-    <a th:each="item : ${subnav.navItems}" class="nav-link active" th:href="@{/buecher?active=__${item}__}" th:text="${item}">Active</a>
+    <a th:each="item : ${subnav.navItems}" class="nav-link active" th:href="${item.value}" th:text="${item.key}">Active</a>
   </nav>
 </div>
 </html>

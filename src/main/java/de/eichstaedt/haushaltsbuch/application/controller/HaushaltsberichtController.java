@@ -5,7 +5,8 @@ import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,15 @@ public class HaushaltsberichtController {
     model.addAttribute("kategorien",kategorieBerichtModel.getKategorieValues());
     model.addAttribute("kategorientitel",kategorieBerichtModel.getTitel());
 
-    SubnavigationModel subnavigationModel = new SubnavigationModel("Berichte", Arrays
-        .asList());
+    Map<String,String> links = new HashMap<>();
+
+    haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername()).stream().forEach(b -> {
+      links.put(b.getName(),"/haushaltsbericht?buchid="+b.getId()+"&active="+b.getName());
+    });
+
+
+
+    SubnavigationModel subnavigationModel = new SubnavigationModel("Berichte", links);
 
     model.addAttribute("subnav",subnavigationModel);
 
