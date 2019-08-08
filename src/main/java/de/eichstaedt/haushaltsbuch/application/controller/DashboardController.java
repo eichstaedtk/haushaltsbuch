@@ -3,7 +3,6 @@ package de.eichstaedt.haushaltsbuch.application.controller;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -48,7 +47,6 @@ public class DashboardController {
     model.addAttribute("neueshaushaltsbuch",neueshaushaltsbuch);
 
     List<Haushaltsbuch> haushaltsbuecher = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername());
-    List<Kategorie> kategorien = kategorieBoundaryController.findAll();
 
     if(Objects.nonNull(haushaltsbuecher)) {
       Optional<Haushaltsbuch> latest = haushaltsbuecher.stream().sorted((h1, h2) -> h2.getId().compareTo(h1.getId())).findFirst();
@@ -60,10 +58,6 @@ public class DashboardController {
         model.addAttribute("selectedHaushaltsbuch", selectedHaushaltsbuch);
         logger.info("Setting selected haushaltsbuch to {} ", selectedHaushaltsbuch);
       }
-    }
-
-    if(Objects.nonNull(kategorien)) {
-      model.addAttribute("kategorien", kategorien);
     }
 
 

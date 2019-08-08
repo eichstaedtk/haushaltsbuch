@@ -17,7 +17,7 @@
         <a class="nav-link" href="/haushaltsbericht">Berichte</a>
       </li>
       <li th:class="${#httpServletRequest.requestURI == '/kategorien'}? 'nav-item active' : 'nav-item'">
-        <a class="nav-link" href="#">Kategorien</a>
+        <a class="nav-link" href="/kategorien">Kategorien</a>
       </li>
     </ul>
     <form th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
