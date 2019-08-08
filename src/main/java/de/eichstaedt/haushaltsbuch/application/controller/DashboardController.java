@@ -1,7 +1,10 @@
 package de.eichstaedt.haushaltsbuch.application.controller;
 
+import de.eichstaedt.haushaltsbuch.application.model.KategorieBerichtModel;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +38,9 @@ public class DashboardController {
   @Autowired
   private CommonViewController commonViewController;
 
+  @Autowired
+  private ZahlungsflussBoundaryController zahlungsflussBoundaryController;
+
 
   @GetMapping(value = "/dashboard")
   public String dashboard(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(defaultValue = "off") boolean neueshaushaltsbuch) {
@@ -44,8 +50,6 @@ public class DashboardController {
     model.addAttribute("user",accountDetails);
 
     commonViewController.addHaushaltsbuecherToModel(model,accountDetails.getUsername());
-
-    model.addAttribute("neueshaushaltsbuch",neueshaushaltsbuch);
 
     List<Haushaltsbuch> haushaltsbuecher = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername());
 
@@ -57,23 +61,18 @@ public class DashboardController {
         selectedHaushaltsbuch = latest.get();
 
         model.addAttribute("selectedHaushaltsbuch", selectedHaushaltsbuch);
+
+
+        KategorieBerichtModel kategorieBerichtModel = zahlungsflussBoundaryController
+            .createJahresKategoriebericht(selectedHaushaltsbuch.getId(), LocalDate.now().getYear());
+
+        model.addAttribute("kategorien", kategorieBerichtModel.getKategorieValues());
+        model.addAttribute("kategorientitel", kategorieBerichtModel.getTitel());
+
         logger.info("Setting selected haushaltsbuch to {} ", selectedHaushaltsbuch);
       }
     }
 
-
-    if(neueshaushaltsbuch)
-    {
-      model.addAttribute("defaultview",false);
-
-      logger.info("Setting dashboard for new haushaltsbuch page");
-
-    }else {
-
-      model.addAttribute("defaultview",true);
-
-      logger.info("Setting dashboard for default page");
-    }
 
     SubnavigationModel subnavigationModel = new SubnavigationModel("Dashboard", new HashMap<>());
 
