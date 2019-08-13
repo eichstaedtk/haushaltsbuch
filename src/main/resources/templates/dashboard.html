@@ -19,6 +19,8 @@
 
         <h4 style="margin-bottom: 3em;" th:text="'Willkommen ' + ${user.getUsername()} + ' in der Verwaltung deiner Haushaltsausgaben und Einnahmen.'"></h4>
 
+        <h4 th:if="${selectedHaushaltsbuch == null}" th:text="'Es gibt noch kein Haushaltsbuch im System.'"></h4><a th:if="${selectedHaushaltsbuch == null}" th:text="'Neues Haushaltsbuch anlegen'" th:href="@{/buecher(active='Neues Buch erstellen')}"></a>
+
         <article th:if="${selectedHaushaltsbuch}" th:text="'Das zuletzt von Dir bearbeitete Haushaltsbuch ist: ' + ${selectedHaushaltsbuch.getName()}"></article>
 
         <div id="kategorienbericht" style="height: 600px;width: 600px;margin-left: 0px;">
