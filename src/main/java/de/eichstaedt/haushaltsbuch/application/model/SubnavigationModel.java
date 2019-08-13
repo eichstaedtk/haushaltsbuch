@@ -1,4 +1,4 @@
-package de.eichstaedt.haushaltsbuch.application.controller;
+package de.eichstaedt.haushaltsbuch.application.model;
 
 import java.util.Map;
 

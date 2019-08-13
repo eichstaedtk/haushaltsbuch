@@ -1,5 +1,6 @@
 package de.eichstaedt.haushaltsbuch.application.controller;
 
+import de.eichstaedt.haushaltsbuch.application.model.SubnavigationModel;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import java.util.HashMap;

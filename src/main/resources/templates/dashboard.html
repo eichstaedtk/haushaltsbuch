@@ -19,6 +19,8 @@
 
         <h4 style="margin-bottom: 3em;" th:text="'Willkommen ' + ${user.getUsername()} + ' in der Verwaltung deiner Haushaltsausgaben und Einnahmen.'"></h4>
 
+        <article th:if="${selectedHaushaltsbuch}" th:text="'Das zuletzt von Dir bearbeitete Haushaltsbuch ist: ' + ${selectedHaushaltsbuch.getName()}"></article>
+
         <div id="kategorienbericht" style="height: 600px;width: 600px;margin-left: 0px;">
         </div>
       </div>
