@@ -17,7 +17,7 @@
   <div th:replace="/navigation::navigation  "></div>
   <div class="row">
     <div th:replace="/navigation::subnavigation  "></div>
-    <div class="col-md-9">
+    <div class="col-md-9" id="content">
 
       <div th:if="${kategorien == null}">
         <h3>Verwalte deine Kategorien</h3>
@@ -42,6 +42,8 @@
 
     </div>
   </div>
+  <div th:replace="/base::footer"></div>
+</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
