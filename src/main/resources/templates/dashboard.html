@@ -21,8 +21,6 @@
 
         <h3 th:if="${selectedHaushaltsbuch == null}" th:text="'Es gibt noch kein Haushaltsbuch im System.'"></h3><a th:if="${selectedHaushaltsbuch == null}" th:text="'Neues Haushaltsbuch anlegen'" th:href="@{/buecher(active='Neues Buch erstellen')}"></a>
 
-        <article th:if="${selectedHaushaltsbuch}" th:text="'Das zuletzt von Dir bearbeitete Haushaltsbuch ist: ' + ${selectedHaushaltsbuch.getName()}"></article>
-
         <div id="kategorienbericht" style="height: 600px;width: 600px;margin-left: 0px;">
         </div>
       </div>
