@@ -21,7 +21,7 @@
 
         <h3 th:if="${selectedHaushaltsbuch == null}" th:text="'Es gibt noch kein Haushaltsbuch im System.'"></h3><a th:if="${selectedHaushaltsbuch == null}" th:text="'Neues Haushaltsbuch anlegen'" th:href="@{/buecher(active='Neues Buch erstellen')}"></a>
 
-        <div id="kategorienbericht" style="height: 600px;width: 600px;margin-left: 0px;">
+        <div id="kategorienbericht" style="height: 800px;width: 800px;margin-left: 0px;">
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
         legend: {
           show: true,
           rendererOptions: {
-            numberRows: 1
+            numberRows: 3
           },
           location: 's'
         }
