@@ -236,4 +236,42 @@ public class ZahlungsServiceTest {
     Assert.assertThat(result.doubleValue(),is(ausgabe.getBetrag().add(ausgabe1.getBetrag()).doubleValue()));
 
   }
+
+  @Test
+  public void testCreateMonatsKategorienbericht() {
+
+    Haushaltsbuch buch = createHaushaltsbuch();
+
+    Kategorie versicherung = createKategorie();
+
+    Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45), versicherung,
+        LocalDate
+            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+
+    Zahlungsfluss ausgabe1 = new Zahlungsfluss("Beschreibung", new BigDecimal(5.55), versicherung,
+        LocalDate
+            .of(LocalDate.now().getYear(),1,20), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+
+    zahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1));
+
+    KategorieBerichtModel kategorieBerichtModel = zahlungsService
+        .createJahresKategoriebericht(buch.getId(), LocalDate.now().getYear(),1);
+
+    Object[][] values = kategorieBerichtModel.getKategorieValues();
+
+    BigDecimal result = new BigDecimal(0.00);
+
+    for(int i=0 ;i < values.length;i++) {
+
+      logger.info("Check values {} , amount {}", values[i], values[i][0]);
+
+      if("Versicherung".equals(String.valueOf(values[i][0])))
+      {
+        result = new BigDecimal(String.valueOf(values[i][1]));
+      }
+    }
+
+    Assert.assertThat(result.doubleValue(),is(ausgabe1.getBetrag().doubleValue()));
+
+  }
 }

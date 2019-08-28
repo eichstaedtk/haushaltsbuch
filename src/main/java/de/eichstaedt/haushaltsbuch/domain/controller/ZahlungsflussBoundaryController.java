@@ -20,5 +20,5 @@ public interface ZahlungsflussBoundaryController {
 
     JahresberichtModel createJahresbericht(Long buchid, int year);
 
-    KategorieBerichtModel createJahresKategoriebericht(Long buchid, int year);
+    KategorieBerichtModel createJahresKategoriebericht(Long buchid, int... dates);
 }

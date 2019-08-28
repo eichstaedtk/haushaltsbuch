@@ -182,9 +182,33 @@ public class ZahlungsService implements ZahlungsflussBoundaryController {
     }
 
     @Override
-    public KategorieBerichtModel createJahresKategoriebericht(Long buchid, int year) {
+    public KategorieBerichtModel createJahresKategoriebericht(Long buchid, int... dates) {
 
-        List<Zahlungsfluss> zahlungen = zahlungsflussRepository.findByBuchidAndBuchungsTagBetween(buchid,LocalDate.of(year,1,1),LocalDate.of(year,12,31));
+        int year = dates[0];
+        int month = dates.length == 2 ? dates[1] : 1;
+        int day = dates.length ==3 ? dates[2]: 31;
+
+        logger.info("Create Kategorie for dates {} year {}, month {} , day {} ",dates.length,year,month,day);
+
+        List<Zahlungsfluss> zahlungen = new ArrayList<>();
+
+        if(dates.length == 1) {
+            zahlungen.addAll(zahlungsflussRepository
+                .findByBuchidAndBuchungsTagBetween(buchid, LocalDate.of(year, 1, 1),
+                    LocalDate.of(year, 12, 31)));
+        }
+
+        if(dates.length == 2) {
+            zahlungen.addAll(zahlungsflussRepository
+                .findByBuchidAndBuchungsTagBetween(buchid, LocalDate.of(year, month, 1),
+                    LocalDate.of(year, month, LocalDate.of(year,month,1).lengthOfMonth())));
+        }
+
+        if(dates.length == 3) {
+            zahlungen.addAll(zahlungsflussRepository
+                .findByBuchidAndBuchungsTagBetween(buchid, LocalDate.of(year, month, day),
+                    LocalDate.of(year, month, LocalDate.of(year,month,1).lengthOfMonth())));
+        }
 
         List<Kategorie> kategories = new ArrayList<>();
 
