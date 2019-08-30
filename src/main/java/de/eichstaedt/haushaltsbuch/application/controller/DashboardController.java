@@ -6,6 +6,7 @@ import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryContro
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -42,9 +43,10 @@ public class DashboardController {
   @Autowired
   private ZahlungsflussBoundaryController zahlungsflussBoundaryController;
 
+  private int aktiverMonat;
 
   @GetMapping(value = "/dashboard")
-  public String dashboard(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(defaultValue = "off") boolean neueshaushaltsbuch) {
+  public String dashboard(Model model,@AuthenticationPrincipal User accountDetails, @RequestParam(defaultValue = "off") boolean neueshaushaltsbuch, @RequestParam(value = "monat",required = false)Integer monat) {
 
     logger.info("GET Request for dashboard page {} ", neueshaushaltsbuch);
 
@@ -64,8 +66,16 @@ public class DashboardController {
         model.addAttribute("selectedHaushaltsbuch", selectedHaushaltsbuch);
 
 
+        if(monat == null)
+        {
+          monat = LocalDate.now().getMonthValue();
+        }
+
+        aktiverMonat = monat;
+        model.addAttribute("aktiverMonat",aktiverMonat);
+
         KategorieBerichtModel kategorieBerichtModel = zahlungsflussBoundaryController
-            .createJahresKategoriebericht(selectedHaushaltsbuch.getId(), LocalDate.now().getYear());
+            .createJahresKategoriebericht(selectedHaushaltsbuch.getId(), LocalDate.now().getYear(),monat);
 
         model.addAttribute("kategorien", kategorieBerichtModel.getKategorieValues());
         model.addAttribute("kategorientitel", kategorieBerichtModel.getTitel());
@@ -79,6 +89,19 @@ public class DashboardController {
 
     model.addAttribute("subnav",subnavigationModel);
 
+    model.addAttribute("monate",createMonthMap());
+
     return "/dashboard";
+  }
+
+  private HashMap<Integer, String> createMonthMap() {
+    HashMap<Integer,String> monthsMap = new HashMap<>();
+    List<String> months = Arrays
+        .asList("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember");
+    for(int i = 1; i<13;i++)
+    {
+      monthsMap.put(i,months.get(i-1));
+    }
+    return monthsMap;
   }
 }

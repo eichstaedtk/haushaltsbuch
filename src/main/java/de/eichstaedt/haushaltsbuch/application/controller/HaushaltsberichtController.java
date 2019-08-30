@@ -6,7 +6,9 @@ import de.eichstaedt.haushaltsbuch.application.model.SubnavigationModel;
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +40,10 @@ public class HaushaltsberichtController {
   @Autowired
   private CommonViewController commonViewController;
 
+  private int aktiverMonat;
+
   @GetMapping("/haushaltsbericht")
-  public ModelAndView haushaltsbericht(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid", required = false) String buchid)
+  public ModelAndView haushaltsbericht(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid", required = false) String buchid,@RequestParam(value = "monat",required = false)Integer monat)
   {
 
     logger.info("Request GET for haushaltsbericht");
@@ -49,8 +53,15 @@ public class HaushaltsberichtController {
       JahresberichtModel jahresberichtModel = zahlungsflussBoundaryController
           .createJahresbericht(Long.parseLong(buchid), LocalDate.now().getYear());
 
+      if(monat == null)
+      {
+        monat = LocalDate.now().getMonthValue();
+      }
+
+      aktiverMonat = monat;
+
       KategorieBerichtModel kategorieBerichtModel = zahlungsflussBoundaryController
-          .createJahresKategoriebericht(Long.parseLong(buchid), LocalDate.now().getYear());
+          .createJahresKategoriebericht(Long.parseLong(buchid), LocalDate.now().getYear(),monat);
 
       model.addAttribute("ausgaben", jahresberichtModel.getAusgaben());
       model.addAttribute("einnahmen", jahresberichtModel.getEinnahmen());
@@ -73,10 +84,24 @@ public class HaushaltsberichtController {
 
       model.addAttribute("subnav", subnavigationModel);
 
+      model.addAttribute("monate",createMonthMap());
+      model.addAttribute("aktiverMonat",aktiverMonat);
+
       commonViewController.addHaushaltsbuecherToModel((Model)model,accountDetails.getUsername());
     }
 
     return new ModelAndView("/haushaltsbericht",model);
+  }
+
+  private HashMap<Integer, String> createMonthMap() {
+    HashMap<Integer,String> monthsMap = new HashMap<>();
+    List<String> months = Arrays
+        .asList("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember");
+    for(int i = 1; i<13;i++)
+    {
+      monthsMap.put(i,months.get(i-1));
+    }
+    return monthsMap;
   }
 
 }

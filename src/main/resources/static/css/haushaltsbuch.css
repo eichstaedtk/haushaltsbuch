@@ -88,3 +88,8 @@ a{
   max-width: 70% !important;
   background: url("../images/geldscheine.jpg");
 }
+
+#monthdropdown {
+  margin: auto;
+  width: 50%;
+}

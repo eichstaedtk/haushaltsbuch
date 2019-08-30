@@ -28,6 +28,15 @@
            <div id="jahresbericht"></div>
 
           <div id="kategorienbericht" style="height: 600px;width: 600px;margin-left: 0px;"></div>
+
+         <div class="dropdown" id="monthdropdown">
+           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <span th:text="${monate.get(aktiverMonat)}"></span>
+           </button>
+           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+             <a th:each="monat : ${monate.entrySet()}" class="dropdown-item" th:href="@{/haushaltsbericht(buchid=${buch.id},monat=${monat.key})}" th:text="${monat.value}"></a>
+           </div>
+         </div>
        </div>
      </div>
     <div th:replace="/base::footer"></div>
