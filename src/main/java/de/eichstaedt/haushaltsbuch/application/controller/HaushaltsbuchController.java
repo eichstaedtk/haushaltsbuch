@@ -59,14 +59,14 @@ public class HaushaltsbuchController {
 
   private static final int BUTTONS_TO_SHOW = 5;
   private static final int INITIAL_PAGE = 0;
-  private static final int INITIAL_PAGE_SIZE = 5;
+  private static final int INITIAL_PAGE_SIZE = 10;
   private static final int[] PAGE_SIZES = {5, 10, 20};
 
 
   @GetMapping("/haushaltsbuch")
   public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid,
       @RequestParam(value = "zahlungsid",required = false) String zahlungsid, @RequestParam("pageSize") Optional<Integer> pageSize,
-      @RequestParam("page") Optional<Integer> page) {
+      @RequestParam("page") Optional<Integer> page, @RequestParam(value = "sortField",defaultValue = "buchungsTag") String sortField) {
 
     logger.info("Getting GET request for oeffen haushalstbuch {} ", buchid);
 
@@ -100,7 +100,7 @@ public class HaushaltsbuchController {
 
 
       Page<Zahlungsfluss> zahlungen = zahlungsflussBoundaryController.findAllPageable(PageRequest.of(evalPage, evalPageSize,Sort.by(
-          new Order(Direction.DESC, "buchungsTag"))),buch.get().getId());
+          new Order(Direction.DESC, sortField))),buch.get().getId());
       Pager pager = new Pager(zahlungen.getTotalPages(),zahlungen.getNumber(), BUTTONS_TO_SHOW);
 
       model.addAttribute("buch",buch.get());

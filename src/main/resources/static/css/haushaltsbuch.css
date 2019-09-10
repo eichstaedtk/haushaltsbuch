@@ -93,3 +93,7 @@ a{
   margin: auto;
   width: 50%;
 }
+
+#zahlungsTable_filter {
+  float:right;
+}

@@ -92,37 +92,7 @@
 
         <div style="margin-bottom: 2em;"><h3>Zahlungesverkehr</h3></div>
         <div>
-          <div class="form-group col-md-12 center">
-            <nav aria-label="Page navigation example">
-              <select class="form-control pagination" id="pageSizeSelect">
-                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
-                        th:selected="${pageSize} == ${selectedPageSize}"></option>
-              </select>
-
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-                </li>
-                <li lass="page-item">
-                  <a class="page-link" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.number})}">Vorheriges</a>
-                </li>
-                <li lass="page-item"
-                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                  <a class="page-link" th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${page})}"
-                     th:text="${page}"></a>
-                </li>
-                <li lass="page-item">
-                  <a class="page-link"
-                     th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.number + 2})}">Nächstes</a>
-                </li>
-                <li lass="page-item">
-                  <a class="page-link"
-                     th:href="@{/haushaltsbuch/(buchid=${buch.id},pageSize=${selectedPageSize}, page=${zahlungen.totalPages})}">&raquo;</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <table class="table">
+          <table id="zahlungsTable" class="table">
             <thead>
             <tr>
               <th>NUMMER</th>
@@ -159,6 +129,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
   <script>
     $(document).ready(function(){
@@ -172,6 +144,18 @@
       };
       date_input.datepicker(options);
       changePageAndSize();
+
+      $('#zahlungsTable').DataTable({
+
+        "language": {
+          "search":         "Suche:",
+          "emptyTable":     "Keine Zahlungen vorhanden",
+          "lengthMenu":     "Zeige _MENU_ Einträge",
+          "info":           "Zeige _START_ to _END_ von _TOTAL_ Zahlungen",
+          "infoFiltered":   "(Suche von _MAX_ Gesamt Zahlungen)",
+        }
+
+      });
     })
 
     function changePageAndSize() {
