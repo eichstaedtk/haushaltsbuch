@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -23,6 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@DirtiesContext
 public class BenutzerServiceTest {
 
   @Autowired
@@ -33,17 +35,6 @@ public class BenutzerServiceTest {
 
   @Autowired
   private PasswordEncoder passwordEncoder;
-
-  @Before
-  public void setUp() {
-    benutzerRepository.deleteAll();
-  }
-
-  @After
-  public void setup() {
-
-    benutzerRepository.deleteAll();
-  }
 
   @Test
   public void testerstelleAnwendungsBenutzerVonRegistrierungNotValid() {
@@ -72,7 +63,7 @@ public class BenutzerServiceTest {
   @Test
   public void testisBenutzernameFreiZurVerwendungTrue() {
 
-    assertThat(benutzerService.isBenutzernameFreiZurVerwendung("konrad"),is(true));
+    assertThat(benutzerService.isBenutzernameFreiZurVerwendung("klaus"),is(true));
 
   }
 
