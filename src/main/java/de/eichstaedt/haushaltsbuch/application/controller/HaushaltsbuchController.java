@@ -59,8 +59,8 @@ public class HaushaltsbuchController {
 
   private static final int BUTTONS_TO_SHOW = 5;
   private static final int INITIAL_PAGE = 0;
-  private static final int INITIAL_PAGE_SIZE = 10;
-  private static final int[] PAGE_SIZES = {5, 10, 20};
+  private static final int INITIAL_PAGE_SIZE = 1000;
+  private static final int[] PAGE_SIZES = {10, 50, 100,500,1000};
 
 
   @GetMapping("/haushaltsbuch")
