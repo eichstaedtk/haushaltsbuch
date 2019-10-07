@@ -28,8 +28,15 @@
   color: #dc3545;
 }
 
-#gluecksschwein {
-  max-height: 400px;
+@media screen and (max-width: 1480px) {
+  #gluecksschwein {
+    max-height: 200px;
+  }
+}
+@media screen and (min-width: 1480px) {
+  #gluecksschwein {
+    max-height: 400px;
+  }
 }
 
 #gluecksschweinsmall {
