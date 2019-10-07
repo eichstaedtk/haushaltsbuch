@@ -32,11 +32,23 @@
   #gluecksschwein {
     max-height: 200px;
   }
+
+  h1 {
+    font-size: 2em !important;
+  }
 }
 @media screen and (min-width: 1480px) {
   #gluecksschwein {
     max-height: 400px;
   }
+  h1 {
+    font-size: 1.3em !important;
+  }
+}
+
+#gluecksschwein {
+  display: block;
+  margin: auto;
 }
 
 #gluecksschweinsmall {
