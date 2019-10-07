@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
 <head>
   <title>Haushaltsbuch Anmeldung</title>
   <meta charset="utf-8" />
@@ -13,17 +13,20 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-md-6 center">
-      <img id="gluecksschwein" th:src="@{/images/sparschwein.png}" alt="Sparschwein">
+    <div class="col-12 col-sm-12 col-lg-6 center">
+      <picture>
+        <img id="gluecksschwein" th:src="@{/images/sparschwein.png}" alt="Bild eines Sparschweins"
+        srcset="../../images/sparschwein.png 1480w" sizes="(max-width:200px 1480)">
+      </picture>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 center">
+    <div class="col-12 col-sm-12 col-lg-6 center">
       <h1 class="font-weight-light">Verwalte deine Ausgaben und Einnahmen.</h1>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 center">
+    <div class="col-12 col-sm-12 col-lg-6 center">
             <form action="/anmeldung" method="post">
               <div class="form-group">
                 <label for="benutzername">Benutzername</label>
