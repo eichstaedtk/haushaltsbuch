@@ -102,8 +102,10 @@ a{
   text-shadow: 5px 3px 9px white;
 }
 
-.container {
+.container, .container-fluid {
   background: url("../images/geldscheine.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #monthdropdown {
@@ -113,4 +115,18 @@ a{
 
 #zahlungsTable_filter {
   float:right;
+}
+
+#anmeldung_error_box {
+  position: absolute;
+  top: 0px;
+  right: 35%;
+}
+
+#anmeldung__form{
+  position: static;
+}
+
+#anmeldung_container {
+  position: relative;
 }
