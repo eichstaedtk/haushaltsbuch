@@ -5,26 +5,35 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta description="Dashboard der Haushaltsdatenbank, Eine erste Übersicht über die wichtigesten Daten. ">
 
   <link type="text/css" th:href="@{/css/haushaltsbuch.css}" href="../../css/haushaltsbuch.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.jqplot.min.css}" />
 </head>
 <body>
-  <div class="container">
+  <section class="container-fluid">
     <div th:replace="/navigation::navigation  "></div>
-    <div class="row">
-      <div th:replace="/navigation::subnavigation  "></div>
-      <div class="col-md-9" id="content">
 
-        <h3 style="margin-bottom: 3em;" th:text="'Willkommen ' + ${user.getUsername()} + ' in der Verwaltung deiner Haushaltsausgaben und Einnahmen.'"></h3>
+    <div class="row">
+
+      <div class="col-9 col-sm-12 col-lg-9 center" id="content">
+
+        <div id="dashboard_headline">
+          <p th:text="'Dashboard von'" class="dashboard__headline"></p>
+        <picture>
+          <source class="dashboard__avatar" srcset="/images/avatar.svg" type="image/svg+xml">
+          <img class="dashboard__avatar" src="/images/avatar.svg" alt="running rabbits" />
+        </picture>
+        <p th:text="${user.getUsername()}" class="dashboard__headline"></p>
+        </div>
 
         <h3 th:if="${selectedHaushaltsbuch == null}" th:text="'Es gibt noch kein Haushaltsbuch im System.'"></h3><a th:if="${selectedHaushaltsbuch == null}" th:text="'Neues Haushaltsbuch anlegen'" th:href="@{/buecher(active='Neues Buch erstellen')}"></a>
 
-        <div id="kategorienbericht" style="height: 800px;width: 800px;margin-left: 0px;">
+        <div th:if="${selectedHaushaltsbuch }" id="kategorienbericht" style="height: 800px;width: 800px;">
         </div>
 
-        <div class="dropdown" id="monthdropdown">
+        <div th:if="${selectedHaushaltsbuch }" class="dropdown" id="monthdropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span th:text="${monate.get(aktiverMonat)}"></span>
           </button>
@@ -33,19 +42,21 @@
           </div>
         </div>
       </div>
+
     </div>
+
     <div th:replace="/base::footer"></div>
-    </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </section>
+
+  <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
 
   <script type="text/javascript" th:src="@{/js/jquery.jqplot.js}"></script>
   <script type="text/javascript" th:src="@{/js/jqplot.barRenderer.js}"></script>
   <script type="text/javascript" th:src="@{/js/jqplot.pieRenderer.js}"></script>
   <script type="text/javascript" th:src="@{/js/jqplot.categoryAxisRenderer.js}"></script>
   <script type="text/javascript" th:src="@{/js/jqplot.pointLabels.js}"></script>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.jqplot.min.css}" />
+
 
   <script th:inline="javascript">
     /*<![CDATA[*/

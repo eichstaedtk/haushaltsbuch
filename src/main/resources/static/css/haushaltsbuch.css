@@ -1,3 +1,30 @@
+html {
+  font-size: 18px;
+}
+
+#mainnavigation {
+  font-size: 1.5rem;
+}
+#dashboard_headline {
+  position: relative;
+  left: 50%;
+}
+
+#kategorienbericht {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.dashboard__headline{
+  display: inline-block;
+}
+
+.dashboard__avatar {
+  width: 50px;
+  height: 50px;
+}
+
 .parallax {
   height: 250px;
   background-attachment: fixed;
@@ -26,39 +53,6 @@
   margin-top: .25rem;
   font-size: 80%;
   color: #dc3545;
-}
-
-@media screen and (max-width: 768px) {
-  #gluecksschwein ~ img, #gluecksschwein ~ source {
-    max-height: 100px;
-  }
-
-  h1 {
-    font-size: 1.5rem !important;
-  }
-
-  h3 {
-    font-size: 1rem !important;
-  }
-}
-
-
-@media screen and (max-width: 1480px) {
-  #gluecksschwein img, #gluecksschwein source {
-    max-height: 200px;
-  }
-
-  h1 {
-    font-size: 2em !important;
-  }
-}
-@media screen and (min-width: 1480px) {
-  #gluecksschwein img, #gluecksschwein source {
-    max-height: 400px;
-  }
-  h1 {
-    font-size: 1.3em !important;
-  }
 }
 
 #gluecksschwein img, #gluecksschwein source {
@@ -118,8 +112,8 @@
 }
 
 #monthdropdown {
-  margin: auto;
-  width: 50%;
+  position: relative;
+  left: 50%;
 }
 
 #zahlungsTable_filter {
@@ -138,4 +132,37 @@
 
 #anmeldung_container {
   position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  #gluecksschwein ~ img, #gluecksschwein ~ source {
+    max-height: 100px;
+  }
+
+  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1rem !important;
+  }
+}
+
+
+@media screen and (max-width: 1480px) {
+  #gluecksschwein img, #gluecksschwein source {
+    max-height: 200px;
+  }
+
+  h1 {
+    font-size: 2em !important;
+  }
+}
+@media screen and (min-width: 1480px) {
+  #gluecksschwein img, #gluecksschwein source {
+    max-height: 400px;
+  }
+  h1 {
+    font-size: 1.3em !important;
+  }
 }

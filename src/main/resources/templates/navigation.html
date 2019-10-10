@@ -1,10 +1,13 @@
 <html lang="de" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <div class="row" th:fragment="navigation" id="mainnavigation">
-  <div class="col-md-12" style="padding: 0px;">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="col-12">
+
+  <nav class="navbar navbar-expand-sm navbar-light">
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <a class="navbar-brand" href="#">
-      <img th:src="@{/images/sparschwein.png}" alt="Glücksschwein" width="70" height="71" >
+      <img th:src="@{/images/sparschwein.webp}" alt="Glücksschwein" width="70" height="71" >
     </a>
     <ul class="navbar-nav mr-auto">
       <li th:class="${#httpServletRequest.requestURI == '/dashboard'}? 'nav-item active' : 'nav-item'">
@@ -26,7 +29,7 @@
       </li>
     </ul>
     <form th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
-      <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Abmelden</button>
+      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">Abmelden</button>
     </form>
   </div>
 </nav>
