@@ -28,8 +28,23 @@
   color: #dc3545;
 }
 
+@media screen and (max-width: 768px) {
+  #gluecksschwein ~ img, #gluecksschwein ~ source {
+    max-height: 100px;
+  }
+
+  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1rem !important;
+  }
+}
+
+
 @media screen and (max-width: 1480px) {
-  #gluecksschwein {
+  #gluecksschwein img, #gluecksschwein source {
     max-height: 200px;
   }
 
@@ -38,7 +53,7 @@
   }
 }
 @media screen and (min-width: 1480px) {
-  #gluecksschwein {
+  #gluecksschwein img, #gluecksschwein source {
     max-height: 400px;
   }
   h1 {
@@ -46,7 +61,7 @@
   }
 }
 
-#gluecksschwein {
+#gluecksschwein img, #gluecksschwein source {
   display: block;
   margin: auto;
 }
@@ -92,18 +107,12 @@
   margin-bottom: 30px;
 }
 
-a{
-  font-weight: 600;
-  font-size: 1.2em;
-}
-
 #content {
   min-height: 600px;
   text-shadow: 5px 3px 9px white;
 }
 
 .container, .container-fluid {
-  background: url("../images/geldscheine.webp");
   background-repeat: no-repeat;
   background-position: center;
 }

@@ -12,18 +12,18 @@
   <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container-fluid" id="anmeldung_container">
+<section class="container-fluid" id="anmeldung_container">
   <div class="row">
     <div class="col-12 col-sm-12 col-lg-6 center">
-      <picture>
+      <picture id="gluecksschwein">
         <source srcset="/images/sparschwein.webp" />
-        <img id="gluecksschwein" th:src="@{/images/sparschwein.png}" alt="Bild eines Sparschweins" />
+        <img th:src="@{/images/sparschwein.png}" alt="Bild eines Sparschweins" />
       </picture>
     </div>
   </div>
   <div class="row">
     <div class="col-12 col-sm-12 col-lg-6 center">
-      <h3>Verwalte deine Ausgaben und Einnahmen.</h3>
+      <h3>Anmeldung am Haushaltsbuch.</h3>
     </div>
   </div>
   <div class="row">
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </div>
 <script async th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
 <script async th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
