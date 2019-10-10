@@ -18,6 +18,7 @@ html {
 
 .dashboard__headline{
   display: inline-block;
+  font-size: 1.75rem;
 }
 
 .dashboard__avatar {

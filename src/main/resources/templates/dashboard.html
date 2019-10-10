@@ -28,7 +28,7 @@
         <p th:text="${user.getUsername()}" class="dashboard__headline"></p>
         </div>
 
-        <h3 th:if="${selectedHaushaltsbuch == null}" th:text="'Es gibt noch kein Haushaltsbuch im System.'"></h3><a th:if="${selectedHaushaltsbuch == null}" th:text="'Neues Haushaltsbuch anlegen'" th:href="@{/buecher(active='Neues Buch erstellen')}"></a>
+        <a th:if="${selectedHaushaltsbuch == null}" th:text="'Neues Haushaltsbuch anlegen'" th:href="@{/buecher(active='Neues Buch erstellen')}"></a>
 
         <div th:if="${selectedHaushaltsbuch }" id="kategorienbericht" style="height: 800px;width: 800px;">
         </div>
