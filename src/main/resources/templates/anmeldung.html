@@ -14,7 +14,7 @@
 <body>
 <section class="container-fluid" id="anmeldung_container">
   <div class="row">
-    <div class="col-12 col-sm-12 col-lg-6 center">
+    <div class="col-6 col-sm-12 col-lg-3 center">
       <picture id="gluecksschwein">
         <source srcset="/images/sparschwein.webp" />
         <img th:src="@{/images/sparschwein.png}" alt="Bild eines Sparschweins" />
@@ -22,20 +22,20 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-sm-12 col-lg-6 center">
+    <div class="col-6 col-sm-12 col-lg-3 center">
       <h3>Anmeldung am Haushaltsbuch.</h3>
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-sm-12 col-lg-6 center" id="anmeldung__form">
+    <div class="col-6 col-sm-12 col-lg-3 center" id="anmeldung__form">
             <form action="/anmeldung" method="post">
               <div class="form-group">
                 <label for="benutzername">Benutzername</label>
-                <input class="form-control" type="text" id="benutzername" name="username"/>
+                <input class="form-control" type="text" id="benutzername" name="username" required placeholder="Dein Benutzername ..."/>
               </div>
               <div class="form-group">
                 <label for="password">Passwort</label>
-                <input class="form-control" type="password" id="password" name="password"/>
+                <input class="form-control" type="password" id="password" name="password" required placeholder="Dein Passwort ..."/>
               </div>
               <button type="submit" class="btn btn-primary">Anmeldung</button>
             </form>
@@ -50,6 +50,6 @@
   </section>
 </div>
 <script async defer th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-<script async defer th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script async defer th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
