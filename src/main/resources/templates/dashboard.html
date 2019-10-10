@@ -64,40 +64,43 @@
 
     $(document).ready(function(){
       var kategorie = /*[[${kategorien}]]*/;
+        if(kategorie) {
 
-      var total = 0;
-      $(kategorie).map(function(){total += this[1];})
+          var total = 0;
+          $(kategorie).map(function () {
+            total += this[1];
+          })
 
-      myLabels = $.makeArray($(kategorie).map(function(){return this[1] + " " + Math.round(this[1]/total * 100) + "%";}));
+          myLabels = $.makeArray($(kategorie).map(function () {
+            return this[1] + " " + Math.round(this[1] / total * 100) + "%";
+          }));
 
-
-      var plot8 = $.jqplot('kategorienbericht', [kategorie], {
-        title: {text:/*[[${kategorientitel}]]*/},
-        grid: {
-          drawBorder: false,
-          drawGridlines: false,
-          background:"transparent",
-          shadow:false
-        },
-        axesDefaults: {
-
-        },
-        seriesDefaults:{
-          renderer:$.jqplot.PieRenderer,
-          rendererOptions: {
-            showDataLabels: true,
-            diameter:450,
-            dataLabels: myLabels
-          }
-        },
-        legend: {
-          show: true,
-          rendererOptions: {
-            numberRows: 3
-          },
-          location: 's'
+          var plot8 = $.jqplot('kategorienbericht', [kategorie], {
+            title: {text:/*[[${kategorientitel}]]*/},
+            grid: {
+              drawBorder: false,
+              drawGridlines: false,
+              background: "transparent",
+              shadow: false
+            },
+            axesDefaults: {},
+            seriesDefaults: {
+              renderer: $.jqplot.PieRenderer,
+              rendererOptions: {
+                showDataLabels: true,
+                diameter: 450,
+                dataLabels: myLabels
+              }
+            },
+            legend: {
+              show: true,
+              rendererOptions: {
+                numberRows: 3
+              },
+              location: 's'
+            }
+          });
         }
-      });
     });
 
 
