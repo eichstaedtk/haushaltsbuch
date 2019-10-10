@@ -60,6 +60,10 @@ dependencies {
 	compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4")
 	compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
 	compile('org.hsqldb:hsqldb:2.4.0')
+	compile group: 'org.webjars', name: 'bootstrap', version: '4.3.1'
+	compile group: 'org.webjars', name: 'jquery', version: '3.4.1'
+
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.0.6.RELEASE'

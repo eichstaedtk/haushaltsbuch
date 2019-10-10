@@ -26,7 +26,9 @@ public class WebConfiguration implements WebMvcConfigurer {
             "classpath:/META-INF/resources/webjars/",
             "classpath:/static/images/",
             "classpath:/static/css/",
-            "classpath:/static/js/");
+            "classpath:/static/js/","classpath:/webjars/");
+
+
   }
 
   @Bean
