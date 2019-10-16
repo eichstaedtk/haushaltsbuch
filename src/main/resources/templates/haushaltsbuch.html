@@ -12,11 +12,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 </head>
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <div th:replace="/navigation::navigation  "></div>
-    <div class="row">
+    <div class="row justify-content-md-center">
       <div th:replace="/navigation::subnavigation  "></div>
-      <div class="col-md-9" id="content">
+      <div class="col-7 col-sm-10 col-lg-7" id="content">
 
         <form action="/haushaltsbuch/zahlungen" th:action="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen'}" method="post" th:object="${neuezahlung}" id="zahlungsform">
           <h3>Neue Zahlung erstellen</h3>

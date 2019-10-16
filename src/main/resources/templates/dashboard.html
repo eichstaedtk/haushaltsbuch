@@ -64,7 +64,7 @@
 
     $(document).ready(function(){
       var kategorie = /*[[${kategorien}]]*/;
-        if(kategorie) {
+        if(kategorie && kategorie[1].length > 0) {
 
           var total = 0;
           $(kategorie).map(function () {

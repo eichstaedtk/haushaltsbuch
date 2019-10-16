@@ -1,7 +1,7 @@
 <html lang="de" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <div class="row" th:fragment="navigation" id="mainnavigation">
-  <div class="col-12">
+  <div class="col-9 col-sm-12 col-lg-9 center">
 
   <nav class="navbar navbar-expand-sm navbar-light">
 
@@ -36,7 +36,7 @@
 </div>
 </div>
 
-<div th:if="${subnav}" class="col-md-3" th:fragment="subnavigation">
+<div th:if="${subnav}" class="col-md-2" th:fragment="subnavigation">
     <h3 th:text="${subnav.title}">Subnavigation</h3>
 
   <nav class="nav flex-column">
