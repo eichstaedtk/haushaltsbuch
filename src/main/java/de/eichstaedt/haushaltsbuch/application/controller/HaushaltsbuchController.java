@@ -57,7 +57,7 @@ public class HaushaltsbuchController {
 
   private Zahlungsfluss neueZahlung;
 
-  private static final int BUTTONS_TO_SHOW = 5;
+  private static final int BUTTONS_TO_SHOW = 25;
   private static final int INITIAL_PAGE = 0;
   private static final int INITIAL_PAGE_SIZE = 1000;
   private static final int[] PAGE_SIZES = {10, 50, 100,500,1000};

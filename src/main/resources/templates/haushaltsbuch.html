@@ -58,7 +58,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="buchungstaginput">Datum</span>
             </div>
-            <input id="buchungstag" type="text" class="form-control" aria-label="buchungstag" th:field="*{buchungsTag}">
+            <input id="buchungstag" type="text" class="form-control" aria-label="buchungstag" th:field="*{buchungsTag}" autocomplete="off">
             <span class="error" th:if="${#fields.hasErrors('buchungsTag')}" th:errors="*{buchungsTag}">BuchungsTag Fehler </span>
           </div>
 
@@ -147,6 +147,8 @@
 
       $('#zahlungsTable').DataTable({
 
+        "pageLength": 50,
+        "order": [ 4, 'desc ' ],
         "language": {
           "search":         "Suche:",
           "emptyTable":     "Keine Zahlungen vorhanden",
