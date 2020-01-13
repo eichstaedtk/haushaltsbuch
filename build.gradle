@@ -62,6 +62,7 @@ dependencies {
 	compile('org.hsqldb:hsqldb:2.4.0')
 	compile group: 'org.webjars', name: 'bootstrap', version: '4.3.1'
 	compile group: 'org.webjars', name: 'jquery', version: '3.4.1'
+	compile group: 'org.webjars', name: 'font-awesome', version: '5.11.2'
 
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
