@@ -62,8 +62,10 @@ dependencies {
 	compile('org.hsqldb:hsqldb:2.4.0')
 	compile group: 'org.webjars', name: 'bootstrap', version: '4.3.1'
 	compile group: 'org.webjars', name: 'jquery', version: '3.4.1'
-	compile group: 'org.webjars', name: 'font-awesome', version: '5.11.2'
-
+	compile group: 'org.webjars', name: 'font-awesome', version: '5.12.0'
+	compile group: 'org.webjars', name: 'bootstrap-datetimepicker', version: '2.4.4'
+	compile 'org.webjars.bower:datatables:1.10.19'
+	compile group: 'org.webjars.bowergithub.datatables', name: 'dist-datatables-bootstrap4', version: '1.10.20'
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
