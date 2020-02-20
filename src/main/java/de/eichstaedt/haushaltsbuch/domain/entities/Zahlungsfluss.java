@@ -6,6 +6,7 @@ import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -51,6 +52,12 @@ public class Zahlungsfluss {
     this.typ = typ;
     this.zahlungsintervall = zahlungsintervall;
     this.buchid = buchid;
+
+    if(!zahlungsintervall.equals(Zahlungsintervall.EINMALIG))
+    {
+      zahlungsintervallID = UUID.randomUUID().toString();
+      zahlungsintervallAktiv = true;
+    }
   }
 
   @Id
@@ -92,7 +99,7 @@ public class Zahlungsfluss {
   private String zahlungsintervallID;
 
   @Column(name = "intervall")
-  private boolean zahlungsintervallAtiv;
+  private boolean zahlungsintervallAktiv;
 
   @Column(name = "buchid")
   private Long buchid;
@@ -108,7 +115,7 @@ public class Zahlungsfluss {
             ", typ=" + typ +
             ", zahlungsintervall=" + zahlungsintervall +
             ", zahlungsintervallID='" + zahlungsintervallID + '\'' +
-            ", zahlungsintervallAtiv=" + zahlungsintervallAtiv +
+            ", zahlungsintervallAktiv=" + zahlungsintervallAktiv +
             ", buchid=" + buchid +
             '}';
   }
@@ -204,11 +211,11 @@ public class Zahlungsfluss {
     this.zahlungsintervallID = zahlungsintervallID;
   }
 
-  public boolean isZahlungsintervallAtiv() {
-    return zahlungsintervallAtiv;
+  public boolean isZahlungsintervallAktiv() {
+    return zahlungsintervallAktiv;
   }
 
-  public void setZahlungsintervallAtiv(boolean zahlungsintervallAtiv) {
-    this.zahlungsintervallAtiv = zahlungsintervallAtiv;
+  public void setZahlungsintervallAktiv(boolean zahlungsintervallAktiv) {
+    this.zahlungsintervallAktiv = zahlungsintervallAktiv;
   }
 }
