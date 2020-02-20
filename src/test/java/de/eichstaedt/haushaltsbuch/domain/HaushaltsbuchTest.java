@@ -29,4 +29,13 @@ public class HaushaltsbuchTest {
 
     }
 
+  @Test
+  public void testToString() {
+
+    Benutzer benutzer = new Benutzer.BenutzerBuilder("konrad","konrad@gmx.de","",new BCryptPasswordEncoder()).build();
+
+    Haushaltsbuch haushaltsbuch = new Haushaltsbuch("Erstes Haushaltsbuch",benutzer);
+
+    Assert.assertNotNull(haushaltsbuch.toString());
+  }
 }

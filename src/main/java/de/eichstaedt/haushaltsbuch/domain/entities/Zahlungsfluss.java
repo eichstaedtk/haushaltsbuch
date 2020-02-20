@@ -88,21 +88,29 @@ public class Zahlungsfluss {
   @Enumerated(EnumType.STRING)
   private Zahlungsintervall zahlungsintervall;
 
+  @Column(name = "intervallID")
+  private String zahlungsintervallID;
+
+  @Column(name = "intervall")
+  private boolean zahlungsintervallAtiv;
+
   @Column(name = "buchid")
   private Long buchid;
 
   @Override
   public String toString() {
     return "Zahlungsfluss{" +
-        "id=" + id +
-        ", beschreibung='" + beschreibung + '\'' +
-        ", betrag=" + betrag +
-        ", kategorie=" + kategorie +
-        ", buchungsTag=" + buchungsTag +
-        ", typ=" + typ +
-        ", zahlungsintervall=" + zahlungsintervall +
-        ", buchid='" + buchid + '\'' +
-        '}';
+            "id=" + id +
+            ", beschreibung='" + beschreibung + '\'' +
+            ", betrag=" + betrag +
+            ", kategorie=" + kategorie +
+            ", buchungsTag=" + buchungsTag +
+            ", typ=" + typ +
+            ", zahlungsintervall=" + zahlungsintervall +
+            ", zahlungsintervallID='" + zahlungsintervallID + '\'' +
+            ", zahlungsintervallAtiv=" + zahlungsintervallAtiv +
+            ", buchid=" + buchid +
+            '}';
   }
 
   @Override
@@ -186,5 +194,21 @@ public class Zahlungsfluss {
 
   public void setBuchid(Long buchid) {
     this.buchid = buchid;
+  }
+
+  public String getZahlungsintervallID() {
+    return zahlungsintervallID;
+  }
+
+  public void setZahlungsintervallID(String zahlungsintervallID) {
+    this.zahlungsintervallID = zahlungsintervallID;
+  }
+
+  public boolean isZahlungsintervallAtiv() {
+    return zahlungsintervallAtiv;
+  }
+
+  public void setZahlungsintervallAtiv(boolean zahlungsintervallAtiv) {
+    this.zahlungsintervallAtiv = zahlungsintervallAtiv;
   }
 }
