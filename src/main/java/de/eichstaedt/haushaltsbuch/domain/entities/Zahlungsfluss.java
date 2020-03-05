@@ -6,7 +6,6 @@ import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
@@ -52,12 +51,6 @@ public class Zahlungsfluss {
     this.typ = typ;
     this.zahlungsintervall = zahlungsintervall;
     this.buchid = buchid;
-
-    if(!zahlungsintervall.equals(Zahlungsintervall.EINMALIG))
-    {
-      zahlungsintervallID = UUID.randomUUID().toString();
-      zahlungsintervallAktiv = true;
-    }
   }
 
   @Id
@@ -95,29 +88,21 @@ public class Zahlungsfluss {
   @Enumerated(EnumType.STRING)
   private Zahlungsintervall zahlungsintervall;
 
-  @Column(name = "intervallID")
-  private String zahlungsintervallID;
-
-  @Column(name = "intervall")
-  private boolean zahlungsintervallAktiv;
-
   @Column(name = "buchid")
   private Long buchid;
 
   @Override
   public String toString() {
     return "Zahlungsfluss{" +
-            "id=" + id +
-            ", beschreibung='" + beschreibung + '\'' +
-            ", betrag=" + betrag +
-            ", kategorie=" + kategorie +
-            ", buchungsTag=" + buchungsTag +
-            ", typ=" + typ +
-            ", zahlungsintervall=" + zahlungsintervall +
-            ", zahlungsintervallID='" + zahlungsintervallID + '\'' +
-            ", zahlungsintervallAktiv=" + zahlungsintervallAktiv +
-            ", buchid=" + buchid +
-            '}';
+        "id=" + id +
+        ", beschreibung='" + beschreibung + '\'' +
+        ", betrag=" + betrag +
+        ", kategorie=" + kategorie +
+        ", buchungsTag=" + buchungsTag +
+        ", typ=" + typ +
+        ", zahlungsintervall=" + zahlungsintervall +
+        ", buchid='" + buchid + '\'' +
+        '}';
   }
 
   @Override
@@ -201,21 +186,5 @@ public class Zahlungsfluss {
 
   public void setBuchid(Long buchid) {
     this.buchid = buchid;
-  }
-
-  public String getZahlungsintervallID() {
-    return zahlungsintervallID;
-  }
-
-  public void setZahlungsintervallID(String zahlungsintervallID) {
-    this.zahlungsintervallID = zahlungsintervallID;
-  }
-
-  public boolean isZahlungsintervallAktiv() {
-    return zahlungsintervallAktiv;
-  }
-
-  public void setZahlungsintervallAktiv(boolean zahlungsintervallAktiv) {
-    this.zahlungsintervallAktiv = zahlungsintervallAktiv;
   }
 }
