@@ -1,53 +1,84 @@
 package de.eichstaedt.haushaltsbuch.domain.entities;
 
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
+import de.eichstaedt.haushaltsbuch.domain.repository.AutomatischeBuchungRepository;
+import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Created by konrad.eichstaedt@gmx.de on 2020-03-05.
  *
  * Das Klasse ermöglicht dem Nutzer Zahlungen für einen Zeitraum und ein Intervall automatisch durch das System durchführen zu lassen.
  */
+
+@Entity
+@Table(name = "automatische_buchungen")
 public class AutomatischeBuchung {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Column(name = "id")
   private Long id;
 
-  private Long haushaltsbuchID;
-
+  @DateTimeFormat(pattern = "dd-MM-yyyy")
+  @Column(name = "start_tag")
   private LocalDate startTag;
 
+  @DateTimeFormat(pattern = "dd-MM-yyyy")
+  @Column(name = "end_tag")
   private LocalDate endTag;
 
+  @DateTimeFormat(pattern = "dd-MM-yyyy")
+  @Column(name = "letzteBuchungAm")
   private LocalDate letzteBuchungAm;
 
-  private Zahlungsintervall zahlungsintervall;
+  @ElementCollection
+  @Column(name = "buchungen")
+  private Set<Long> buchungen;
 
-  private List<String> buchungen;
-
+  @Column(name = "aktiv")
   private boolean aktiv;
+
+  @OneToOne(fetch = FetchType.EAGER)
+  @Column(name = "zahlung_prototype")
+  private Zahlungsfluss zahlung;
+
+  @Transient
+  private ZahlungsflussRepository zahlungsflussRepository;
+
+  @Transient
+  private AutomatischeBuchungRepository automatischeBuchungRepository;
 
   protected AutomatischeBuchung() {
   }
 
-  public AutomatischeBuchung(Long haushaltsbuchID, LocalDate startTag, LocalDate endTag,
-      Zahlungsintervall zahlungsintervall) {
-    this.haushaltsbuchID = haushaltsbuchID;
+
+  public AutomatischeBuchung(LocalDate startTag, LocalDate endTag,
+      Zahlungsfluss zahlung, ZahlungsflussRepository zahlungsflussRepository, AutomatischeBuchungRepository automatischeBuchungRepository) {
     this.startTag = startTag;
     this.endTag = endTag;
-    this.zahlungsintervall = zahlungsintervall;
-    this.buchungen = new ArrayList<>();
+    this.buchungen = new HashSet<>();
     this.aktiv = true;
+    this.zahlung = zahlung;
+    this.zahlungsflussRepository = zahlungsflussRepository;
+    this.automatischeBuchungRepository = automatischeBuchungRepository;
   }
 
   public Long getId() {
     return id;
-  }
-
-  public Long getHaushaltsbuchID() {
-    return haushaltsbuchID;
   }
 
   public LocalDate getStartTag() {
@@ -58,11 +89,8 @@ public class AutomatischeBuchung {
     return endTag;
   }
 
-  public Zahlungsintervall getZahlungsintervall() {
-    return zahlungsintervall;
-  }
 
-  public List<String> getBuchungen() {
+  public Set<Long> getBuchungen() {
     return buchungen;
   }
 
@@ -78,12 +106,41 @@ public class AutomatischeBuchung {
     return letzteBuchungAm;
   }
 
-  public boolean istBuchungNotwendig(LocalDate jetzt) {
+  public Zahlungsfluss getZahlung() {
+    return zahlung;
+  }
 
-    if(aktiv && jetzt.isAfter(startTag) && jetzt.isBefore(endTag))
+  public void automatischBuchen() {
+
+    if(aktiv && istBuchungNotwendig(LocalDate.now())) {
+
+      Zahlungsfluss neueZahlung = this.zahlung.clone();
+      neueZahlung.setBuchungsTag(LocalDate.now());
+
+      neueZahlung = zahlungsflussRepository.save(neueZahlung);
+
+      letzteBuchungAm = neueZahlung.getBuchungsTag();
+
+      buchungen.add(neueZahlung.getId());
+
+      speichern();
+    }
+
+  }
+
+  public AutomatischeBuchung speichern() {
+    return automatischeBuchungRepository.save(this);
+  }
+
+  boolean istBuchungNotwendig(LocalDate jetzt) {
+
+    if(aktiv && jetzt.isAfter(startTag) && jetzt.isBefore(endTag) && zahlung != null)
     {
 
-      switch (zahlungsintervall)
+      if(letzteBuchungAm == null)
+        return true;
+
+      switch (zahlung.getZahlungsintervall())
       {
         case EINMALIG:
           return false;
@@ -95,7 +152,6 @@ public class AutomatischeBuchung {
           return letzteBuchungAm.plusDays(365).isAfter(jetzt);
           default: return false;
       }
-
     }
 
     return false;

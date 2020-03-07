@@ -32,7 +32,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "zahlungsfluss")
-public class Zahlungsfluss {
+public class Zahlungsfluss implements Cloneable {
 
   public Zahlungsfluss() {
   }
@@ -48,6 +48,20 @@ public class Zahlungsfluss {
     this.betrag = betrag;
     this.kategorie = kategorie;
     this.buchungsTag = buchungsTag;
+    this.typ = typ;
+    this.zahlungsintervall = zahlungsintervall;
+    this.buchid = buchid;
+  }
+
+  public Zahlungsfluss(
+      @NotNull @Size(min = 2, message = "Bitte mindestens zwei Zeichen eingeben!") String beschreibung,
+      @NotNull BigDecimal betrag,
+      @NotNull Kategorie kategorie,
+      @NotNull Zahlungstyp typ,
+      @NotNull Zahlungsintervall zahlungsintervall, Long buchid) {
+    this.beschreibung = beschreibung;
+    this.betrag = betrag;
+    this.kategorie = kategorie;
     this.typ = typ;
     this.zahlungsintervall = zahlungsintervall;
     this.buchid = buchid;
@@ -73,7 +87,6 @@ public class Zahlungsfluss {
   private Kategorie kategorie;
 
 
-  @NotNull
   @DateTimeFormat(pattern = "dd-MM-yyyy")
   @Column(name = "buchungstag")
   private LocalDate buchungsTag;
@@ -121,6 +134,11 @@ public class Zahlungsfluss {
   public int hashCode() {
 
     return Objects.hash(id);
+  }
+
+  @Override
+  public Zahlungsfluss clone() {
+    return new Zahlungsfluss(this.beschreibung,this.betrag,this.kategorie,this.buchungsTag,this.typ,this.zahlungsintervall,this.buchid);
   }
 
   public Long getId() {
