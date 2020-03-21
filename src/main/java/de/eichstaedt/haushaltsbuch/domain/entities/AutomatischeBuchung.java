@@ -53,7 +53,6 @@ public class AutomatischeBuchung {
   private boolean aktiv;
 
   @OneToOne(fetch = FetchType.EAGER)
-  @Column(name = "zahlung_prototype")
   private Zahlungsfluss zahlung;
 
   @Transient
