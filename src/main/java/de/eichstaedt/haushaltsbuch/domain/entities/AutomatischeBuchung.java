@@ -119,9 +119,9 @@ public class AutomatischeBuchung {
 
       neueZahlung = zahlungsflussRepository.save(neueZahlung);
 
-      letzteBuchungAm = neueZahlung.getBuchungsTag();
+      this.letzteBuchungAm = neueZahlung.getBuchungsTag();
 
-      buchungen.add(neueZahlung.getId());
+      this.buchungen.add(neueZahlung.getId());
 
       speichern();
     }
