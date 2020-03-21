@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -27,6 +29,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "automatische_buchungen")
 public class AutomatischeBuchung {
+
+  private static final Logger logger = LoggerFactory.getLogger(AutomatischeBuchung.class);
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -112,6 +116,8 @@ public class AutomatischeBuchung {
   public void automatischBuchen() {
 
     if(aktiv && istBuchungNotwendig(LocalDate.now())) {
+
+      logger.info("Starting new automatic booki");
 
       Zahlungsfluss neueZahlung = this.zahlung.clone();
       neueZahlung.setBuchungsTag(LocalDate.now());
