@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Haushaltsbuch</title>
+  <title>Haushaltsbuch - Zahlung buchen -</title>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,7 +18,8 @@
       <div th:replace="/navigation::subnavigation  "></div>
       <div class="col-7 col-sm-10 col-lg-7" id="content">
 
-        <form action="/haushaltsbuch/zahlungen" th:action="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen'}" method="post" th:object="${neuezahlung}" id="zahlungsform">
+        <div th:if="${subnav.activeItem == 'zahlung'}">
+          <form action="/haushaltsbuch/zahlungen" th:action="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen'}" method="post" th:object="${neuezahlung}" id="zahlungsform">
           <h3>Neue Zahlung erstellen</h3>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -119,7 +120,14 @@
           </table>
         </div>
       </div>
+
+        <div th:if="${subnav.activeItem == 'buchung'}">
+          <div th:replace="/autobuchung::autobuchunganlegen"></div>
+        </div>
+
+      </div>
     </div>
+
     <div th:replace="/base::footer"></div>
   </div>
   </div>

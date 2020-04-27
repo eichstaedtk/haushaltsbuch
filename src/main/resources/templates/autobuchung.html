@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+  <meta charset="UTF-8">
+  <title>Haushaltsbuch - Automatische Buchung</title>
+</head>
+<body>
+
+<form th:action="@{'/haushaltsbuch/'+${buch.id}+'/buchungen'}" method="post" id="buchungsforms" th:fragment="autobuchunganlegen">
+  <h3>Automatische Buchung einer Zahlung anlegen</h3>
+</form>
+</body>
+</html>

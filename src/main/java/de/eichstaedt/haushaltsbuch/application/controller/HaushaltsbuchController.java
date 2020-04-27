@@ -65,7 +65,7 @@ public class HaushaltsbuchController {
   @GetMapping("/haushaltsbuch")
   public ModelAndView oeffnen(ModelMap model,@AuthenticationPrincipal User accountDetails, @RequestParam(value = "buchid") String buchid,
       @RequestParam(value = "zahlungsid",required = false) String zahlungsid, @RequestParam("pageSize") Optional<Integer> pageSize,
-      @RequestParam("page") Optional<Integer> page, @RequestParam(value = "sortField",defaultValue = "buchungsTag") String sortField) {
+      @RequestParam("page") Optional<Integer> page, @RequestParam(value = "sortField",defaultValue = "buchungsTag") String sortField,@RequestParam(defaultValue = "zahlung") String active) {
 
     logger.info("Getting GET request for oeffen haushalstbuch {} ", buchid);
 
@@ -114,10 +114,11 @@ public class HaushaltsbuchController {
       model.addAttribute("zahlungen", zahlungen);
 
       Map<String,String> links = new HashMap<>();
-      links.put("Zahlungsverkehr","");
-      links.put("Neue Zahlung","");
+      links.put("Neue Zahlung","/haushaltsbuch?buchid="+buch.get().getId()+"&pageSize="+evalPageSize+"&active=zahlung");
+      links.put("Automatische Buchung","/haushaltsbuch?buchid="+buch.get().getId()+"&pageSize="+evalPageSize+"&active=buchung");
 
       SubnavigationModel subnavigationModel = new SubnavigationModel(buch.get().getName(), links);
+      subnavigationModel.setActiveItem(active);
 
       model.addAttribute("subnav",subnavigationModel);
 
