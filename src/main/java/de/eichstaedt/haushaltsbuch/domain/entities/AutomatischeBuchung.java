@@ -2,6 +2,7 @@ package de.eichstaedt.haushaltsbuch.domain.entities;
 
 import de.eichstaedt.haushaltsbuch.domain.repository.AutomatischeBuchungRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -9,6 +10,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -59,6 +63,11 @@ public class AutomatischeBuchung {
   @OneToOne(fetch = FetchType.EAGER)
   private Zahlungsfluss zahlung;
 
+  @NotNull
+  @Column(name = "intervall")
+  @Enumerated(EnumType.STRING)
+  private Zahlungsintervall zahlungsintervall;
+
   @Transient
   private ZahlungsflussRepository zahlungsflussRepository;
 
@@ -70,7 +79,7 @@ public class AutomatischeBuchung {
 
 
   public AutomatischeBuchung(LocalDate startTag, LocalDate endTag,
-      Zahlungsfluss zahlung, ZahlungsflussRepository zahlungsflussRepository, AutomatischeBuchungRepository automatischeBuchungRepository) {
+      Zahlungsfluss zahlung, ZahlungsflussRepository zahlungsflussRepository, AutomatischeBuchungRepository automatischeBuchungRepository, Zahlungsintervall zahlungsintervall) {
     this.startTag = startTag;
     this.endTag = endTag;
     this.buchungen = new HashSet<>();
@@ -78,6 +87,7 @@ public class AutomatischeBuchung {
     this.zahlung = zahlung;
     this.zahlungsflussRepository = zahlungsflussRepository;
     this.automatischeBuchungRepository = automatischeBuchungRepository;
+    this.zahlungsintervall = zahlungsintervall;
   }
 
   public Long getId() {
@@ -113,6 +123,15 @@ public class AutomatischeBuchung {
     return zahlung;
   }
 
+  public Zahlungsintervall getZahlungsintervall() {
+    return zahlungsintervall;
+  }
+
+  public void setZahlungsintervall(
+      Zahlungsintervall zahlungsintervall) {
+    this.zahlungsintervall = zahlungsintervall;
+  }
+
   public void automatischBuchen() {
 
     if(aktiv && istBuchungNotwendig(LocalDate.now())) {
@@ -145,7 +164,7 @@ public class AutomatischeBuchung {
       if(letzteBuchungAm == null)
         return true;
 
-      switch (zahlung.getZahlungsintervall())
+      switch (zahlungsintervall)
       {
         case EINMALIG:
           return false;

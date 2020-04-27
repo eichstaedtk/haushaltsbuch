@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -57,7 +56,7 @@ public class ZahlungsflussRepositoryTest {
     Kategorie versicherung = kategorieRepository.save(kategorie);
 
     Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),versicherung,LocalDate
-        .now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+        .now(),Zahlungstyp.AUSGABE,1l);
 
     Zahlungsfluss saved = zahlungsflussRepository.save(zahlungsfluss);
 
@@ -74,7 +73,7 @@ public class ZahlungsflussRepositoryTest {
     Kategorie versicherung = kategorieRepository.save(kategorie);
 
     Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),versicherung,LocalDate
-        .now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+        .now(),Zahlungstyp.AUSGABE,1l);
 
     Zahlungsfluss saved = zahlungsflussRepository.save(zahlungsfluss);
 
@@ -93,7 +92,7 @@ public class ZahlungsflussRepositoryTest {
     Kategorie versicherung = kategorieRepository.save(kategorie);
 
     Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),versicherung,LocalDate
-        .now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+        .now(),Zahlungstyp.AUSGABE,1l);
 
     Zahlungsfluss saved = zahlungsflussRepository.save(zahlungsfluss);
 
@@ -115,7 +114,7 @@ public class ZahlungsflussRepositoryTest {
     Kategorie versicherung = kategorieRepository.save(kategorie);
 
     Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),versicherung,LocalDate
-        .now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+        .now(),Zahlungstyp.AUSGABE,1l);
 
     Zahlungsfluss saved = zahlungsflussRepository.save(zahlungsfluss);
 

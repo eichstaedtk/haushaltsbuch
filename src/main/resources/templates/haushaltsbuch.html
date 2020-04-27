@@ -74,7 +74,7 @@
             <span class="error" th:if="${#fields.hasErrors('typ')}" th:errors="*{typ}">Zahlungstyp Fehler </span>
           </div>
 
-          <div class="input-group mb-3">
+  <!--        <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="zahlungsintervall">Zahlungsintervall</span>
             </div>
@@ -85,7 +85,7 @@
             </select>
             <span class="error" th:if="${#fields.hasErrors('zahlungsintervall')}" th:errors="*{zahlungsintervall}">Zahlungsintervall Fehler </span>
           </div>
-
+-->
           <a style="float: right;margin-left: 0.5em;" href="/haushaltsbericht" th:href="@{/haushaltsbericht(buchid=${buch.id})}" class="btn btn-primary btn-lg" role="button"><i class="fas fa-calculator"></i></a>
           <button style="float:right;" type="submit" class="btn btn-primary btn-lg" title="Zahlung buchen">€ Buchen</button>
         </form>
@@ -101,7 +101,6 @@
               <th>KATEGORIE</th>
               <th>DATUM</th>
               <th>TYP</th>
-              <th>INTERVALL</th>
               <th>AKTION</th>
             </tr>
             </thead>
@@ -112,7 +111,6 @@
               <td th:text="${zahlung.kategorie.name}"></td>
               <td th:text="${zahlung.buchungsTag}"></td>
               <td th:text="${zahlung.typ}"></td>
-              <td th:text="${zahlung.zahlungsintervall}"></td>
               <td>
                 <a title="Zahlung bearbeiten" href="/haushaltsbuch" th:href="@{/haushaltsbuch(buchid=${buch.id},zahlungsid=${zahlung.id})}"><i class="fas fa-edit"></i></a>
                 <a title="Zahlung löschen " href="/haushaltsbuch" th:href="@{'/haushaltsbuch/'+${buch.id}+'/zahlungen/loeschen'(zahlungsid=${zahlung.id})}"><i class="fas fa-trash"></i></a>

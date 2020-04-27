@@ -12,7 +12,6 @@ import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.KategorieRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -79,7 +78,7 @@ public class ZahlungsServiceTest {
 
     Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
-        .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
+        .now(), Zahlungstyp.AUSGABE, 1l);
 
     boolean gebucht = zahlungsService.buchen(buch, zahlungsfluss);
 
@@ -121,7 +120,7 @@ public class ZahlungsServiceTest {
 
     Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
-        .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
+        .now(), Zahlungstyp.AUSGABE, 1l);
 
     zahlungsfluss = zahlungsflussRepository.save(zahlungsfluss);
 
@@ -139,7 +138,7 @@ public class ZahlungsServiceTest {
 
     Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45),
         versicherung, LocalDate
-        .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, 1l);
+        .now(), Zahlungstyp.AUSGABE, 1l);
 
     zahlungsService.buchen(buch, zahlungsfluss);
 
@@ -161,15 +160,15 @@ public class ZahlungsServiceTest {
 
     Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE, buch.getId());
 
     Zahlungsfluss ausgabe1 = new Zahlungsfluss("Beschreibung", new BigDecimal(5.55), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE, buch.getId());
 
     Zahlungsfluss einahme = new Zahlungsfluss("Beschreibung", new BigDecimal(155.55), versicherung,
         LocalDate
-            .now(), Zahlungstyp.EINNAHME, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.EINNAHME, buch.getId());
 
     zahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1, einahme));
 
@@ -201,15 +200,15 @@ public class ZahlungsServiceTest {
 
     Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE, buch.getId());
 
     Zahlungsfluss ausgabe1 = new Zahlungsfluss("Beschreibung", new BigDecimal(5.55), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE, buch.getId());
 
     Zahlungsfluss einahme = new Zahlungsfluss("Beschreibung", new BigDecimal(155.55),
         new Kategorie("Gehalt"), LocalDate
-        .now(), Zahlungstyp.EINNAHME, Zahlungsintervall.EINMALIG, buch.getId());
+        .now(), Zahlungstyp.EINNAHME, buch.getId());
 
     zahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1, einahme));
 
@@ -246,11 +245,11 @@ public class ZahlungsServiceTest {
 
     Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung", new BigDecimal(2.45), versicherung,
         LocalDate
-            .now(), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .now(), Zahlungstyp.AUSGABE, buch.getId());
 
     Zahlungsfluss ausgabe1 = new Zahlungsfluss("Beschreibung", new BigDecimal(5.55), versicherung,
         LocalDate
-            .of(LocalDate.now().getYear(),1,20), Zahlungstyp.AUSGABE, Zahlungsintervall.EINMALIG, buch.getId());
+            .of(LocalDate.now().getYear(),1,20), Zahlungstyp.AUSGABE, buch.getId());
 
     zahlungsflussRepository.saveAll(Arrays.asList(ausgabe, ausgabe1));
 

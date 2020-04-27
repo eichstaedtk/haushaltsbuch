@@ -12,7 +12,6 @@ import de.eichstaedt.haushaltsbuch.domain.repository.BenutzerRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.HaushaltsbuchRepository;
 import de.eichstaedt.haushaltsbuch.domain.repository.ZahlungsflussRepository;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -144,7 +143,7 @@ public class HaushaltsbuchServiceTest {
     Haushaltsbuch haushaltsbuch = haushaltsbuchService.createHaushaltsbuch("Buch 2018/1 Konrad",benutzer.getBenutzername());
 
     Zahlungsfluss ausgabe = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),new Kategorie("Versicherung"),LocalDate
-        .now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+        .now(),Zahlungstyp.AUSGABE,1l);
 
 
     ausgabe = zahlungsflussRepository.save(ausgabe);

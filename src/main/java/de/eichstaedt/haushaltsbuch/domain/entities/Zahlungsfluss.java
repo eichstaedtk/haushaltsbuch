@@ -1,7 +1,6 @@
 package de.eichstaedt.haushaltsbuch.domain.entities;
 
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -43,13 +42,12 @@ public class Zahlungsfluss implements Cloneable {
       Kategorie kategorie,
       LocalDate buchungsTag,
       Zahlungstyp typ,
-      Zahlungsintervall zahlungsintervall, Long buchid) {
+      Long buchid) {
     this.beschreibung = beschreibung;
     this.betrag = betrag;
     this.kategorie = kategorie;
     this.buchungsTag = buchungsTag;
     this.typ = typ;
-    this.zahlungsintervall = zahlungsintervall;
     this.buchid = buchid;
   }
 
@@ -58,12 +56,11 @@ public class Zahlungsfluss implements Cloneable {
       @NotNull BigDecimal betrag,
       @NotNull Kategorie kategorie,
       @NotNull Zahlungstyp typ,
-      @NotNull Zahlungsintervall zahlungsintervall, Long buchid) {
+      Long buchid) {
     this.beschreibung = beschreibung;
     this.betrag = betrag;
     this.kategorie = kategorie;
     this.typ = typ;
-    this.zahlungsintervall = zahlungsintervall;
     this.buchid = buchid;
   }
 
@@ -96,11 +93,6 @@ public class Zahlungsfluss implements Cloneable {
   @Enumerated(EnumType.STRING)
   private Zahlungstyp typ;
 
-  @NotNull
-  @Column(name = "intervall")
-  @Enumerated(EnumType.STRING)
-  private Zahlungsintervall zahlungsintervall;
-
   @Column(name = "buchid")
   private Long buchid;
 
@@ -113,7 +105,6 @@ public class Zahlungsfluss implements Cloneable {
         ", kategorie=" + kategorie +
         ", buchungsTag=" + buchungsTag +
         ", typ=" + typ +
-        ", zahlungsintervall=" + zahlungsintervall +
         ", buchid='" + buchid + '\'' +
         '}';
   }
@@ -138,7 +129,7 @@ public class Zahlungsfluss implements Cloneable {
 
   @Override
   public Zahlungsfluss clone() {
-    return new Zahlungsfluss(this.beschreibung,this.betrag,this.kategorie,this.buchungsTag,this.typ,this.zahlungsintervall,this.buchid);
+    return new Zahlungsfluss(this.beschreibung,this.betrag,this.kategorie,this.buchungsTag,this.typ,this.buchid);
   }
 
   public Long getId() {
@@ -165,10 +156,6 @@ public class Zahlungsfluss implements Cloneable {
     return typ;
   }
 
-  public Zahlungsintervall getZahlungsintervall() {
-    return zahlungsintervall;
-  }
-
   public void setId(Long id) {
     this.id = id;
   }
@@ -191,11 +178,6 @@ public class Zahlungsfluss implements Cloneable {
 
   public void setTyp(Zahlungstyp typ) {
     this.typ = typ;
-  }
-
-  public void setZahlungsintervall(
-      Zahlungsintervall zahlungsintervall) {
-    this.zahlungsintervall = zahlungsintervall;
   }
 
   public Long getBuchid() {

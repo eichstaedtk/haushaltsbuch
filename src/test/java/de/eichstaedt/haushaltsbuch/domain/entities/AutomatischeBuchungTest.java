@@ -27,10 +27,10 @@ public class AutomatischeBuchungTest {
   public void testCreation() {
 
     Zahlungsfluss zahlungsfluss = new Zahlungsfluss("KFZ Versicherung",new BigDecimal(10),new Kategorie("Versicherung"),
-        Zahlungstyp.AUSGABE,Zahlungsintervall.MONATLICH,Long.valueOf(1l));
+        Zahlungstyp.AUSGABE,Long.valueOf(1l));
 
     AutomatischeBuchung versicherung = new AutomatischeBuchung(LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),
-        zahlungsfluss,null,null);
+        zahlungsfluss,null,null,Zahlungsintervall.MONATLICH);
 
     assertNotNull(versicherung);
 
@@ -40,7 +40,7 @@ public class AutomatischeBuchungTest {
 
     assertEquals(LocalDate.of(2020,12,31),versicherung.getEndTag());
 
-    assertEquals(Zahlungsintervall.MONATLICH,versicherung.getZahlung().getZahlungsintervall());
+    assertEquals(Zahlungsintervall.MONATLICH,versicherung.getZahlungsintervall());
 
     assertTrue(versicherung.isAktiv());
   }
@@ -50,7 +50,7 @@ public class AutomatischeBuchungTest {
 
     AutomatischeBuchung versicherung = new AutomatischeBuchung(LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),
         new Zahlungsfluss("KFZ Versicherung",new BigDecimal(10),new Kategorie("Versicherung"),
-            Zahlungstyp.AUSGABE,Zahlungsintervall.MONATLICH,Long.valueOf(1l)),null,null);
+            Zahlungstyp.AUSGABE,Long.valueOf(1l)),null,null,Zahlungsintervall.MONATLICH);
 
     assertTrue(versicherung.istBuchungNotwendig(LocalDate.now()));
 
@@ -63,7 +63,7 @@ public class AutomatischeBuchungTest {
 
     AutomatischeBuchung buchung = new AutomatischeBuchung(LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),
         new Zahlungsfluss("KFZ Versicherung",new BigDecimal(10),new Kategorie("Versicherung"),
-            Zahlungstyp.AUSGABE,Zahlungsintervall.MONATLICH,Long.valueOf(1l)),null,repository);
+            Zahlungstyp.AUSGABE,Long.valueOf(1l)),null,repository,Zahlungsintervall.MONATLICH);
 
     buchung.speichern();
 
@@ -75,13 +75,13 @@ public class AutomatischeBuchungTest {
 
     AutomatischeBuchungRepository repository = Mockito.mock(AutomatischeBuchungRepository.class);
     ZahlungsflussRepository zahlungsflussRepository = Mockito.mock(ZahlungsflussRepository.class);
-    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("KFZ Versicherung",new BigDecimal(10),new Kategorie("Versicherung"),Zahlungstyp.AUSGABE,Zahlungsintervall.MONATLICH,Long.valueOf(1l));
+    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("KFZ Versicherung",new BigDecimal(10),new Kategorie("Versicherung"),Zahlungstyp.AUSGABE,Long.valueOf(1l));
 
     Zahlungsfluss zahlungsflussClone = zahlungsfluss.clone();
     zahlungsflussClone.setBuchungsTag(LocalDate.now());
 
     AutomatischeBuchung buchung = new AutomatischeBuchung(LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),zahlungsfluss,
-    zahlungsflussRepository,repository);
+    zahlungsflussRepository,repository,Zahlungsintervall.MONATLICH);
 
     when(zahlungsflussRepository.save(zahlungsflussClone)).thenReturn(zahlungsflussClone);
 

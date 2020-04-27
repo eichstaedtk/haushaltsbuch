@@ -8,7 +8,6 @@ import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.util.HashMap;
 import java.util.List;
@@ -107,7 +106,6 @@ public class HaushaltsbuchController {
       model.addAttribute("neuezahlung",neueZahlung);
       model.addAttribute("allkategories",kategorieBoundaryController.findAll());
       model.addAttribute("allzahlungstypen",Zahlungstyp.values());
-      model.addAttribute("allzahlungsintervalle",Zahlungsintervall.values());
 
 
       model.addAttribute("selectedPageSize", evalPageSize);

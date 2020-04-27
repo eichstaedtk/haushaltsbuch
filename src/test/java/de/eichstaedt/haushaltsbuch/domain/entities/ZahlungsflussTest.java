@@ -3,7 +3,6 @@ package de.eichstaedt.haushaltsbuch.domain.entities;
 import static org.hamcrest.Matchers.is;
 
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,7 +17,7 @@ public class ZahlungsflussTest {
   @Test
   public void testCreation() {
 
-    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),new Kategorie("Test"),LocalDate.now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1l);
+    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(2.45),new Kategorie("Test"),LocalDate.now(),Zahlungstyp.AUSGABE,1l);
 
     Assert.assertThat(zahlungsfluss.getTyp(),is(Zahlungstyp.AUSGABE));
 
@@ -27,8 +26,6 @@ public class ZahlungsflussTest {
     Assert.assertThat(zahlungsfluss.getBetrag(),is(new BigDecimal(2.45)));
 
     Assert.assertThat(zahlungsfluss.getBuchungsTag(),is(LocalDate.now()));
-
-    Assert.assertThat(zahlungsfluss.getZahlungsintervall(),is(Zahlungsintervall.EINMALIG));
 
     Assert.assertThat(zahlungsfluss.getBuchid(),is(1l));
   }

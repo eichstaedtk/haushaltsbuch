@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Kategorie;
-import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -54,7 +53,7 @@ public class ZahlungsflussControllerTest {
   @Test
   public void testBuchen() throws Exception {
 
-    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(15.00),new Kategorie("Versicherung"),LocalDate.now(),Zahlungstyp.AUSGABE,Zahlungsintervall.EINMALIG,1L);
+    Zahlungsfluss zahlungsfluss = new Zahlungsfluss("Beschreibung",new BigDecimal(15.00),new Kategorie("Versicherung"),LocalDate.now(),Zahlungstyp.AUSGABE,1L);
 
     this.mockMvc.perform(post("/haushaltsbuch/1/zahlungen").with(user("konrad").password("Start123")).contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("beschreibung", zahlungsfluss.getBeschreibung())
@@ -62,7 +61,7 @@ public class ZahlungsflussControllerTest {
         .param("kategorie", zahlungsfluss.getKategorie().getName())
         .param("buchungsTag", "20-02-2018")
         .param("typ", zahlungsfluss.getTyp().toString().toUpperCase())
-        .param("zahlungsintervall", zahlungsfluss.getZahlungsintervall().toString().toUpperCase()))
+        .param("zahlungsintervall"))
         .andExpect(status().is3xxRedirection());
   }
 
