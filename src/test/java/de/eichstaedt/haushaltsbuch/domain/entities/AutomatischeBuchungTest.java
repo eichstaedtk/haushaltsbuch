@@ -30,7 +30,7 @@ public class AutomatischeBuchungTest {
         Zahlungstyp.AUSGABE,Long.valueOf(1l));
 
     AutomatischeBuchung versicherung = new AutomatischeBuchung(LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),
-        zahlungsfluss,null,null,Zahlungsintervall.MONATLICH);
+        zahlungsfluss,Zahlungsintervall.MONATLICH);
 
     assertNotNull(versicherung);
 
@@ -50,7 +50,7 @@ public class AutomatischeBuchungTest {
 
     AutomatischeBuchung versicherung = new AutomatischeBuchung(LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),
         new Zahlungsfluss("KFZ Versicherung",new BigDecimal(10),new Kategorie("Versicherung"),
-            Zahlungstyp.AUSGABE,Long.valueOf(1l)),null,null,Zahlungsintervall.MONATLICH);
+            Zahlungstyp.AUSGABE,Long.valueOf(1l)),Zahlungsintervall.MONATLICH);
 
     assertTrue(versicherung.istBuchungNotwendig(LocalDate.now()));
 
@@ -63,9 +63,9 @@ public class AutomatischeBuchungTest {
 
     AutomatischeBuchung buchung = new AutomatischeBuchung(LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),
         new Zahlungsfluss("KFZ Versicherung",new BigDecimal(10),new Kategorie("Versicherung"),
-            Zahlungstyp.AUSGABE,Long.valueOf(1l)),null,repository,Zahlungsintervall.MONATLICH);
+            Zahlungstyp.AUSGABE,Long.valueOf(1l)),Zahlungsintervall.MONATLICH);
 
-    buchung.speichern();
+    buchung.speichern(repository);
 
     verify(repository,times(1)).save(buchung);
   }
@@ -81,11 +81,11 @@ public class AutomatischeBuchungTest {
     zahlungsflussClone.setBuchungsTag(LocalDate.now());
 
     AutomatischeBuchung buchung = new AutomatischeBuchung(LocalDate.of(2020,1,1),LocalDate.of(2020,12,31),zahlungsfluss,
-    zahlungsflussRepository,repository,Zahlungsintervall.MONATLICH);
+    Zahlungsintervall.MONATLICH);
 
     when(zahlungsflussRepository.save(zahlungsflussClone)).thenReturn(zahlungsflussClone);
 
-    buchung.automatischBuchen();
+    buchung.automatischBuchen(zahlungsflussRepository,repository);
 
     verify(zahlungsflussRepository,times(1)).save(any());
 

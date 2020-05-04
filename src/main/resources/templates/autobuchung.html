@@ -6,8 +6,24 @@
 </head>
 <body>
 
-<form th:action="@{'/haushaltsbuch/'+${buch.id}+'/buchungen'}" method="post" id="buchungsforms" th:fragment="autobuchunganlegen">
+<form th:action="@{'/haushaltsbuch/'+${buch.id}+'/buchungen'}" method="post" id="buchungsforms" th:fragment="autobuchunganlegen" th:object="${neuebuchung}">
   <h3>Automatische Buchung einer Zahlung anlegen</h3>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="startdatelabel">Startdatum</span>
+    </div>
+    <input id="startdate" type="text" class="form-control" aria-label="startTag" th:field="*{startTag}" autocomplete="off">
+    <span class="error" th:if="${#fields.hasErrors('startTag')}" th:errors="*{startTag}">Startdatum Fehler </span>
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="enddatelabel">Enddatum</span>
+    </div>
+    <input id="enddate" type="text" class="form-control" aria-label="endTag" th:field="*{endTag}" autocomplete="off">
+    <span class="error" th:if="${#fields.hasErrors('endTag')}" th:errors="*{endTag}">Enddatum Fehler </span>
+  </div>
 </form>
 </body>
 </html>

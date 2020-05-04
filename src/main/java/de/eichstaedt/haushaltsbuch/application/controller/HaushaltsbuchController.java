@@ -6,9 +6,12 @@ import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltbuchLoeschenFailedE
 import de.eichstaedt.haushaltsbuch.domain.controller.HaushaltsbuchBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.KategorieBoundaryController;
 import de.eichstaedt.haushaltsbuch.domain.controller.ZahlungsflussBoundaryController;
+import de.eichstaedt.haushaltsbuch.domain.entities.AutomatischeBuchung;
 import de.eichstaedt.haushaltsbuch.domain.entities.Haushaltsbuch;
 import de.eichstaedt.haushaltsbuch.domain.entities.Zahlungsfluss;
+import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungsintervall;
 import de.eichstaedt.haushaltsbuch.domain.valueobjects.Zahlungstyp;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +59,8 @@ public class HaushaltsbuchController {
 
   private Zahlungsfluss neueZahlung;
 
+  private AutomatischeBuchung neueAutomatischeBuchung;
+
   private static final int BUTTONS_TO_SHOW = 25;
   private static final int INITIAL_PAGE = 0;
   private static final int INITIAL_PAGE_SIZE = 1000;
@@ -72,6 +77,9 @@ public class HaushaltsbuchController {
     List<Haushaltsbuch> buecher = haushaltsbuchBoundaryController.findAllHaushaltsbuecher(accountDetails.getUsername());
 
     Optional<Haushaltsbuch> buch = buecher.stream().filter(b -> String.valueOf(b.getId()).equals(buchid)).findFirst();
+
+    neueAutomatischeBuchung = new AutomatischeBuchung(LocalDate.now(),LocalDate.now(),new Zahlungsfluss(),
+        Zahlungsintervall.MONATLICH);
 
     if(buch.isPresent()) {
 
@@ -104,6 +112,7 @@ public class HaushaltsbuchController {
 
       model.addAttribute("buch",buch.get());
       model.addAttribute("neuezahlung",neueZahlung);
+      model.addAttribute("neuebuchung",neueAutomatischeBuchung);
       model.addAttribute("allkategories",kategorieBoundaryController.findAll());
       model.addAttribute("allzahlungstypen",Zahlungstyp.values());
 

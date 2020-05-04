@@ -18,7 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,25 +67,17 @@ public class AutomatischeBuchung {
   @Enumerated(EnumType.STRING)
   private Zahlungsintervall zahlungsintervall;
 
-  @Transient
-  private ZahlungsflussRepository zahlungsflussRepository;
-
-  @Transient
-  private AutomatischeBuchungRepository automatischeBuchungRepository;
-
   protected AutomatischeBuchung() {
   }
 
 
   public AutomatischeBuchung(LocalDate startTag, LocalDate endTag,
-      Zahlungsfluss zahlung, ZahlungsflussRepository zahlungsflussRepository, AutomatischeBuchungRepository automatischeBuchungRepository, Zahlungsintervall zahlungsintervall) {
+      Zahlungsfluss zahlung,Zahlungsintervall zahlungsintervall) {
     this.startTag = startTag;
     this.endTag = endTag;
     this.buchungen = new HashSet<>();
     this.aktiv = true;
     this.zahlung = zahlung;
-    this.zahlungsflussRepository = zahlungsflussRepository;
-    this.automatischeBuchungRepository = automatischeBuchungRepository;
     this.zahlungsintervall = zahlungsintervall;
   }
 
@@ -132,7 +123,7 @@ public class AutomatischeBuchung {
     this.zahlungsintervall = zahlungsintervall;
   }
 
-  public void automatischBuchen() {
+  public void automatischBuchen(ZahlungsflussRepository zahlungsflussRepository,AutomatischeBuchungRepository automatischeBuchungRepository) {
 
     if(aktiv && istBuchungNotwendig(LocalDate.now())) {
 
@@ -147,12 +138,12 @@ public class AutomatischeBuchung {
 
       this.buchungen.add(neueZahlung.getId());
 
-      speichern();
+      speichern(automatischeBuchungRepository);
     }
 
   }
 
-  public AutomatischeBuchung speichern() {
+  public AutomatischeBuchung speichern(AutomatischeBuchungRepository automatischeBuchungRepository) {
     return automatischeBuchungRepository.save(this);
   }
 
