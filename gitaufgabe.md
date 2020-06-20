@@ -1,0 +1,1 @@
+Eine schöne VCS Aufgabe. 
